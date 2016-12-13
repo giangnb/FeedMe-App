@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://feedme-ws.us-east-1.elasticbeanstalk.com/ApplicationSevice?wsdl" uri="xml-resources/web-service-references/ApplicationSevice/wsdl/feedme-ws.us-east-1.elasticbeanstalk.com/ApplicationSevice.wsdl"/>
+    <system systemId="http://feedme-ws.us-east-1.elasticbeanstalk.com:80/ApplicationSevice?xsd=1" uri="xml-resources/web-service-references/ApplicationSevice/wsdl/feedme-ws.us-east-1.elasticbeanstalk.com_80/ApplicationSevice.xsd_1.xsd"/>
+</catalog>
