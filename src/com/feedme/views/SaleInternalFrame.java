@@ -237,11 +237,7 @@ public class SaleInternalFrame extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
-        try {
-            this.setClosed(true);
-        } catch (PropertyVetoException ex) {
-            Logger.getLogger(SaleInternalFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       this.dispose();
     }//GEN-LAST:event_jButton19ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

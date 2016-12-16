@@ -1,6 +1,10 @@
 package com.feedme.views;
 
 
+import java.awt.Component;
+import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
@@ -227,7 +231,7 @@ public class OrderPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton3)
                             .addComponent(jButton4)
-                            .addComponent(jButton5))
+                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
@@ -252,15 +256,27 @@ public class OrderPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        OrderInternalFrame ifr=new OrderInternalFrame();
-        ifr.setVisible(true);
-        this.getParent().getParent().getParent().add(ifr);
+        OrderInternalFrame oif = null;
+        Component[] components = this.getParent().getParent().getParent().getComponents();
+        for (Component component : components) {
+            if (component instanceof OrderInternalFrame) {
+                oif=(OrderInternalFrame) component;
+                break;
+            }
+        }
+        oif.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        SaleInternalFrame ifr=new SaleInternalFrame();
-        ifr.setVisible(true);
-        this.getParent().getParent().getParent().add(ifr);
+        SaleInternalFrame sif = null;
+        Component[] components = this.getParent().getParent().getParent().getComponents();
+        for (Component component : components) {
+            if (component instanceof SaleInternalFrame) {
+                sif=(SaleInternalFrame) component;
+                break;
+            }
+        }
+        sif.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
 

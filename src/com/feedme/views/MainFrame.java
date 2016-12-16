@@ -4,6 +4,9 @@ package com.feedme.views;
 import java.awt.CardLayout;
 import java.awt.LayoutManager;
 import java.awt.Toolkit;
+import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,12 +23,18 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form frame
      */
-    public MainFrame() {
+    public MainFrame()  {
         initComponents();
         this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
         pnlMain.add(new ManagerLoginPanel());
-        pnlMain.add(new StaffLoginPanel(),"staff");
+        pnlMain.add(new StaffLoginPanel());
         pnlMain.add(new OrderPanel());
+        
+        OrderInternalFrame oif=new OrderInternalFrame();
+        this.getLayeredPane().add(oif);
+        
+        SaleInternalFrame sif=new SaleInternalFrame();
+        this.getLayeredPane().add(sif);
     }
 
     /**
