@@ -38,4 +38,22 @@ public class OrderProcess {
     }
     
     
+     /**
+     * Load Order Processing
+     * @param fromTime 
+     * @param toTime   
+     * @return 
+     */
+    public List<OrderDetailDTO> loadOrderProcessing(Date fromTime, Date toTime) {
+      short empId = Short.parseShort("1");
+      orderlist = Methods.fetchOrders(fromTime.getTime(), toTime.getTime());
+      if (orderlist==null||orderlist.isEmpty()) {
+         return null;
+      } 
+      orderlist.stream().filter((order) -> (order.getEmployee().getEmployee().getId() == empId )).forEach((_item) -> {
+          orderlist = null;
+        });
+      return orderlist;
+    }
+    
 }
