@@ -27,7 +27,7 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
         pnlMain.add(new ManagerLoginPanel());
-        pnlMain.add(new StaffLoginPanel());
+        pnlMain.add(new StaffLoginPanel(),"staff");
         pnlMain.add(new OrderPanel());
         
         OrderInternalFrame oif=new OrderInternalFrame();
