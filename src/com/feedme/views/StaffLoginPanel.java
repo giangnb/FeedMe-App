@@ -39,6 +39,7 @@ public class StaffLoginPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel1.setText("STAFF LOGIN");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel2.setText("Staff id");
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N

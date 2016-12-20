@@ -30,11 +30,8 @@ public class StaffProcess {
     public EmployeeDTO employeeLogin(String user, String managerUser) {
         EmployeeDTO emp = new EmployeeDTO();
         employees = Methods.fetchEmployees();
-        if (employees == null || employees.isEmpty()) {
-            return null;
-        }
         for (EmployeeDTO em : employees) {
-            if (!user.equalsIgnoreCase(em.getUsername()) && !managerUser.equalsIgnoreCase(em.getManager().getUsername()) && em.isIsEnabled() == false) {
+            if (!user.equals(em.getUsername()) && !managerUser.equals(em.getManager().getUsername()) && em.isIsEnabled() == false) {
                 return null;
             }
             emp.setUsername(em.getUsername());
@@ -43,5 +40,10 @@ public class StaffProcess {
             emp.setManager(em.getManager());
         }
         return emp;
+    }
+    
+    public static void main(String[] args) {
+       
+        
     }
 }

@@ -1,9 +1,11 @@
 package com.feedme.views;
 
 
+import com.feedme.process.ManagerProcess;
+import com.feedme.service.ManagerDTO;
 import java.awt.CardLayout;
-import java.awt.Container;
-import java.awt.LayoutManager;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -16,7 +18,7 @@ import java.awt.LayoutManager;
  * @author BHT
  */
 public class ManagerLoginPanel extends javax.swing.JPanel {
-
+  
     /**
      * Creates new form ManagerLoginPanel
      */
@@ -43,10 +45,12 @@ public class ManagerLoginPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel1.setText("MANAGER LOGIN");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel2.setText("Manager id");
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel3.setText("Password");
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -99,8 +103,13 @@ public class ManagerLoginPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String managerUser = managerLoginAuthen();
+        if (managerUser==null) {
+          JOptionPane.showMessageDialog(null, "Login Error", "Please try again", JOptionPane.ERROR_MESSAGE);
+        }
         CardLayout layout = (CardLayout) this.getParent().getLayout();
         layout.next(this.getParent());
+       
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -115,5 +124,10 @@ public class ManagerLoginPanel extends javax.swing.JPanel {
 
     private boolean managerValidate() {
         return true;
+    }
+
+    private String managerLoginAuthen() {
+      String managerUser = new ManagerProcess().managerLogin(jTextField1.getText(), new String(jPasswordField1.getPassword()));
+      return managerUser;
     }
 }

@@ -25,23 +25,22 @@ public class ManagerProcess {
      *
      * @param user
      * @param pass
-     * @return  
+     * @return
      */
-    public ManagerDTO managerLogin(String user, String pass) {
+    public String managerLogin(String user, String pass) {
         ManagerDTO m = new ManagerDTO();
+        String managerUser = "";
         list = Methods.fetchManagers();
-        if (list == null || list.isEmpty()) {
-            return null;
-        }
         for (ManagerDTO manager : list) {
-            if (!user.equalsIgnoreCase(manager.getUsername()) && !pass.equalsIgnoreCase(manager.getPassword())) {
-                return null;
+            if (user.equals(manager.getUsername()) && pass.equals(manager.getPassword())) {
+               managerUser = manager.getUsername();
             }
-            m.setUsername(manager.getUsername());
-            m.setPassword(manager.getPassword());
-            m.setInfo(manager.getInfo());
-            m.setPriviledge(manager.getPriviledge());
         }
-        return m;
+        return managerUser;
     }
+    
+    public static void main(String[] args) {
+        
+    }
+
 }
