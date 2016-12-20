@@ -70,15 +70,16 @@ public class OrderInternalFrame extends javax.swing.JInternalFrame {
         jXTable1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jScrollPane1.setViewportView(jXTable1);
 
-        jButton6.setText("+");
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/feedme/img/plus.png"))); // NOI18N
+        jButton6.setActionCommand("");
 
-        jButton7.setText("-");
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/feedme/img/substract.png"))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel1.setText("Chọn thêm {{sp}} sản phẩm");
 
         jButton8.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jButton8.setText("Xong");
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/feedme/img/check.png"))); // NOI18N
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
@@ -86,7 +87,7 @@ public class OrderInternalFrame extends javax.swing.JInternalFrame {
         });
 
         jButton9.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jButton9.setText("Hủy");
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/feedme/img/abort.png"))); // NOI18N
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
