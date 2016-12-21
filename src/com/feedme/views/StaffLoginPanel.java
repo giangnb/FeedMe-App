@@ -40,15 +40,15 @@ public class StaffLoginPanel extends javax.swing.JPanel {
         lblValidStaff = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabel1.setText("STAFF LOGIN");
+        jLabel1.setText("NHÂN VIÊN ĐĂNG NHẬP");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel2.setText("Staff id");
+        jLabel2.setText("Tên Đăng Nhập");
 
         txtStaffId.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
 
         btnStaffLogin.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        btnStaffLogin.setText("Login");
+        btnStaffLogin.setText("Đăng Nhập");
         btnStaffLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnStaffLoginActionPerformed(evt);

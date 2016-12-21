@@ -5,7 +5,7 @@
  */
 package com.feedme.process;
 
-import com.feedme.service.CategoryDTO;
+import com.feedme.Global;
 import com.feedme.service.ProductDTO;
 import com.feedme.ws.Methods;
 import java.util.List;
@@ -18,21 +18,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class OrderInternalProcess {
 
-    private static List<CategoryDTO> categories;
     private List<ProductDTO> products;
-    private DefaultListModel categListModel;
-    private DefaultTableModel productTableModel;
 
     public OrderInternalProcess() {
     }
 
-    public static List<CategoryDTO> loadCategories() {
-        categories = Methods.fetchCategories();
-        if (categories == null && categories.isEmpty()) {
-            return null;
-        }
-        return categories;
-    }
+    
 
     public List<ProductDTO> loadProducts() {
         products = Methods.fetchProducts();
@@ -48,12 +39,12 @@ public class OrderInternalProcess {
      *
      * @return
      */
-    public DefaultListModel initCategoryNameListModel() {
-        categListModel = new DefaultListModel();
-        new OrderInternalProcess().categories.forEach((category) -> {
-            categListModel.addElement(category.getName());
+    public static DefaultListModel initCategoryNameListModel() {
+        Global.CATEGORY_LIST_MODEL = new DefaultListModel();
+        Methods.fetchCategories().forEach((category) -> {
+            Global.CATEGORY_LIST_MODEL.addElement(category.getName());
         });
-        return categListModel;
+        return Global.CATEGORY_LIST_MODEL;
     }
 
     /**
@@ -64,13 +55,13 @@ public class OrderInternalProcess {
      * @return
      */
     public DefaultTableModel loadProductByCategoryModel(String categoryName) {
-        productTableModel = new DefaultTableModel();
+        Global.PRODBYCATEG_TABLE_MODEL = new DefaultTableModel();
         new OrderInternalProcess().loadProducts().forEach((ProductDTO p) -> {
             if (categoryName.equalsIgnoreCase(p.getCategory().getName())) {
-                productTableModel.addRow(new Object[]{p.getName(), p.getPrice(), "", ""});
+                Global.PRODBYCATEG_TABLE_MODEL.addRow(new Object[]{p.getName(), p.getPrice(), "", ""});
             }
         });
-        return productTableModel;
+        return Global.PRODBYCATEG_TABLE_MODEL;
     }
 
 }

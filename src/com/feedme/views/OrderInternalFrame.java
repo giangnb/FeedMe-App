@@ -1,6 +1,7 @@
 package com.feedme.views;
 
 
+import com.feedme.process.OrderInternalProcess;
 import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,23 +16,21 @@ import javax.swing.table.DefaultTableModel;
  * @author BHT
  */
 public class OrderInternalFrame extends javax.swing.JDialog {
-
+  
     /**
      * Creates new form OrderInternalFrame
      */
     private final DefaultTableModel model;
-    private final DefaultListModel listModel;
+   // private final DefaultListModel listModel;
     public OrderInternalFrame() {
-        listModel=new DefaultListModel();
         initComponents();
         model = (DefaultTableModel) tblProductInternal.getModel();
-        
-        listCategoryName.setModel(listModel);
-        listModel.addElement("Nổi bật");
-        listModel.addElement("Danh mục 1");
-        listModel.addElement("Danh mục 2");
-        listModel.addElement("Danh mục 3");
-        listModel.addElement("Danh mục 4");
+        initCategModel();
+//        listModel.addElement("Nổi bật");
+//        listModel.addElement("Danh mục 1");
+//        listModel.addElement("Danh mục 2");
+//        listModel.addElement("Danh mục 3");
+//        listModel.addElement("Danh mục 4");
         setModal(true);
         setLocationRelativeTo(null);
     }
@@ -119,6 +118,11 @@ public class OrderInternalFrame extends javax.swing.JDialog {
             public Object getElementAt(int i) { return strings[i]; }
         });
         listCategoryName.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        listCategoryName.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listCategoryNameMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(listCategoryName);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -179,6 +183,12 @@ public class OrderInternalFrame extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRemoveActionPerformed
 
+    private void listCategoryNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listCategoryNameMouseClicked
+        String categoryName = "";
+        categoryName = getCategNamefromList();
+        System.out.println("----> " + categoryName);
+    }//GEN-LAST:event_listCategoryNameMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -191,4 +201,15 @@ public class OrderInternalFrame extends javax.swing.JDialog {
     private org.jdesktop.swingx.JXList listCategoryName;
     private org.jdesktop.swingx.JXTable tblProductInternal;
     // End of variables declaration//GEN-END:variables
+
+    private String getCategNamefromList() {
+        return listCategoryName.getSelectedValue().toString();
+    }
+
+    private void initCategModel() {
+       new Thread(()->{
+         DefaultListModel listModel= OrderInternalProcess.initCategoryNameListModel();
+         listCategoryName.setModel(listModel);
+       }).start();
+    }
 }
