@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class OrderInternalProcess {
 
-    private List<CategoryDTO> categories;
+    private static List<CategoryDTO> categories;
     private List<ProductDTO> products;
     private DefaultListModel categListModel;
     private DefaultTableModel productTableModel;
@@ -26,7 +26,7 @@ public class OrderInternalProcess {
     public OrderInternalProcess() {
     }
 
-    public List<CategoryDTO> loadCategories() {
+    public static List<CategoryDTO> loadCategories() {
         categories = Methods.fetchCategories();
         if (categories == null && categories.isEmpty()) {
             return null;

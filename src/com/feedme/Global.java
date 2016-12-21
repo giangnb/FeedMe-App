@@ -16,4 +16,5 @@ public class Global {
 
     public static ManagerDTO MANAGER;
     public static EmployeeDTO EMPLOYEE;
+    public static String DISCOUNT_VALUE;
 }
