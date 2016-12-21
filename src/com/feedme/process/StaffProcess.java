@@ -5,7 +5,9 @@
  */
 package com.feedme.process;
 
+import com.feedme.Global;
 import com.feedme.service.EmployeeDTO;
+import com.feedme.service.ManagerDTO;
 import com.feedme.ws.Methods;
 import java.util.List;
 
@@ -15,35 +17,21 @@ import java.util.List;
  */
 public class StaffProcess {
 
-    private List<EmployeeDTO> employees;
-
     public StaffProcess() {
     }
 
     /**
      * Employee Login Process
      *
+     * @param dto
      * @param user
-     * @param managerUser
      * @return
      */
-    public EmployeeDTO employeeLogin(String user, String managerUser) {
-        EmployeeDTO emp = new EmployeeDTO();
-        employees = Methods.fetchEmployees();
-        for (EmployeeDTO em : employees) {
-            if (!user.equals(em.getUsername()) && !managerUser.equals(em.getManager().getUsername()) && em.isIsEnabled() == false) {
-                return null;
-            }
-            emp.setUsername(em.getUsername());
-            emp.setInfo(em.getInfo());
-            emp.setIsEnabled(em.getEmployee().isIsEnabled());
-            emp.setManager(em.getManager());
+    public static boolean employeeLogin(ManagerDTO dto,String user) {
+        Global.EMPLOYEE = Methods.loginEmployee(dto, user);
+        if (Global.EMPLOYEE==null) {
+           return false;
         }
-        return emp;
-    }
-    
-    public static void main(String[] args) {
-       
-        
+        return true;
     }
 }

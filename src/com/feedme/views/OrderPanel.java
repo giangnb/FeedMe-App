@@ -3,10 +3,6 @@ package com.feedme.views;
 
 import java.awt.CardLayout;
 import java.awt.Component;
-import java.awt.LayoutManager;
-import java.beans.PropertyVetoException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
@@ -289,15 +285,9 @@ public class OrderPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        SaleInternalFrame sif = null;
-        Component[] components = this.getParent().getParent().getParent().getComponents();
-        for (Component component : components) {
-            if (component instanceof SaleInternalFrame) {
-                sif=(SaleInternalFrame) component;
-                break;
-            }
-        }
-        sif.setVisible(true);
+        SaleInternalFrame frame = new SaleInternalFrame();
+        frame.setVisible(true);
+        
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed

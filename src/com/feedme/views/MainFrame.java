@@ -1,40 +1,33 @@
 package com.feedme.views;
 
-
-import java.awt.CardLayout;
-import java.awt.LayoutManager;
+import com.feedme.Global;
+import com.feedme.process.ManagerProcess;
 import java.awt.Toolkit;
-import java.beans.PropertyVetoException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Date;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author BHT
  */
 public class MainFrame extends javax.swing.JFrame {
 
+    private Date date = new Date();
+
     /**
      * Creates new form frame
      */
-    public MainFrame()  {
+    public MainFrame() {
         initComponents();
         this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
         pnlMain.add(new ManagerLoginPanel());
-        pnlMain.add(new StaffLoginPanel(),"staff");
+        pnlMain.add(new StaffLoginPanel(), "staff");
         pnlMain.add(new OrderPanel());
-        
-        OrderInternalFrame oif=new OrderInternalFrame();
-        this.getLayeredPane().add(oif);
-        
-        SaleInternalFrame sif=new SaleInternalFrame();
-        this.getLayeredPane().add(sif);
+        lblRestaurantName.setText("FeedMe Restaurant");
     }
 
     /**
@@ -46,27 +39,42 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        lblRestaurantName = new javax.swing.JLabel();
         pnlMain = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        lblManagerName = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel3 = new javax.swing.JLabel();
+        lblStaffName = new javax.swing.JLabel();
+        lblClock = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel1.setText("Restaurant name");
+        lblRestaurantName.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lblRestaurantName.setText("Restaurant name");
 
         pnlMain.setLayout(new java.awt.CardLayout());
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel2.setText("Manager name");
+        lblManagerName.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lblManagerName.setText("Manager name");
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel3.setText("Staff : Staff name");
+        lblStaffName.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lblStaffName.setText("Staff : Staff name");
+
+        lblClock.setText("jLabel1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -74,26 +82,29 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(lblRestaurantName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
-                .addComponent(jLabel3))
+                .addComponent(lblManagerName, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(lblClock)
+                .addGap(30, 30, 30)
+                .addComponent(lblStaffName))
             .addComponent(pnlMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblRestaurantName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator1)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel3)))
+                        .addComponent(lblManagerName)
+                        .addComponent(lblStaffName)
+                        .addComponent(lblClock)))
                 .addGap(23, 23, 23)
-                .addComponent(pnlMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnlMain, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))
         );
 
         pack();
@@ -136,10 +147,16 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JPanel pnlMain;
+    private javax.swing.JLabel lblClock;
+    private javax.swing.JLabel lblManagerName;
+    private javax.swing.JLabel lblRestaurantName;
+    private javax.swing.JLabel lblStaffName;
+    public static javax.swing.JPanel pnlMain;
     // End of variables declaration//GEN-END:variables
+
+    private void addProperties() {
+
+    }
 }

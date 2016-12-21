@@ -15,13 +15,15 @@ import java.util.logging.Logger;
  *
  * @author BHT
  */
-public class SaleInternalFrame extends javax.swing.JInternalFrame {
+public class SaleInternalFrame extends javax.swing.JDialog {
 
     /**
      * Creates new form SaleInternalFrame
      */
     public SaleInternalFrame() {
         initComponents();
+        setModal(true);
+        setLocationRelativeTo(null);
     }
 
     /**

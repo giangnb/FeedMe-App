@@ -1,14 +1,15 @@
 package com.feedme.views;
 
-
+import com.feedme.Global;
+import com.feedme.process.StaffProcess;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author BHT
@@ -20,6 +21,7 @@ public class StaffLoginPanel extends javax.swing.JPanel {
      */
     public StaffLoginPanel() {
         initComponents();
+      //  lblValidStaff.setText("");
     }
 
     /**
@@ -33,8 +35,9 @@ public class StaffLoginPanel extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtStaffId = new javax.swing.JTextField();
+        btnStaffLogin = new javax.swing.JButton();
+        lblValidStaff = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel1.setText("STAFF LOGIN");
@@ -42,15 +45,18 @@ public class StaffLoginPanel extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel2.setText("Staff id");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        txtStaffId.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jButton1.setText("Login");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnStaffLogin.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        btnStaffLogin.setText("Login");
+        btnStaffLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnStaffLoginActionPerformed(evt);
             }
         });
+
+        lblValidStaff.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        lblValidStaff.setForeground(new java.awt.Color(255, 0, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -63,11 +69,14 @@ public class StaffLoginPanel extends javax.swing.JPanel {
                         .addGap(244, 244, 244)
                         .addComponent(jLabel1))
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(263, 263, 263)
-                        .addComponent(jButton1)))
-                .addGap(385, 385, 385))
+                        .addComponent(btnStaffLogin))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtStaffId, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(52, 52, 52)
+                        .addComponent(lblValidStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(141, 141, 141))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -77,27 +86,52 @@ public class StaffLoginPanel extends javax.swing.JPanel {
                 .addGap(33, 33, 33)
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtStaffId)
+                    .addComponent(lblValidStaff))
                 .addGap(51, 51, 51)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnStaffLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(236, 236, 236))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        CardLayout layout = (CardLayout) this.getParent().getLayout();
-        layout.next(this.getParent());
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnStaffLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStaffLoginActionPerformed
+
+        new Thread(() -> {
+            if (validateStaffLogin()) {
+                try {
+                    if (!StaffProcess.employeeLogin(Global.MANAGER, txtStaffId.getText())) {
+                        JOptionPane.showMessageDialog(null, "Lỗi Đăng Nhập \n Vui lòng đăng nhập lại \n hoặc liên hệ với quản lý", "Lỗi Đăng Nhập", JOptionPane.ERROR_MESSAGE);
+
+                    } else {
+                        CardLayout layout = (CardLayout) this.getParent().getLayout();
+                        layout.next(this.getParent());
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Lỗi Đăng Nhập \n Vui lòng đăng nhập lại \n hoặc liên hệ với quản lý", "Lỗi Đăng Nhập", JOptionPane.ERROR_MESSAGE);
+                    e.getMessage();
+                }
+            }
+        }).start();
+    }//GEN-LAST:event_btnStaffLoginActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnStaffLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblValidStaff;
+    private javax.swing.JTextField txtStaffId;
     // End of variables declaration//GEN-END:variables
 
-    private boolean staffValidate() {
+
+
+    private boolean validateStaffLogin() {
+        if (txtStaffId.equals("")) {
+            lblValidStaff.setText("Tên Đăng Nhập Không Được Bỏ Trống");
+            return false;
+        }
         return true;
+
     }
 }

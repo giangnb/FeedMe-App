@@ -5,18 +5,16 @@
  */
 package com.feedme.process;
 
-import com.feedme.service.ManagerDTO;
+import com.feedme.Global;
 import com.feedme.ws.Methods;
-import java.util.List;
 
 /**
  *
  * @author Sentinel
  */
 public class ManagerProcess {
-
-    private List<ManagerDTO> list;
-
+   
+    
     public ManagerProcess() {
     }
 
@@ -27,20 +25,11 @@ public class ManagerProcess {
      * @param pass
      * @return
      */
-    public String managerLogin(String user, String pass) {
-        ManagerDTO m = new ManagerDTO();
-        String managerUser = "";
-        list = Methods.fetchManagers();
-        for (ManagerDTO manager : list) {
-            if (user.equals(manager.getUsername()) && pass.equals(manager.getPassword())) {
-               managerUser = manager.getUsername();
-            }
+    public static boolean managerLogin(String user, String pass) {
+        Global.MANAGER = Methods.loginManager(user, pass);
+        if (Global.MANAGER==null) {
+            return false;
         }
-        return managerUser;
+        return true;
     }
-    
-    public static void main(String[] args) {
-        
-    }
-
 }
