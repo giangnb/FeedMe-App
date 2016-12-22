@@ -10,51 +10,54 @@ import com.feedme.service.OrderDetailDTO;
 import com.feedme.ws.Methods;
 import java.util.Date;
 import java.util.List;
+import javax.swing.DefaultListModel;
 
 /**
  *
  * @author Sentinel
  */
 public class OrderProcess {
+
     private List<OrderDetailDTO> orderlist;
-    
+    private DefaultListModel model;
+
     public OrderProcess() {
-        Global.GET_CURRENT_TIME =  new Date().getTime();
+        Global.GET_CURRENT_TIME = new Date().getTime();
     }
-    
-     /**
+
+    /**
      * Load New Order Process
-     * @param fromTime   
-     * @return 
+     *
+     * @param fromTime
+     * @return
      */
-    public List<OrderDetailDTO> loadNewOrder(Date fromTime) {
-      short empId = Short.parseShort("1");
-      orderlist = Methods.fetchOrders(fromTime.getTime(), Global.GET_CURRENT_TIME);
-      if (orderlist==null||orderlist.isEmpty()) {
-         return null;
-      } 
-      orderlist.stream().filter((order) -> (order.getEmployee().getEmployee().getId() != empId )).forEach((_item) -> {
-          orderlist = null;
+    public List<OrderDetailDTO> loadNewOrder(long fromTime) {
+        short empId = Short.parseShort("1");
+        orderlist = Methods.fetchOrders(fromTime, Global.GET_CURRENT_TIME);
+        if (orderlist == null || orderlist.isEmpty()) {
+            return null;
+        }
+        orderlist.stream().filter((order) -> (order.getEmployee().getEmployee().getId() != empId)).forEach((_item) -> {
+            orderlist = null;
         });
-      return orderlist;
+        return orderlist;
     }
-    
-     /**
+
+    /**
      * Load Order Processing
-     * @param fromTime   
-     * @return 
+     *
+     * @param fromTime
+     * @return
      */
     public List<OrderDetailDTO> loadOrderProcessing(Date fromTime) {
-      short empId = Short.parseShort("1");
-      orderlist = Methods.fetchOrders(fromTime.getTime(), Global.GET_CURRENT_TIME);
-      if (orderlist==null||orderlist.isEmpty()) {
-         return null;
-      } 
-      orderlist.stream().filter((order) -> (order.getEmployee().getEmployee().getId() == empId )).forEach((_item) -> {
-          orderlist = null;
+        short empId = Short.parseShort("1");
+        orderlist = Methods.fetchOrders(fromTime.getTime(), Global.GET_CURRENT_TIME);
+        if (orderlist == null || orderlist.isEmpty()) {
+            return null;
+        }
+        orderlist.stream().filter((order) -> (order.getEmployee().getEmployee().getId() == empId)).forEach((_item) -> {
+            orderlist = null;
         });
-      return orderlist;
+        return orderlist;
     }
-    
-    
 }

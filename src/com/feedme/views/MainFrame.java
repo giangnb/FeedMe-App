@@ -1,8 +1,6 @@
 package com.feedme.views;
 
-import com.feedme.Global;
 import java.awt.Toolkit;
-import java.util.Date;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -73,8 +71,10 @@ public class MainFrame extends javax.swing.JFrame {
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         lblStaffName.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lblStaffName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblStaffName.setText("Staff : Staff name");
 
+        lblClock.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblClock.setText("jLabel1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -87,11 +87,11 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblManagerName, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblClock)
-                .addGap(30, 30, 30)
-                .addComponent(lblStaffName))
+                .addComponent(lblManagerName, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblClock, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblStaffName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(pnlMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -157,5 +157,4 @@ public class MainFrame extends javax.swing.JFrame {
     public static javax.swing.JPanel pnlMain;
     // End of variables declaration//GEN-END:variables
 
-  
 }
