@@ -1,8 +1,7 @@
 package com.feedme.views;
 
-
+import com.feedme.Global;
 import java.awt.CardLayout;
-import java.awt.Component;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
@@ -11,7 +10,6 @@ import javax.swing.table.DefaultTableModel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author BHT
@@ -21,12 +19,14 @@ public class OrderPanel extends javax.swing.JPanel {
     /**
      * Creates new form OrderPanel
      */
-    private  DefaultTableModel model;
+    private DefaultTableModel model;
+
     public OrderPanel() {
         initComponents();
         jSeparator1.setOrientation(SwingConstants.VERTICAL);
-        model=new DefaultTableModel( new Object[]{"Món ăn","SL","Giá"}, 0);
+        model = new DefaultTableModel(new Object[]{"Món ăn", "SL", "Giá"}, 0);
         tblOrderDetail.setModel(model);
+        loadOrderTable();
     }
 
     /**
@@ -132,6 +132,11 @@ public class OrderPanel extends javax.swing.JPanel {
         btnAddFood.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/feedme/img/plus.png"))); // NOI18N
 
         btnRemoveFood.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/feedme/img/substract.png"))); // NOI18N
+        btnRemoveFood.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveFoodActionPerformed(evt);
+            }
+        });
 
         btnAddFoods.setText("Thêm món");
         btnAddFoods.addActionListener(new java.awt.event.ActionListener() {
@@ -263,7 +268,7 @@ public class OrderPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateOrderActionPerformed
-
+        System.out.println(Global.IS_SELECTED_PRODUCT);
     }//GEN-LAST:event_btnUpdateOrderActionPerformed
 
     private void btnAddFoodsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFoodsActionPerformed
@@ -274,13 +279,19 @@ public class OrderPanel extends javax.swing.JPanel {
     private void btnDiscountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiscountActionPerformed
         SaleInternalFrame frame = new SaleInternalFrame();
         frame.setVisible(true);
-        
+
     }//GEN-LAST:event_btnDiscountActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         CardLayout layout = (CardLayout) this.getParent().getLayout();
-        layout.show(this.getParent(),"staff");
+        layout.show(this.getParent(), "staff");
     }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnRemoveFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveFoodActionPerformed
+        // TODO add your handling code here:
+        System.out.println(Global.IS_SELECTED_PRODUCT);
+
+    }//GEN-LAST:event_btnRemoveFoodActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -311,4 +322,11 @@ public class OrderPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtCustomerAddr;
     private javax.swing.JTextField txtCustomerTel;
     // End of variables declaration//GEN-END:variables
+
+    private void loadOrderTable() {
+        model.setRowCount(0);
+        if (Global.IS_SELECTED_PRODUCT) {
+            model = Global.PRODBYCATEG_TABLE_MODEL;
+        }
+    }
 }

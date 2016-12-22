@@ -20,13 +20,14 @@ public class OrderInternalFrame extends javax.swing.JDialog {
     /**
      * Creates new form OrderInternalFrame
      */
-   // private DefaultTableModel model;
-
+    // private DefaultTableModel model;
     public OrderInternalFrame() {
         initComponents();
         Global.PRODBYCATEG_TABLE_MODEL = (DefaultTableModel) tblProductInternal.getModel();
         initCategModel();
         setLocationRelativeTo(null);
+        setModal(true);
+        lblSelectProduct.setText("");
     }
 
     /**
@@ -42,7 +43,7 @@ public class OrderInternalFrame extends javax.swing.JDialog {
         tblProductInternal = new org.jdesktop.swingx.JXTable();
         btnAdd = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lblSelectProduct = new javax.swing.JLabel();
         btnSumit = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -96,8 +97,8 @@ public class OrderInternalFrame extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel1.setText("Chọn thêm {{sp}} sản phẩm");
+        lblSelectProduct.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lblSelectProduct.setText("Chọn thêm {{sp}} sản phẩm");
 
         btnSumit.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         btnSumit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/feedme/img/check.png"))); // NOI18N
@@ -140,7 +141,7 @@ public class OrderInternalFrame extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(lblSelectProduct)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCancel)
                         .addGap(54, 54, 54)
@@ -167,7 +168,7 @@ public class OrderInternalFrame extends javax.swing.JDialog {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnCancel)
                         .addComponent(btnSumit))
-                    .addComponent(jLabel1))
+                    .addComponent(lblSelectProduct))
                 .addContainerGap())
         );
 
@@ -175,7 +176,10 @@ public class OrderInternalFrame extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSumitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSumitActionPerformed
-        this.dispose();
+        //this.dispose();
+        //Submit Button
+        Global.IS_SELECTED_PRODUCT = isSelectedProduct();
+        JOptionPane.showMessageDialog(null, "Value is " + Global.IS_SELECTED_PRODUCT);
     }//GEN-LAST:event_btnSumitActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -184,38 +188,42 @@ public class OrderInternalFrame extends javax.swing.JDialog {
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         // TODO add your handling code here:
+        int sl = getNumberOfFoods();
+        Global.PRODBYCATEG_TABLE_MODEL.setValueAt(sl-=1, 0, 3);
+        if (sl == 0) {
+           btnRemove.setEnabled(false);
+        }
+        lblSelectProduct.setText("Chọn " + sl + " Sản Phẩm");
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void listCategoryNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listCategoryNameMouseClicked
 
         String categoryName = "";
         categoryName = getCategNamefromList();
-        //      System.out.println(categoryName);
         initProdTableModel(categoryName);
-
     }//GEN-LAST:event_listCategoryNameMouseClicked
 
     private void tblProductInternalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductInternalMouseClicked
         // TODO add your handling code here:
-        //  System.out.println(">>>> " + model.getValueAt(tblProductInternal.getSelectedRow(), 3).toString());
         Object obj = Global.PRODBYCATEG_TABLE_MODEL.getValueAt(0, 2);
-        System.out.println(obj.toString());
     }//GEN-LAST:event_tblProductInternalMouseClicked
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        
+        btnRemove.setEnabled(true);
+        int sl = getNumberOfFoods();
+        Global.PRODBYCATEG_TABLE_MODEL.setValueAt(sl+=1, 0, 3);
+        lblSelectProduct.setText("Chọn " + sl + " Sản Phẩm");
     }//GEN-LAST:event_btnAddActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnSumit;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblSelectProduct;
     private org.jdesktop.swingx.JXList listCategoryName;
     private org.jdesktop.swingx.JXTable tblProductInternal;
     // End of variables declaration//GEN-END:variables
@@ -236,6 +244,16 @@ public class OrderInternalFrame extends javax.swing.JDialog {
             Global.PRODBYCATEG_TABLE_MODEL.setNumRows(0);
             Global.PRODBYCATEG_TABLE_MODEL.addRow(OrderInternalProcess.loadProductByCategoryObject(categoryName));
         }).start();
+    }
+
+    private static boolean isSelectedProduct() {
+        boolean isSelected = (boolean) Global.PRODBYCATEG_TABLE_MODEL.getValueAt(0, 2);
+        return isSelected;
+    }
+
+    private int getNumberOfFoods() {
+        int numOfFoods = Integer.parseInt(Global.PRODBYCATEG_TABLE_MODEL.getValueAt(0, 3).toString());
+        return numOfFoods;
     }
 
 }

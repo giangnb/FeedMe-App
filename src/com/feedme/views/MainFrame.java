@@ -150,9 +150,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblClock;
-    private javax.swing.JLabel lblManagerName;
+    public static javax.swing.JLabel lblManagerName;
     private javax.swing.JLabel lblRestaurantName;
-    private javax.swing.JLabel lblStaffName;
+    public static javax.swing.JLabel lblStaffName;
     public static javax.swing.JPanel pnlMain;
     // End of variables declaration//GEN-END:variables
 

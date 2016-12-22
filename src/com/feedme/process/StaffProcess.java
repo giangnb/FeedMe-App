@@ -6,10 +6,8 @@
 package com.feedme.process;
 
 import com.feedme.Global;
-import com.feedme.service.EmployeeDTO;
 import com.feedme.service.ManagerDTO;
 import com.feedme.ws.Methods;
-import java.util.List;
 
 /**
  *
@@ -27,6 +25,7 @@ public class StaffProcess {
      * @param user
      * @return
      */
+    
     public static boolean employeeLogin(ManagerDTO dto,String user) {
         Global.EMPLOYEE = Methods.loginEmployee(dto, user);
         if (Global.EMPLOYEE==null) {

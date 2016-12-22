@@ -6,6 +6,7 @@
 package com.feedme.process;
 
 import com.feedme.Global;
+import com.feedme.service.CategoryDTO;
 import com.feedme.service.ProductDTO;
 import com.feedme.ws.Methods;
 import java.util.List;
@@ -18,19 +19,18 @@ import javax.swing.table.DefaultTableModel;
  */
 public class OrderInternalProcess {
 
-    private List<ProductDTO> products;
-
+    //private List<ProductDTO> products;
     public OrderInternalProcess() {
     }
 
-    
+    public static List<ProductDTO> getProducts() {
+        Global.PRODUCT_LIST = Methods.fetchProducts();
+        return Global.PRODUCT_LIST;
+    }
 
-    public List<ProductDTO> loadProducts() {
-        products = Methods.fetchProducts();
-        if (products == null || products.isEmpty()) {
-            return null;
-        }
-        return products;
+    public static List<CategoryDTO> getCategories() {
+        Global.CATEGORY_LIST = Methods.fetchCategories();
+        return Global.CATEGORY_LIST;
     }
 
     /**
@@ -41,7 +41,7 @@ public class OrderInternalProcess {
      */
     public static DefaultListModel initCategoryNameListModel() {
         Global.CATEGORY_LIST_MODEL = new DefaultListModel();
-        Methods.fetchCategories().forEach((category) -> {
+        getCategories().forEach((category) -> {
             Global.CATEGORY_LIST_MODEL.addElement(category.getName());
         });
         return Global.CATEGORY_LIST_MODEL;
@@ -59,17 +59,15 @@ public class OrderInternalProcess {
         Global.PRODBYCATEG_TABLE_MODEL.addRow(loadProductByCategoryObject(categoryName));
         return Global.PRODBYCATEG_TABLE_MODEL;
     }
-    
+
     public static Object[] loadProductByCategoryObject(String categoryName) {
         Object[] objProd = null;
-         for (ProductDTO p:Methods.fetchProducts()) {
+        for (ProductDTO p : getProducts()) {
             if (categoryName.equals(p.getCategory().getName())) {
-               objProd = new Object[]{p.getName(),p.getPrice(), true, 0};
+                objProd = new Object[]{p.getName(), p.getPrice(), true, 0};
             }
-         }
+        }
         return objProd;
     }
-    
-  
 
 }
