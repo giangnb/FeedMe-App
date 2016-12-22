@@ -56,16 +56,16 @@
               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
               <Component id="jLabel2" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="txtUser" alignment="0" min="-2" pref="73" max="-2" attributes="0"/>
-                  <Component id="txtValidUser" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtValidUser" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jLabel3" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="txtPassword" alignment="0" min="-2" pref="73" max="-2" attributes="0"/>
-                  <Component id="txtValidPassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtValidPassword" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
               <Component id="btnLogin" max="32767" attributes="0"/>
@@ -80,7 +80,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="16" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n L&#xfd; &#x110;&#x103;ng Nh&#x1ead;p"/>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;body&gt;&lt;center&gt;&#x110;&#x103;ng nh&#x1ead;p&lt;h1&gt;QU&#x1ea2;N L&#xdd;&lt;/h1&gt;&lt;/center&gt;&lt;/body&gt;&lt;/html&gt;"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">

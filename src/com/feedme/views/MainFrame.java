@@ -28,6 +28,7 @@ public class MainFrame extends javax.swing.JFrame {
         pnlMain.add(new StaffLoginPanel(), "staff");
         pnlMain.add(new OrderPanel());
         lblRestaurantName.setText("FeedMe Restaurant");
+        lblManagerName.setText("");
     }
 
     /**
