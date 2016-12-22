@@ -1,8 +1,9 @@
 package com.feedme.views;
 
-
+import com.feedme.Global;
 import com.feedme.process.OrderInternalProcess;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -10,31 +11,23 @@ import javax.swing.table.DefaultTableModel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author BHT
  */
 public class OrderInternalFrame extends javax.swing.JDialog {
-  
+
     /**
      * Creates new form OrderInternalFrame
      */
-    private final DefaultTableModel model;
-   // private final DefaultListModel listModel;
+   // private DefaultTableModel model;
+
     public OrderInternalFrame() {
         initComponents();
-        model = (DefaultTableModel) tblProductInternal.getModel();
+        Global.PRODBYCATEG_TABLE_MODEL = (DefaultTableModel) tblProductInternal.getModel();
         initCategModel();
-//        listModel.addElement("Nổi bật");
-//        listModel.addElement("Danh mục 1");
-//        listModel.addElement("Danh mục 2");
-//        listModel.addElement("Danh mục 3");
-//        listModel.addElement("Danh mục 4");
-        setModal(true);
         setLocationRelativeTo(null);
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -57,7 +50,7 @@ public class OrderInternalFrame extends javax.swing.JDialog {
 
         tblProductInternal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
+                {null, null,  new Boolean(false), null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
@@ -82,9 +75,19 @@ public class OrderInternalFrame extends javax.swing.JDialog {
             }
         });
         tblProductInternal.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        tblProductInternal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProductInternalMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblProductInternal);
 
         btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/feedme/img/plus.png"))); // NOI18N
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         btnRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/feedme/img/substract.png"))); // NOI18N
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
@@ -184,10 +187,25 @@ public class OrderInternalFrame extends javax.swing.JDialog {
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void listCategoryNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listCategoryNameMouseClicked
+
         String categoryName = "";
         categoryName = getCategNamefromList();
-        System.out.println("----> " + categoryName);
+        //      System.out.println(categoryName);
+        initProdTableModel(categoryName);
+
     }//GEN-LAST:event_listCategoryNameMouseClicked
+
+    private void tblProductInternalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductInternalMouseClicked
+        // TODO add your handling code here:
+        //  System.out.println(">>>> " + model.getValueAt(tblProductInternal.getSelectedRow(), 3).toString());
+        Object obj = Global.PRODBYCATEG_TABLE_MODEL.getValueAt(0, 2);
+        System.out.println(obj.toString());
+    }//GEN-LAST:event_tblProductInternalMouseClicked
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnAddActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -207,9 +225,17 @@ public class OrderInternalFrame extends javax.swing.JDialog {
     }
 
     private void initCategModel() {
-       new Thread(()->{
-         DefaultListModel listModel= OrderInternalProcess.initCategoryNameListModel();
-         listCategoryName.setModel(listModel);
-       }).start();
+        new Thread(() -> {
+            DefaultListModel listModel = OrderInternalProcess.initCategoryNameListModel();
+            listCategoryName.setModel(listModel);
+        }).start();
     }
+
+    private void initProdTableModel(String categoryName) {
+        new Thread(() -> {
+            Global.PRODBYCATEG_TABLE_MODEL.setNumRows(0);
+            Global.PRODBYCATEG_TABLE_MODEL.addRow(OrderInternalProcess.loadProductByCategoryObject(categoryName));
+        }).start();
+    }
+
 }

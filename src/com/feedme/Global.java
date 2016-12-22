@@ -21,10 +21,12 @@ public class Global {
     public static String DISCOUNT_VALUE;
     public static DefaultListModel CATEGORY_LIST_MODEL;
     public static DefaultTableModel PRODBYCATEG_TABLE_MODEL;
+    public static DefaultTableModel ORDERPROD_TABLE_MODEL;
 
     public Global() {
         CATEGORY_LIST_MODEL = new DefaultListModel();
         PRODBYCATEG_TABLE_MODEL = new DefaultTableModel();
+        ORDERPROD_TABLE_MODEL = new DefaultTableModel();
     }
     
     

@@ -54,14 +54,22 @@ public class OrderInternalProcess {
      * @param categoryName
      * @return
      */
-    public DefaultTableModel loadProductByCategoryModel(String categoryName) {
+    public static DefaultTableModel loadProductByCategoryModel(String categoryName) {
         Global.PRODBYCATEG_TABLE_MODEL = new DefaultTableModel();
-        new OrderInternalProcess().loadProducts().forEach((ProductDTO p) -> {
-            if (categoryName.equalsIgnoreCase(p.getCategory().getName())) {
-                Global.PRODBYCATEG_TABLE_MODEL.addRow(new Object[]{p.getName(), p.getPrice(), "", ""});
-            }
-        });
+        Global.PRODBYCATEG_TABLE_MODEL.addRow(loadProductByCategoryObject(categoryName));
         return Global.PRODBYCATEG_TABLE_MODEL;
     }
+    
+    public static Object[] loadProductByCategoryObject(String categoryName) {
+        Object[] objProd = null;
+         for (ProductDTO p:Methods.fetchProducts()) {
+            if (categoryName.equals(p.getCategory().getName())) {
+               objProd = new Object[]{p.getName(),p.getPrice(), true, 0};
+            }
+         }
+        return objProd;
+    }
+    
+  
 
 }
