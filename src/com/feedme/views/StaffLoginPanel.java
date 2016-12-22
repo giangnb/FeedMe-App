@@ -21,7 +21,7 @@ public class StaffLoginPanel extends javax.swing.JPanel {
      */
     public StaffLoginPanel() {
         initComponents();
-      //  lblValidStaff.setText("");
+        //MainFrame.lblManagerName.setText(ManagerLoginPanel.txt);
     }
 
     /**
@@ -106,6 +106,7 @@ public class StaffLoginPanel extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(null, "Lỗi Đăng Nhập \n Vui lòng đăng nhập lại \n hoặc liên hệ với quản lý", "Lỗi Đăng Nhập", JOptionPane.ERROR_MESSAGE);
 
                     } else {
+                        MainFrame.lblStaffName.setText("Nhân viên "+txtStaffId.getText());
                         CardLayout layout = (CardLayout) this.getParent().getLayout();
                         layout.next(this.getParent());
                     }

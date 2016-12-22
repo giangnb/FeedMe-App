@@ -22,13 +22,14 @@ public class Global {
 
     public static ManagerDTO MANAGER;
     public static EmployeeDTO EMPLOYEE;
-    public static String DISCOUNT_VALUE;
+    public static Double DISCOUNT_VALUE;
     public static DefaultListModel CATEGORY_LIST_MODEL;
     public static DefaultTableModel PRODBYCATEG_TABLE_MODEL;
     public static DefaultTableModel ORDERPROD_TABLE_MODEL;
     public static List<ProductDTO> PRODUCT_LIST;
     public static List<CategoryDTO> CATEGORY_LIST;
     public static boolean IS_SELECTED_PRODUCT;
+    public static long GET_CURRENT_TIME;
 
     public Global() {
         CATEGORY_LIST_MODEL = new DefaultListModel();

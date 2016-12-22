@@ -5,6 +5,7 @@
  */
 package com.feedme.process;
 
+import com.feedme.Global;
 import com.feedme.service.OrderDetailDTO;
 import com.feedme.ws.Methods;
 import java.util.Date;
@@ -16,18 +17,19 @@ import java.util.List;
  */
 public class OrderProcess {
     private List<OrderDetailDTO> orderlist;
+    
     public OrderProcess() {
+        Global.GET_CURRENT_TIME =  new Date().getTime();
     }
     
      /**
      * Load New Order Process
-     * @param fromTime 
-     * @param toTime   
+     * @param fromTime   
      * @return 
      */
-    public List<OrderDetailDTO> loadNewOrder(Date fromTime, Date toTime) {
+    public List<OrderDetailDTO> loadNewOrder(Date fromTime) {
       short empId = Short.parseShort("1");
-      orderlist = Methods.fetchOrders(fromTime.getTime(), toTime.getTime());
+      orderlist = Methods.fetchOrders(fromTime.getTime(), Global.GET_CURRENT_TIME);
       if (orderlist==null||orderlist.isEmpty()) {
          return null;
       } 
@@ -39,13 +41,12 @@ public class OrderProcess {
     
      /**
      * Load Order Processing
-     * @param fromTime 
-     * @param toTime   
+     * @param fromTime   
      * @return 
      */
-    public List<OrderDetailDTO> loadOrderProcessing(Date fromTime, Date toTime) {
+    public List<OrderDetailDTO> loadOrderProcessing(Date fromTime) {
       short empId = Short.parseShort("1");
-      orderlist = Methods.fetchOrders(fromTime.getTime(), toTime.getTime());
+      orderlist = Methods.fetchOrders(fromTime.getTime(), Global.GET_CURRENT_TIME);
       if (orderlist==null||orderlist.isEmpty()) {
          return null;
       } 
@@ -54,5 +55,6 @@ public class OrderProcess {
         });
       return orderlist;
     }
+    
     
 }

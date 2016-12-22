@@ -1,7 +1,6 @@
 package com.feedme.views;
 
 import com.feedme.Global;
-import com.feedme.process.ManagerProcess;
 import java.awt.Toolkit;
 import java.util.Date;
 
@@ -16,8 +15,7 @@ import java.util.Date;
  */
 public class MainFrame extends javax.swing.JFrame {
 
-    private Date date = new Date();
-
+    //private Date date = new Date();
     /**
      * Creates new form frame
      */
@@ -29,6 +27,8 @@ public class MainFrame extends javax.swing.JFrame {
         pnlMain.add(new OrderPanel());
         lblRestaurantName.setText("FeedMe Restaurant");
         lblManagerName.setText("");
+        lblStaffName.setText("");
+       // initPosInfomation();
     }
 
     /**
@@ -157,7 +157,5 @@ public class MainFrame extends javax.swing.JFrame {
     public static javax.swing.JPanel pnlMain;
     // End of variables declaration//GEN-END:variables
 
-    private void addProperties() {
-
-    }
+  
 }

@@ -1,5 +1,6 @@
 package com.feedme.views;
 
+import com.feedme.Global;
 import com.feedme.process.ManagerProcess;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
@@ -20,7 +21,7 @@ public class ManagerLoginPanel extends javax.swing.JPanel {
      */
     public ManagerLoginPanel() {
         initComponents();
-
+        
     }
 
     /**
@@ -128,6 +129,7 @@ public class ManagerLoginPanel extends javax.swing.JPanel {
                 if (!ManagerProcess.managerLogin(txtUser.getText(), new String(txtPassword.getPassword()))) {
                     JOptionPane.showMessageDialog(null, "Đăng Nhập Thất Bại \n Vui Lòng Thử Lại", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
+                    MainFrame.lblManagerName.setText("Xin Chào " + txtUser.getText());
                     CardLayout layout = (CardLayout) this.getParent().getLayout();
                     layout.next(this.getParent());
                 }
