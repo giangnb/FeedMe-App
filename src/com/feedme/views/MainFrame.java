@@ -1,6 +1,10 @@
 package com.feedme.views;
 
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Date;
+import javax.swing.Timer;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,6 +21,14 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form frame
      */
+    Timer timer=new Timer(1000*60, new ActionListener() {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Date currentTime=new Date();
+            lblClock.setText(currentTime.toString());
+        }
+    });
     public MainFrame() {
         initComponents();
         this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
@@ -27,6 +39,9 @@ public class MainFrame extends javax.swing.JFrame {
         lblManagerName.setText("");
         lblStaffName.setText("");
        // initPosInfomation();
+        
+        //start timer
+        timer.start();
     }
 
     /**
@@ -74,8 +89,8 @@ public class MainFrame extends javax.swing.JFrame {
         lblStaffName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblStaffName.setText("Staff : Staff name");
 
+        lblClock.setFont(new java.awt.Font("Tahoma", 3, 10)); // NOI18N
         lblClock.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblClock.setText("jLabel1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,7 +118,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblManagerName)
                         .addComponent(lblStaffName)
-                        .addComponent(lblClock)))
+                        .addComponent(lblClock, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(23, 23, 23)
                 .addComponent(pnlMain, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))
         );
