@@ -1,9 +1,13 @@
 package com.feedme.views;
 
 import com.feedme.Global;
+import com.feedme.process.OrderProcess;
+import com.feedme.service.OrderDetailDTO;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import jdk.nashorn.internal.parser.JSONParser;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -27,6 +31,8 @@ public class OrderPanel extends javax.swing.JPanel {
         model = new DefaultTableModel(new Object[]{"Món ăn", "SL", "Giá"}, 0);
         tblOrderDetail.setModel(model);
         loadOrderTable();
+        loadOrderStatus();
+        initNewOderList();
     }
 
     /**
@@ -74,6 +80,11 @@ public class OrderPanel extends javax.swing.JPanel {
             public Object getElementAt(int i) { return strings[i]; }
         });
         listNewOrder.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        listNewOrder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listNewOrderMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(listNewOrder);
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -293,6 +304,12 @@ public class OrderPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnRemoveFoodActionPerformed
 
+    private void listNewOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listNewOrderMouseClicked
+        // TODO add your handling code here:
+        Global.ORDER = OrderProcess.getOrderDetail((String) listNewOrder.getSelectedValue());
+        loadOrderData(Global.ORDER);
+    }//GEN-LAST:event_listNewOrderMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddFood;
@@ -328,5 +345,18 @@ public class OrderPanel extends javax.swing.JPanel {
         if (Global.IS_SELECTED_PRODUCT) {
             model = Global.PRODBYCATEG_TABLE_MODEL;
         }
+    }
+
+    private void loadOrderStatus() {
+        cbbOrderStatus.setModel(OrderProcess.initOrderStatusCbbModel());
+    }
+
+    private void initNewOderList() {
+        listNewOrder.removeAll();
+        listNewOrder.setModel(OrderProcess.initNewOrderListModel());
+    }
+
+    private void loadOrderData(OrderDetailDTO order) {
+        
     }
 }
