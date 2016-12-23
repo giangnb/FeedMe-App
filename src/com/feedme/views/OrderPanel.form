@@ -306,6 +306,10 @@
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbbOrderStatusItemStateChanged"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cbbOrderStatusMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnUpdateOrder">
       <Properties>

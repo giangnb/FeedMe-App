@@ -4,10 +4,15 @@ import com.feedme.Global;
 import com.feedme.process.OrderProcess;
 import com.feedme.service.OrderDetailDTO;
 import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
-import jdk.nashorn.internal.parser.JSONParser;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,19 +25,26 @@ import jdk.nashorn.internal.parser.JSONParser;
  */
 public class OrderPanel extends javax.swing.JPanel {
 
+    private Timer timer;
     /**
      * Creates new form OrderPanel
      */
     private DefaultTableModel model;
-
+    private DefaultListModel listModel;
+    private OrderDetailDTO orderSelected;
     public OrderPanel() {
         initComponents();
         jSeparator1.setOrientation(SwingConstants.VERTICAL);
         model = new DefaultTableModel(new Object[]{"Món ăn", "SL", "Giá"}, 0);
+        listModel = new DefaultListModel();
+        listNewOrder.setModel(listModel);
         tblOrderDetail.setModel(model);
         loadOrderTable();
         loadOrderStatus();
         initNewOderList();
+        //reloadNewOrderList();
+        // timer.start();
+
     }
 
     /**
@@ -132,6 +144,16 @@ public class OrderPanel extends javax.swing.JPanel {
 
         cbbOrderStatus.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         cbbOrderStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbbOrderStatus.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbbOrderStatusItemStateChanged(evt);
+            }
+        });
+        cbbOrderStatus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbbOrderStatusMouseClicked(evt);
+            }
+        });
 
         btnUpdateOrder.setText("Cập nhật");
         btnUpdateOrder.addActionListener(new java.awt.event.ActionListener() {
@@ -300,15 +322,28 @@ public class OrderPanel extends javax.swing.JPanel {
 
     private void btnRemoveFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveFoodActionPerformed
         // TODO add your handling code here:
-        System.out.println(Global.IS_SELECTED_PRODUCT);
-
+        // System.out.println(Global.IS_SELECTED_PRODUCT);
+        initNewOderList();
     }//GEN-LAST:event_btnRemoveFoodActionPerformed
 
     private void listNewOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listNewOrderMouseClicked
         // TODO add your handling code here:
+        cbbOrderStatus.setEnabled(false);
+        if (evt.getClickCount()==2) {
         Global.ORDER = OrderProcess.getOrderDetail((String) listNewOrder.getSelectedValue());
         loadOrderData(Global.ORDER);
+        }
     }//GEN-LAST:event_listNewOrderMouseClicked
+
+    private void cbbOrderStatusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbOrderStatusMouseClicked
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_cbbOrderStatusMouseClicked
+
+    private void cbbOrderStatusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbOrderStatusItemStateChanged
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_cbbOrderStatusItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -352,11 +387,31 @@ public class OrderPanel extends javax.swing.JPanel {
     }
 
     private void initNewOderList() {
-        listNewOrder.removeAll();
-        listNewOrder.setModel(OrderProcess.initNewOrderListModel());
+        new Thread(() -> {
+            listModel.clear();
+            listModel = OrderProcess.initNewOrderListModel();
+            listNewOrder.setModel(listModel);
+        }).start();
+
     }
 
     private void loadOrderData(OrderDetailDTO order) {
-        
+        HashMap<String, String> map  = OrderProcess.getInformation(order);
+        txtCustomer.setText(map.get("Name"));
+        txtCustomerAddr.setText(map.get("Address"));
+        txtCustomerTel.setText(map.get("Tel"));
+        cbbOrderStatus.setSelectedItem(order.getStatus().getName());
+        JOptionPane.showMessageDialog(null,"Trạng Thái Đơn Hàng \n" + cbbOrderStatus.getSelectedItem().toString());
+    }
+
+    private void reloadNewOrderList() {
+        timer = new Timer(10000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                initNewOderList();
+                System.out.println(">>>_ List new Order running .....");
+            }
+        });
     }
 }

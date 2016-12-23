@@ -8,10 +8,12 @@ package com.feedme.process;
 import com.feedme.Global;
 import com.feedme.info.Information;
 import com.feedme.service.OrderDetailDTO;
-import com.feedme.service.OrderStatus;
 import com.feedme.utils.Json;
 import com.feedme.ws.Methods;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import javax.swing.AbstractListModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 
@@ -71,12 +73,14 @@ public class OrderProcess {
 
     public static DefaultListModel initNewOrderListModel() {
         orderModel = new DefaultListModel();
-        OrderProcess.getOrders(Long.parseLong("1482409098718")).forEach((order) -> {
+        List<OrderDetailDTO> orders = OrderProcess.getOrders(Long.parseLong("1482409098718"));
+        Collections.reverse(orders);
+        orders.forEach((order) -> {
             orderModel.addElement("Đơn Hàng " + order.getOrderDetail().getId());
         });
         return orderModel;
     }
-    
+
     public static DefaultComboBoxModel initOrderStatusCbbModel() {
         orderStatusModel = new DefaultComboBoxModel();
         Methods.fetchOrderStatus().stream().forEach((object) -> {
@@ -84,16 +88,29 @@ public class OrderProcess {
         });
         return orderStatusModel;
     }
-    
+
     public static OrderDetailDTO getOrderDetail(String orderItem) {
-       Methods.fetchOrders(Long.parseLong("1482409098718"), Global.GET_CURRENT_TIME).forEach((or)-> {
-          if (orderItem.contains(""+or.getOrderDetail().getId())) {
-              Global.ORDER = or;
-          }
-       });
+        Methods.fetchOrders(Long.parseLong("1482409098718"), Global.GET_CURRENT_TIME).forEach((or) -> {
+            if (orderItem.contains("" + or.getOrderDetail().getId())) {
+                Global.ORDER = or;
+            }
+        });
         return Global.ORDER;
     }
-    
-    public static Information loadCustomerInfo(OrderDetailDTO order) {
+
+    public static HashMap<String, String> getInformation(OrderDetailDTO order) {
+        HashMap<String, String> customerInfo = new HashMap<>();
+        try {
+            Global.INFO = Json.DeserializeObject(order.getOrderDetail().getCustomer(), Information.class);
+            Global.INFO.stream().forEach((info) -> {
+                customerInfo.put(info.getKey(), info.getValue());
+            });
+        } catch (Exception ex) {
+        }
+        return customerInfo;
+    }
+
+    public static void main(String[] args) {
+
     }
 }
