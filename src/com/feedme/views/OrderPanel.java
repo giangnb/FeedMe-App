@@ -7,12 +7,12 @@ import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
-import org.jdesktop.swingx.JXList;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -31,24 +31,20 @@ public class OrderPanel extends javax.swing.JPanel {
      */
     private DefaultTableModel model;
     private DefaultListModel listModel;
-    private DefaultListModel listProcessModel;
     private OrderDetailDTO orderSelected;
-
     public OrderPanel() {
         initComponents();
         jSeparator1.setOrientation(SwingConstants.VERTICAL);
         model = new DefaultTableModel(new Object[]{"Món ăn", "SL", "Giá"}, 0);
         listModel = new DefaultListModel();
-        listProcessModel = new DefaultListModel();
         listNewOrder.setModel(listModel);
-        listProcessingOrder.setModel(listProcessModel);
         tblOrderDetail.setModel(model);
         loadOrderTable();
         loadOrderStatus();
         initNewOderList();
-        initOderProcessList();
-        reloadNewOrderList();
-        timer.start();
+        //reloadNewOrderList();
+        // timer.start();
+
     }
 
     /**
@@ -121,11 +117,6 @@ public class OrderPanel extends javax.swing.JPanel {
             public Object getElementAt(int i) { return strings[i]; }
         });
         listProcessingOrder.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        listProcessingOrder.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listProcessingOrderMouseClicked(evt);
-            }
-        });
         jScrollPane2.setViewportView(listProcessingOrder);
 
         jLabel5.setText("Điện thoại");
@@ -150,11 +141,6 @@ public class OrderPanel extends javax.swing.JPanel {
         lblDiscount.setText("69.969 VND");
 
         btnReceiveOrder.setText("Nhận order");
-        btnReceiveOrder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReceiveOrderActionPerformed(evt);
-            }
-        });
 
         cbbOrderStatus.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         cbbOrderStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -343,37 +329,21 @@ public class OrderPanel extends javax.swing.JPanel {
     private void listNewOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listNewOrderMouseClicked
         // TODO add your handling code here:
         cbbOrderStatus.setEnabled(false);
-        if (evt.getClickCount() == 2) {
-            JOptionPane.showMessageDialog(null, "Loading....");
-            Global.ORDER = OrderProcess.getOrderDetail((String) listNewOrder.getSelectedValue());
-            loadOrderData(Global.ORDER);
+        if (evt.getClickCount()==2) {
+        Global.ORDER = OrderProcess.getOrderDetail((String) listNewOrder.getSelectedValue());
+        loadOrderData(Global.ORDER);
         }
     }//GEN-LAST:event_listNewOrderMouseClicked
 
     private void cbbOrderStatusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbOrderStatusMouseClicked
         // TODO add your handling code here:
-
+       
     }//GEN-LAST:event_cbbOrderStatusMouseClicked
 
     private void cbbOrderStatusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbOrderStatusItemStateChanged
         // TODO add your handling code here:
-
+        
     }//GEN-LAST:event_cbbOrderStatusItemStateChanged
-
-    private void btnReceiveOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReceiveOrderActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_btnReceiveOrderActionPerformed
-
-    private void listProcessingOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listProcessingOrderMouseClicked
-        // TODO add your handling code here:
-        cbbOrderStatus.setEnabled(false);
-        if (evt.getClickCount() == 2) {
-            
-            Global.ORDER = OrderProcess.getOrderDetail((String) listProcessingOrder.getSelectedValue());
-            loadOrderData(Global.ORDER);
-        }
-    }//GEN-LAST:event_listProcessingOrderMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -422,33 +392,26 @@ public class OrderPanel extends javax.swing.JPanel {
             listModel = OrderProcess.initNewOrderListModel();
             listNewOrder.setModel(listModel);
         }).start();
-    }
-
-    private void initOderProcessList() {
-        new Thread(() -> {
-            listProcessModel.clear();
-            listProcessModel = OrderProcess.initOrderProcessListModel();
-            listProcessingOrder.setModel(listProcessModel);
-        }).start();
 
     }
 
     private void loadOrderData(OrderDetailDTO order) {
-        HashMap<String, String> map = OrderProcess.getInformation(order);
+        HashMap<String, String> map  = OrderProcess.getInformation(order);
         txtCustomer.setText(map.get("Name"));
         txtCustomerAddr.setText(map.get("Address"));
         txtCustomerTel.setText(map.get("Tel"));
         cbbOrderStatus.setSelectedItem(order.getStatus().getName());
-        JOptionPane.showMessageDialog(null, "Trạng Thái Đơn Hàng \n" + cbbOrderStatus.getSelectedItem().toString());
+        JOptionPane.showMessageDialog(null,"Trạng Thái Đơn Hàng \n" + cbbOrderStatus.getSelectedItem().toString());
     }
 
     private void reloadNewOrderList() {
-        timer = new Timer(60000, (ActionEvent e) -> {
-            new Thread(() -> {
+        timer = new Timer(10000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
                 initNewOderList();
-                initOderProcessList();
-                System.out.println(">_ Auto Update Order running .....");
-            }).start();
+                System.out.println(">>>_ List new Order running .....");
+            }
         });
     }
 }
