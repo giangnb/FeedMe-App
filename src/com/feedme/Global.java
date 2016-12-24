@@ -35,6 +35,8 @@ public class Global {
     public static List<ProductDTO> PRODUCT_LIST;
     public static List<CategoryDTO> CATEGORY_LIST;
     public static List<OrderDetailDTO> ORDER_LIST;
+    public static List<OrderDetailDTO> ORDER_PROCESSING_LIST;
+    public static List<OrderDetailDTO> ORDER_NEW_LIST;
     public static List<OrderStatus> ORDER_STATUS_LIST;
     public static boolean IS_SELECTED_PRODUCT;
     
@@ -47,5 +49,7 @@ public class Global {
         PRODUCT_LIST = new ArrayList<>();
         CATEGORY_LIST = new ArrayList<>();
         ORDER_LIST = new ArrayList<>();
+        ORDER_NEW_LIST = new ArrayList();
+        ORDER_PROCESSING_LIST = new ArrayList();
     } 
 }

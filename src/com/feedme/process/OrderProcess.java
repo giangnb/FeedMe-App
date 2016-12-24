@@ -10,6 +10,7 @@ import com.feedme.info.Information;
 import com.feedme.service.OrderDetailDTO;
 import com.feedme.utils.Json;
 import com.feedme.ws.Methods;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +26,7 @@ public class OrderProcess {
 
     private List<OrderDetailDTO> orderlist;
     private static DefaultListModel orderModel;
+    private static DefaultListModel orderProcessModel;
     private static DefaultComboBoxModel orderStatusModel;
 
     public OrderProcess() {
@@ -38,14 +40,11 @@ public class OrderProcess {
      */
     public static List<OrderDetailDTO> loadNewOrder(long fromTime) {
         short empId = Short.parseShort("1");
-        Global.ORDER_LIST = Methods.fetchOrders(fromTime, Global.GET_CURRENT_TIME);
-        if (Global.ORDER_LIST == null || Global.ORDER_LIST.isEmpty()) {
-            return null;
-        }
-        Global.ORDER_LIST.stream().filter((order) -> (order.getEmployee().getEmployee().getId() != empId)).forEach((_item) -> {
-            Global.ORDER_LIST = null;
+        Global.ORDER_NEW_LIST = new ArrayList<>();
+        getOrders(fromTime).stream().filter((order) -> (order.getEmployee().getEmployee().getId() == empId)).forEach((order) -> {
+            Global.ORDER_NEW_LIST.add(order);
         });
-        return Global.ORDER_LIST;
+        return Global.ORDER_NEW_LIST;
     }
 
     /**
@@ -54,16 +53,13 @@ public class OrderProcess {
      * @param fromTime
      * @return
      */
-    public List<OrderDetailDTO> loadOrderProcessing(long fromTime) {
+    public static List<OrderDetailDTO> loadOrderProcessing(long fromTime) {
         short empId = Short.parseShort("1");
-        orderlist = Methods.fetchOrders(fromTime, Global.GET_CURRENT_TIME);
-        if (orderlist == null || orderlist.isEmpty()) {
-            return null;
-        }
-        orderlist.stream().filter((order) -> (order.getEmployee().getEmployee().getId() == empId)).forEach((_item) -> {
-            orderlist = null;
+        Global.ORDER_PROCESSING_LIST = new ArrayList<>();
+        getOrders(fromTime).stream().filter((order) -> (order.getEmployee().getEmployee().getId() != empId)).forEach((order) -> {
+            Global.ORDER_PROCESSING_LIST.add(order);
         });
-        return orderlist;
+        return Global.ORDER_PROCESSING_LIST;
     }
 
     public static List<OrderDetailDTO> getOrders(long fromTime) {
@@ -73,12 +69,22 @@ public class OrderProcess {
 
     public static DefaultListModel initNewOrderListModel() {
         orderModel = new DefaultListModel();
-        List<OrderDetailDTO> orders = OrderProcess.getOrders(Long.parseLong("1482409098718"));
+        List<OrderDetailDTO> orders = OrderProcess.loadNewOrder(Long.parseLong("1482409098718"));
         Collections.reverse(orders);
         orders.forEach((order) -> {
             orderModel.addElement("Đơn Hàng " + order.getOrderDetail().getId());
         });
         return orderModel;
+    }
+    
+    public static DefaultListModel initOrderProcessListModel() {
+        orderProcessModel = new DefaultListModel();
+        //List<OrderDetailDTO> orders = OrderProcess.loadOrderProcessing(Long.parseLong("1482409098718"));
+        //Collections.reverse(orders);
+        OrderProcess.loadOrderProcessing(Long.parseLong("1482409098718")).forEach((order) -> {
+            orderProcessModel.addElement("Đơn Hàng Xử Lý " + order.getOrderDetail().getId());
+        });
+        return orderProcessModel;
     }
 
     public static DefaultComboBoxModel initOrderStatusCbbModel() {
@@ -110,7 +116,17 @@ public class OrderProcess {
         return customerInfo;
     }
 
-    public static void main(String[] args) {
+    public boolean receivesOrder(OrderDetailDTO newOrder) {
+        boolean result = true;
+        try {
+            return Methods.updateOrder(newOrder);
+        } catch (Exception e) {
+            result = false;
+        }
+        return result;
+    }
 
+    public static void main(String[] args) {
+        System.out.println(OrderProcess.initOrderProcessListModel().getSize());
     }
 }
