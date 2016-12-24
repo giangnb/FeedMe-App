@@ -10,77 +10,17 @@
 <message name="addPropertieResponse">
 <part name="parameters" element="tns:addPropertieResponse" />
 </message>
-<message name="addCategory">
-<part name="parameters" element="tns:addCategory" />
+<message name="addOrder">
+<part name="parameters" element="tns:addOrder" />
 </message>
-<message name="addCategoryResponse">
-<part name="parameters" element="tns:addCategoryResponse" />
+<message name="addOrderResponse">
+<part name="parameters" element="tns:addOrderResponse" />
 </message>
-<message name="updateProduct">
-<part name="parameters" element="tns:updateProduct" />
+<message name="updateOrder">
+<part name="parameters" element="tns:updateOrder" />
 </message>
-<message name="updateProductResponse">
-<part name="parameters" element="tns:updateProductResponse" />
-</message>
-<message name="removeProduct">
-<part name="parameters" element="tns:removeProduct" />
-</message>
-<message name="removeProductResponse">
-<part name="parameters" element="tns:removeProductResponse" />
-</message>
-<message name="fetchPromoteds">
-<part name="parameters" element="tns:fetchPromoteds" />
-</message>
-<message name="fetchPromotedsResponse">
-<part name="parameters" element="tns:fetchPromotedsResponse" />
-</message>
-<message name="fetchPromotedById">
-<part name="parameters" element="tns:fetchPromotedById" />
-</message>
-<message name="fetchPromotedByIdResponse">
-<part name="parameters" element="tns:fetchPromotedByIdResponse" />
-</message>
-<message name="addPromoted">
-<part name="parameters" element="tns:addPromoted" />
-</message>
-<message name="addPromotedResponse">
-<part name="parameters" element="tns:addPromotedResponse" />
-</message>
-<message name="updatePromoted">
-<part name="parameters" element="tns:updatePromoted" />
-</message>
-<message name="updatePromotedResponse">
-<part name="parameters" element="tns:updatePromotedResponse" />
-</message>
-<message name="removePromoted">
-<part name="parameters" element="tns:removePromoted" />
-</message>
-<message name="removePromotedResponse">
-<part name="parameters" element="tns:removePromotedResponse" />
-</message>
-<message name="fetchProperties">
-<part name="parameters" element="tns:fetchProperties" />
-</message>
-<message name="fetchPropertiesResponse">
-<part name="parameters" element="tns:fetchPropertiesResponse" />
-</message>
-<message name="fetchPropertieByKey">
-<part name="parameters" element="tns:fetchPropertieByKey" />
-</message>
-<message name="fetchPropertieByKeyResponse">
-<part name="parameters" element="tns:fetchPropertieByKeyResponse" />
-</message>
-<message name="updateProperties">
-<part name="parameters" element="tns:updateProperties" />
-</message>
-<message name="updatePropertiesResponse">
-<part name="parameters" element="tns:updatePropertiesResponse" />
-</message>
-<message name="updateCategory">
-<part name="parameters" element="tns:updateCategory" />
-</message>
-<message name="updateCategoryResponse">
-<part name="parameters" element="tns:updateCategoryResponse" />
+<message name="updateOrderResponse">
+<part name="parameters" element="tns:updateOrderResponse" />
 </message>
 <message name="removeOrder">
 <part name="parameters" element="tns:removeOrder" />
@@ -208,6 +148,84 @@
 <message name="addProductResponse">
 <part name="parameters" element="tns:addProductResponse" />
 </message>
+<message name="updateProduct">
+<part name="parameters" element="tns:updateProduct" />
+</message>
+<message name="updateProductResponse">
+<part name="parameters" element="tns:updateProductResponse" />
+</message>
+<message name="removeProduct">
+<part name="parameters" element="tns:removeProduct" />
+</message>
+<message name="removeProductResponse">
+<part name="parameters" element="tns:removeProductResponse" />
+</message>
+<message name="fetchPromoteds">
+<part name="parameters" element="tns:fetchPromoteds" />
+</message>
+<message name="fetchPromotedsResponse">
+<part name="parameters" element="tns:fetchPromotedsResponse" />
+</message>
+<message name="fetchPromotedById">
+<part name="parameters" element="tns:fetchPromotedById" />
+</message>
+<message name="fetchPromotedByIdResponse">
+<part name="parameters" element="tns:fetchPromotedByIdResponse" />
+</message>
+<message name="addPromoted">
+<part name="parameters" element="tns:addPromoted" />
+</message>
+<message name="addPromotedResponse">
+<part name="parameters" element="tns:addPromotedResponse" />
+</message>
+<message name="updatePromoted">
+<part name="parameters" element="tns:updatePromoted" />
+</message>
+<message name="updatePromotedResponse">
+<part name="parameters" element="tns:updatePromotedResponse" />
+</message>
+<message name="removePromoted">
+<part name="parameters" element="tns:removePromoted" />
+</message>
+<message name="removePromotedResponse">
+<part name="parameters" element="tns:removePromotedResponse" />
+</message>
+<message name="fetchProperties">
+<part name="parameters" element="tns:fetchProperties" />
+</message>
+<message name="fetchPropertiesResponse">
+<part name="parameters" element="tns:fetchPropertiesResponse" />
+</message>
+<message name="fetchPropertieByKey">
+<part name="parameters" element="tns:fetchPropertieByKey" />
+</message>
+<message name="fetchPropertieByKeyResponse">
+<part name="parameters" element="tns:fetchPropertieByKeyResponse" />
+</message>
+<message name="updateCategory">
+<part name="parameters" element="tns:updateCategory" />
+</message>
+<message name="updateCategoryResponse">
+<part name="parameters" element="tns:updateCategoryResponse" />
+</message>
+<message name="removeCategory">
+<part name="parameters" element="tns:removeCategory" />
+</message>
+<message name="removeCategoryResponse">
+<part name="parameters" element="tns:removeCategoryResponse" />
+</message>
+<message name="fetchCategories">
+<part name="parameters" element="tns:fetchCategories" />
+</message>
+<message name="fetchCategoriesResponse">
+<part name="parameters" element="tns:fetchCategoriesResponse" />
+</message>
+<message name="fetchCategoryById">
+<part name="parameters" element="tns:fetchCategoryById" />
+</message>
+<message name="fetchCategoryByIdResponse">
+<part name="parameters" element="tns:fetchCategoryByIdResponse" />
+</message>
 <message name="addEmployee">
 <part name="parameters" element="tns:addEmployee" />
 </message>
@@ -238,6 +256,18 @@
 <message name="fetchEmployeesByManagerResponse">
 <part name="parameters" element="tns:fetchEmployeesByManagerResponse" />
 </message>
+<message name="addCategory">
+<part name="parameters" element="tns:addCategory" />
+</message>
+<message name="addCategoryResponse">
+<part name="parameters" element="tns:addCategoryResponse" />
+</message>
+<message name="updateProperties">
+<part name="parameters" element="tns:updateProperties" />
+</message>
+<message name="updatePropertiesResponse">
+<part name="parameters" element="tns:updatePropertiesResponse" />
+</message>
 <message name="fetchEmployeeById">
 <part name="parameters" element="tns:fetchEmployeeById" />
 </message>
@@ -261,24 +291,6 @@
 </message>
 <message name="updateLogResponse">
 <part name="parameters" element="tns:updateLogResponse" />
-</message>
-<message name="removeCategory">
-<part name="parameters" element="tns:removeCategory" />
-</message>
-<message name="removeCategoryResponse">
-<part name="parameters" element="tns:removeCategoryResponse" />
-</message>
-<message name="fetchCategories">
-<part name="parameters" element="tns:fetchCategories" />
-</message>
-<message name="fetchCategoriesResponse">
-<part name="parameters" element="tns:fetchCategoriesResponse" />
-</message>
-<message name="fetchCategoryById">
-<part name="parameters" element="tns:fetchCategoryById" />
-</message>
-<message name="fetchCategoryByIdResponse">
-<part name="parameters" element="tns:fetchCategoryByIdResponse" />
 </message>
 <message name="removeLog">
 <part name="parameters" element="tns:removeLog" />
@@ -328,18 +340,6 @@
 <message name="fetchManagerByIdResponse">
 <part name="parameters" element="tns:fetchManagerByIdResponse" />
 </message>
-<message name="addOrder">
-<part name="parameters" element="tns:addOrder" />
-</message>
-<message name="addOrderResponse">
-<part name="parameters" element="tns:addOrderResponse" />
-</message>
-<message name="updateOrder">
-<part name="parameters" element="tns:updateOrder" />
-</message>
-<message name="updateOrderResponse">
-<part name="parameters" element="tns:updateOrderResponse" />
-</message>
 <message name="removeProperties">
 <part name="parameters" element="tns:removeProperties" />
 </message>
@@ -357,53 +357,13 @@
 <input wsam:Action="http://webservice.feedme.com/ApplicationSevice/addPropertieRequest" message="tns:addPropertie" />
 <output wsam:Action="http://webservice.feedme.com/ApplicationSevice/addPropertieResponse" message="tns:addPropertieResponse" />
 </operation>
-<operation name="addCategory">
-<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/addCategoryRequest" message="tns:addCategory" />
-<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/addCategoryResponse" message="tns:addCategoryResponse" />
+<operation name="addOrder">
+<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/addOrderRequest" message="tns:addOrder" />
+<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/addOrderResponse" message="tns:addOrderResponse" />
 </operation>
-<operation name="updateProduct">
-<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/updateProductRequest" message="tns:updateProduct" />
-<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/updateProductResponse" message="tns:updateProductResponse" />
-</operation>
-<operation name="removeProduct">
-<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/removeProductRequest" message="tns:removeProduct" />
-<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/removeProductResponse" message="tns:removeProductResponse" />
-</operation>
-<operation name="fetchPromoteds">
-<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchPromotedsRequest" message="tns:fetchPromoteds" />
-<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchPromotedsResponse" message="tns:fetchPromotedsResponse" />
-</operation>
-<operation name="fetchPromotedById">
-<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchPromotedByIdRequest" message="tns:fetchPromotedById" />
-<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchPromotedByIdResponse" message="tns:fetchPromotedByIdResponse" />
-</operation>
-<operation name="addPromoted">
-<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/addPromotedRequest" message="tns:addPromoted" />
-<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/addPromotedResponse" message="tns:addPromotedResponse" />
-</operation>
-<operation name="updatePromoted">
-<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/updatePromotedRequest" message="tns:updatePromoted" />
-<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/updatePromotedResponse" message="tns:updatePromotedResponse" />
-</operation>
-<operation name="removePromoted">
-<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/removePromotedRequest" message="tns:removePromoted" />
-<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/removePromotedResponse" message="tns:removePromotedResponse" />
-</operation>
-<operation name="fetchProperties">
-<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchPropertiesRequest" message="tns:fetchProperties" />
-<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchPropertiesResponse" message="tns:fetchPropertiesResponse" />
-</operation>
-<operation name="fetchPropertieByKey">
-<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchPropertieByKeyRequest" message="tns:fetchPropertieByKey" />
-<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchPropertieByKeyResponse" message="tns:fetchPropertieByKeyResponse" />
-</operation>
-<operation name="updateProperties">
-<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/updatePropertiesRequest" message="tns:updateProperties" />
-<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/updatePropertiesResponse" message="tns:updatePropertiesResponse" />
-</operation>
-<operation name="updateCategory">
-<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/updateCategoryRequest" message="tns:updateCategory" />
-<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/updateCategoryResponse" message="tns:updateCategoryResponse" />
+<operation name="updateOrder">
+<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/updateOrderRequest" message="tns:updateOrder" />
+<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/updateOrderResponse" message="tns:updateOrderResponse" />
 </operation>
 <operation name="removeOrder">
 <input wsam:Action="http://webservice.feedme.com/ApplicationSevice/removeOrderRequest" message="tns:removeOrder" />
@@ -489,6 +449,58 @@
 <input wsam:Action="http://webservice.feedme.com/ApplicationSevice/addProductRequest" message="tns:addProduct" />
 <output wsam:Action="http://webservice.feedme.com/ApplicationSevice/addProductResponse" message="tns:addProductResponse" />
 </operation>
+<operation name="updateProduct">
+<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/updateProductRequest" message="tns:updateProduct" />
+<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/updateProductResponse" message="tns:updateProductResponse" />
+</operation>
+<operation name="removeProduct">
+<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/removeProductRequest" message="tns:removeProduct" />
+<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/removeProductResponse" message="tns:removeProductResponse" />
+</operation>
+<operation name="fetchPromoteds">
+<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchPromotedsRequest" message="tns:fetchPromoteds" />
+<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchPromotedsResponse" message="tns:fetchPromotedsResponse" />
+</operation>
+<operation name="fetchPromotedById">
+<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchPromotedByIdRequest" message="tns:fetchPromotedById" />
+<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchPromotedByIdResponse" message="tns:fetchPromotedByIdResponse" />
+</operation>
+<operation name="addPromoted">
+<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/addPromotedRequest" message="tns:addPromoted" />
+<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/addPromotedResponse" message="tns:addPromotedResponse" />
+</operation>
+<operation name="updatePromoted">
+<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/updatePromotedRequest" message="tns:updatePromoted" />
+<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/updatePromotedResponse" message="tns:updatePromotedResponse" />
+</operation>
+<operation name="removePromoted">
+<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/removePromotedRequest" message="tns:removePromoted" />
+<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/removePromotedResponse" message="tns:removePromotedResponse" />
+</operation>
+<operation name="fetchProperties">
+<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchPropertiesRequest" message="tns:fetchProperties" />
+<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchPropertiesResponse" message="tns:fetchPropertiesResponse" />
+</operation>
+<operation name="fetchPropertieByKey">
+<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchPropertieByKeyRequest" message="tns:fetchPropertieByKey" />
+<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchPropertieByKeyResponse" message="tns:fetchPropertieByKeyResponse" />
+</operation>
+<operation name="updateCategory">
+<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/updateCategoryRequest" message="tns:updateCategory" />
+<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/updateCategoryResponse" message="tns:updateCategoryResponse" />
+</operation>
+<operation name="removeCategory">
+<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/removeCategoryRequest" message="tns:removeCategory" />
+<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/removeCategoryResponse" message="tns:removeCategoryResponse" />
+</operation>
+<operation name="fetchCategories">
+<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchCategoriesRequest" message="tns:fetchCategories" />
+<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchCategoriesResponse" message="tns:fetchCategoriesResponse" />
+</operation>
+<operation name="fetchCategoryById">
+<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchCategoryByIdRequest" message="tns:fetchCategoryById" />
+<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchCategoryByIdResponse" message="tns:fetchCategoryByIdResponse" />
+</operation>
 <operation name="addEmployee">
 <input wsam:Action="http://webservice.feedme.com/ApplicationSevice/addEmployeeRequest" message="tns:addEmployee" />
 <output wsam:Action="http://webservice.feedme.com/ApplicationSevice/addEmployeeResponse" message="tns:addEmployeeResponse" />
@@ -509,6 +521,14 @@
 <input wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchEmployeesByManagerRequest" message="tns:fetchEmployeesByManager" />
 <output wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchEmployeesByManagerResponse" message="tns:fetchEmployeesByManagerResponse" />
 </operation>
+<operation name="addCategory">
+<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/addCategoryRequest" message="tns:addCategory" />
+<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/addCategoryResponse" message="tns:addCategoryResponse" />
+</operation>
+<operation name="updateProperties">
+<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/updatePropertiesRequest" message="tns:updateProperties" />
+<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/updatePropertiesResponse" message="tns:updatePropertiesResponse" />
+</operation>
 <operation name="fetchEmployeeById">
 <input wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchEmployeeByIdRequest" message="tns:fetchEmployeeById" />
 <output wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchEmployeeByIdResponse" message="tns:fetchEmployeeByIdResponse" />
@@ -524,18 +544,6 @@
 <operation name="updateLog">
 <input wsam:Action="http://webservice.feedme.com/ApplicationSevice/updateLogRequest" message="tns:updateLog" />
 <output wsam:Action="http://webservice.feedme.com/ApplicationSevice/updateLogResponse" message="tns:updateLogResponse" />
-</operation>
-<operation name="removeCategory">
-<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/removeCategoryRequest" message="tns:removeCategory" />
-<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/removeCategoryResponse" message="tns:removeCategoryResponse" />
-</operation>
-<operation name="fetchCategories">
-<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchCategoriesRequest" message="tns:fetchCategories" />
-<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchCategoriesResponse" message="tns:fetchCategoriesResponse" />
-</operation>
-<operation name="fetchCategoryById">
-<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchCategoryByIdRequest" message="tns:fetchCategoryById" />
-<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchCategoryByIdResponse" message="tns:fetchCategoryByIdResponse" />
 </operation>
 <operation name="removeLog">
 <input wsam:Action="http://webservice.feedme.com/ApplicationSevice/removeLogRequest" message="tns:removeLog" />
@@ -569,14 +577,6 @@
 <input wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchManagerByIdRequest" message="tns:fetchManagerById" />
 <output wsam:Action="http://webservice.feedme.com/ApplicationSevice/fetchManagerByIdResponse" message="tns:fetchManagerByIdResponse" />
 </operation>
-<operation name="addOrder">
-<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/addOrderRequest" message="tns:addOrder" />
-<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/addOrderResponse" message="tns:addOrderResponse" />
-</operation>
-<operation name="updateOrder">
-<input wsam:Action="http://webservice.feedme.com/ApplicationSevice/updateOrderRequest" message="tns:updateOrder" />
-<output wsam:Action="http://webservice.feedme.com/ApplicationSevice/updateOrderResponse" message="tns:updateOrderResponse" />
-</operation>
 <operation name="removeProperties">
 <input wsam:Action="http://webservice.feedme.com/ApplicationSevice/removePropertiesRequest" message="tns:removeProperties" />
 <output wsam:Action="http://webservice.feedme.com/ApplicationSevice/removePropertiesResponse" message="tns:removePropertiesResponse" />
@@ -597,7 +597,7 @@
 <soap:body use="literal" />
 </output>
 </operation>
-<operation name="addCategory">
+<operation name="addOrder">
 <soap:operation soapAction="" />
 <input>
 <soap:body use="literal" />
@@ -606,97 +606,7 @@
 <soap:body use="literal" />
 </output>
 </operation>
-<operation name="updateProduct">
-<soap:operation soapAction="" />
-<input>
-<soap:body use="literal" />
-</input>
-<output>
-<soap:body use="literal" />
-</output>
-</operation>
-<operation name="removeProduct">
-<soap:operation soapAction="" />
-<input>
-<soap:body use="literal" />
-</input>
-<output>
-<soap:body use="literal" />
-</output>
-</operation>
-<operation name="fetchPromoteds">
-<soap:operation soapAction="" />
-<input>
-<soap:body use="literal" />
-</input>
-<output>
-<soap:body use="literal" />
-</output>
-</operation>
-<operation name="fetchPromotedById">
-<soap:operation soapAction="" />
-<input>
-<soap:body use="literal" />
-</input>
-<output>
-<soap:body use="literal" />
-</output>
-</operation>
-<operation name="addPromoted">
-<soap:operation soapAction="" />
-<input>
-<soap:body use="literal" />
-</input>
-<output>
-<soap:body use="literal" />
-</output>
-</operation>
-<operation name="updatePromoted">
-<soap:operation soapAction="" />
-<input>
-<soap:body use="literal" />
-</input>
-<output>
-<soap:body use="literal" />
-</output>
-</operation>
-<operation name="removePromoted">
-<soap:operation soapAction="" />
-<input>
-<soap:body use="literal" />
-</input>
-<output>
-<soap:body use="literal" />
-</output>
-</operation>
-<operation name="fetchProperties">
-<soap:operation soapAction="" />
-<input>
-<soap:body use="literal" />
-</input>
-<output>
-<soap:body use="literal" />
-</output>
-</operation>
-<operation name="fetchPropertieByKey">
-<soap:operation soapAction="" />
-<input>
-<soap:body use="literal" />
-</input>
-<output>
-<soap:body use="literal" />
-</output>
-</operation>
-<operation name="updateProperties">
-<soap:operation soapAction="" />
-<input>
-<soap:body use="literal" />
-</input>
-<output>
-<soap:body use="literal" />
-</output>
-</operation>
-<operation name="updateCategory">
+<operation name="updateOrder">
 <soap:operation soapAction="" />
 <input>
 <soap:body use="literal" />
@@ -894,6 +804,123 @@
 <soap:body use="literal" />
 </output>
 </operation>
+<operation name="updateProduct">
+<soap:operation soapAction="" />
+<input>
+<soap:body use="literal" />
+</input>
+<output>
+<soap:body use="literal" />
+</output>
+</operation>
+<operation name="removeProduct">
+<soap:operation soapAction="" />
+<input>
+<soap:body use="literal" />
+</input>
+<output>
+<soap:body use="literal" />
+</output>
+</operation>
+<operation name="fetchPromoteds">
+<soap:operation soapAction="" />
+<input>
+<soap:body use="literal" />
+</input>
+<output>
+<soap:body use="literal" />
+</output>
+</operation>
+<operation name="fetchPromotedById">
+<soap:operation soapAction="" />
+<input>
+<soap:body use="literal" />
+</input>
+<output>
+<soap:body use="literal" />
+</output>
+</operation>
+<operation name="addPromoted">
+<soap:operation soapAction="" />
+<input>
+<soap:body use="literal" />
+</input>
+<output>
+<soap:body use="literal" />
+</output>
+</operation>
+<operation name="updatePromoted">
+<soap:operation soapAction="" />
+<input>
+<soap:body use="literal" />
+</input>
+<output>
+<soap:body use="literal" />
+</output>
+</operation>
+<operation name="removePromoted">
+<soap:operation soapAction="" />
+<input>
+<soap:body use="literal" />
+</input>
+<output>
+<soap:body use="literal" />
+</output>
+</operation>
+<operation name="fetchProperties">
+<soap:operation soapAction="" />
+<input>
+<soap:body use="literal" />
+</input>
+<output>
+<soap:body use="literal" />
+</output>
+</operation>
+<operation name="fetchPropertieByKey">
+<soap:operation soapAction="" />
+<input>
+<soap:body use="literal" />
+</input>
+<output>
+<soap:body use="literal" />
+</output>
+</operation>
+<operation name="updateCategory">
+<soap:operation soapAction="" />
+<input>
+<soap:body use="literal" />
+</input>
+<output>
+<soap:body use="literal" />
+</output>
+</operation>
+<operation name="removeCategory">
+<soap:operation soapAction="" />
+<input>
+<soap:body use="literal" />
+</input>
+<output>
+<soap:body use="literal" />
+</output>
+</operation>
+<operation name="fetchCategories">
+<soap:operation soapAction="" />
+<input>
+<soap:body use="literal" />
+</input>
+<output>
+<soap:body use="literal" />
+</output>
+</operation>
+<operation name="fetchCategoryById">
+<soap:operation soapAction="" />
+<input>
+<soap:body use="literal" />
+</input>
+<output>
+<soap:body use="literal" />
+</output>
+</operation>
 <operation name="addEmployee">
 <soap:operation soapAction="" />
 <input>
@@ -939,6 +966,24 @@
 <soap:body use="literal" />
 </output>
 </operation>
+<operation name="addCategory">
+<soap:operation soapAction="" />
+<input>
+<soap:body use="literal" />
+</input>
+<output>
+<soap:body use="literal" />
+</output>
+</operation>
+<operation name="updateProperties">
+<soap:operation soapAction="" />
+<input>
+<soap:body use="literal" />
+</input>
+<output>
+<soap:body use="literal" />
+</output>
+</operation>
 <operation name="fetchEmployeeById">
 <soap:operation soapAction="" />
 <input>
@@ -967,33 +1012,6 @@
 </output>
 </operation>
 <operation name="updateLog">
-<soap:operation soapAction="" />
-<input>
-<soap:body use="literal" />
-</input>
-<output>
-<soap:body use="literal" />
-</output>
-</operation>
-<operation name="removeCategory">
-<soap:operation soapAction="" />
-<input>
-<soap:body use="literal" />
-</input>
-<output>
-<soap:body use="literal" />
-</output>
-</operation>
-<operation name="fetchCategories">
-<soap:operation soapAction="" />
-<input>
-<soap:body use="literal" />
-</input>
-<output>
-<soap:body use="literal" />
-</output>
-</operation>
-<operation name="fetchCategoryById">
 <soap:operation soapAction="" />
 <input>
 <soap:body use="literal" />
@@ -1066,24 +1084,6 @@
 </output>
 </operation>
 <operation name="fetchManagerById">
-<soap:operation soapAction="" />
-<input>
-<soap:body use="literal" />
-</input>
-<output>
-<soap:body use="literal" />
-</output>
-</operation>
-<operation name="addOrder">
-<soap:operation soapAction="" />
-<input>
-<soap:body use="literal" />
-</input>
-<output>
-<soap:body use="literal" />
-</output>
-</operation>
-<operation name="updateOrder">
 <soap:operation soapAction="" />
 <input>
 <soap:body use="literal" />

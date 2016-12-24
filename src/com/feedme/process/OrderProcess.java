@@ -12,6 +12,7 @@ import com.feedme.utils.Json;
 import com.feedme.ws.Methods;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.AbstractListModel;
@@ -127,6 +128,6 @@ public class OrderProcess {
     }
 
     public static void main(String[] args) {
-        System.out.println(OrderProcess.initOrderProcessListModel().getSize());
+        System.out.println(Methods.fetchOrders(1482409098718l, new Date().getTime()));
     }
 }

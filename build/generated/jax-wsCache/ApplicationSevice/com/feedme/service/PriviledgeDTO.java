@@ -23,6 +23,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}short" minOccurs="0"/>
  *         &lt;element name="manager" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="priviledge" type="{http://webservice.feedme.com/}priviledge" minOccurs="0"/>
  *         &lt;element name="view" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -41,6 +42,7 @@ import javax.xml.bind.annotation.XmlType;
     "id",
     "manager",
     "name",
+    "priviledge",
     "view"
 })
 public class PriviledgeDTO {
@@ -52,6 +54,7 @@ public class PriviledgeDTO {
     protected Short id;
     protected boolean manager;
     protected String name;
+    protected Priviledge priviledge;
     protected boolean view;
 
     /**
@@ -188,6 +191,30 @@ public class PriviledgeDTO {
      */
     public void setName(String value) {
         this.name = value;
+    }
+
+    /**
+     * Gets the value of the priviledge property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Priviledge }
+     *     
+     */
+    public Priviledge getPriviledge() {
+        return priviledge;
+    }
+
+    /**
+     * Sets the value of the priviledge property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Priviledge }
+     *     
+     */
+    public void setPriviledge(Priviledge value) {
+        this.priviledge = value;
     }
 
     /**

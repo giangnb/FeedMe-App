@@ -162,6 +162,12 @@
 
 <xs:element name="priviledge" type="tns:priviledge" />
 
+<xs:element name="product" type="tns:product" />
+
+<xs:element name="promoted" type="tns:promoted" />
+
+<xs:element name="property" type="tns:property" />
+
 <xs:element name="removeCategory" type="tns:removeCategory" />
 
 <xs:element name="removeCategoryResponse" type="tns:removeCategoryResponse" />
@@ -257,20 +263,31 @@
 <xs:element name="fromTime" type="xs:string" minOccurs="0" />
 <xs:element name="id" type="xs:int" minOccurs="0" />
 <xs:element name="product" type="tns:productDTO" minOccurs="0" />
+<xs:element name="promoted" type="tns:promoted" minOccurs="0" />
 <xs:element name="toTime" type="xs:string" minOccurs="0" />
 </xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="productDTO">
 <xs:sequence>
-<xs:element name="category" type="tns:category" minOccurs="0" />
+<xs:element name="category" type="tns:categoryDTO" minOccurs="0" />
 <xs:element name="description" type="xs:string" minOccurs="0" />
 <xs:element name="id" type="xs:short" minOccurs="0" />
+<xs:element name="imageUrl" type="xs:string" minOccurs="0" />
 <xs:element name="info" type="xs:string" minOccurs="0" />
 <xs:element name="isActive" type="xs:boolean" />
 <xs:element name="name" type="xs:string" minOccurs="0" />
 <xs:element name="price" type="xs:double" />
+<xs:element name="product" type="tns:product" minOccurs="0" />
 <xs:element name="promotion" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="categoryDTO">
+<xs:sequence>
+<xs:element name="category" type="tns:category" minOccurs="0" />
+<xs:element name="description" type="xs:string" minOccurs="0" />
+<xs:element name="name" type="xs:string" minOccurs="0" />
 </xs:sequence>
 </xs:complexType>
 
@@ -279,6 +296,29 @@
 <xs:element name="description" type="xs:string" minOccurs="0" />
 <xs:element name="id" type="xs:short" minOccurs="0" />
 <xs:element name="name" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="product">
+<xs:sequence>
+<xs:element name="category" type="tns:category" minOccurs="0" />
+<xs:element name="description" type="xs:string" minOccurs="0" />
+<xs:element name="id" type="xs:short" minOccurs="0" />
+<xs:element name="imageFile" type="xs:string" minOccurs="0" />
+<xs:element name="info" type="xs:string" minOccurs="0" />
+<xs:element name="isActive" type="xs:boolean" />
+<xs:element name="name" type="xs:string" minOccurs="0" />
+<xs:element name="price" type="xs:double" />
+<xs:element name="promotion" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="promoted">
+<xs:sequence>
+<xs:element name="fromTime" type="xs:string" minOccurs="0" />
+<xs:element name="id" type="xs:int" minOccurs="0" />
+<xs:element name="product" type="tns:product" minOccurs="0" />
+<xs:element name="toTime" type="xs:string" minOccurs="0" />
 </xs:sequence>
 </xs:complexType>
 
@@ -295,14 +335,6 @@
 <xs:complexType name="fetchCategoriesResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:categoryDTO" minOccurs="0" maxOccurs="unbounded" />
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="categoryDTO">
-<xs:sequence>
-<xs:element name="category" type="tns:category" minOccurs="0" />
-<xs:element name="description" type="xs:string" minOccurs="0" />
-<xs:element name="name" type="xs:string" minOccurs="0" />
 </xs:sequence>
 </xs:complexType>
 
@@ -361,6 +393,7 @@
 <xs:element name="id" type="xs:short" minOccurs="0" />
 <xs:element name="manager" type="xs:boolean" />
 <xs:element name="name" type="xs:string" minOccurs="0" />
+<xs:element name="priviledge" type="tns:priviledge" minOccurs="0" />
 <xs:element name="view" type="xs:boolean" />
 </xs:sequence>
 </xs:complexType>
@@ -417,64 +450,6 @@
 </xs:complexType>
 
 <xs:complexType name="removePriviledgeResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean" />
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="removeOrderStatus">
-<xs:sequence>
-<xs:element name="orderStatusId" type="xs:short" />
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="removeOrderStatusResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean" />
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="fetchEmployees">
-<xs:sequence />
-</xs:complexType>
-
-<xs:complexType name="fetchEmployeesResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:employeeDTO" minOccurs="0" maxOccurs="unbounded" />
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="updateLog">
-<xs:sequence>
-<xs:element name="log" type="tns:logDTO" minOccurs="0" />
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="logDTO">
-<xs:sequence>
-<xs:element name="employee" type="tns:employeeDTO" minOccurs="0" />
-<xs:element name="id" type="xs:int" minOccurs="0" />
-<xs:element name="log" type="tns:log" minOccurs="0" />
-<xs:element name="ratingAvg" type="xs:float" />
-<xs:element name="title" type="xs:string" minOccurs="0" />
-<xs:element name="totalOrders" type="xs:int" />
-<xs:element name="ttoalIncome" type="xs:double" />
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="log">
-<xs:sequence>
-<xs:element name="employee" type="tns:employee" minOccurs="0" />
-<xs:element name="id" type="xs:int" minOccurs="0" />
-<xs:element name="ratingAvg" type="xs:float" />
-<xs:element name="timestamp" type="xs:string" minOccurs="0" />
-<xs:element name="title" type="xs:string" minOccurs="0" />
-<xs:element name="totalOrders" type="xs:int" />
-<xs:element name="ttoalIncome" type="xs:double" />
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="updateLogResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean" />
 </xs:sequence>
@@ -538,6 +513,64 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="removeOrderStatus">
+<xs:sequence>
+<xs:element name="orderStatusId" type="xs:short" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="removeOrderStatusResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="fetchEmployees">
+<xs:sequence />
+</xs:complexType>
+
+<xs:complexType name="fetchEmployeesResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:employeeDTO" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="updateLog">
+<xs:sequence>
+<xs:element name="log" type="tns:logDTO" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="logDTO">
+<xs:sequence>
+<xs:element name="employee" type="tns:employeeDTO" minOccurs="0" />
+<xs:element name="id" type="xs:int" minOccurs="0" />
+<xs:element name="log" type="tns:log" minOccurs="0" />
+<xs:element name="ratingAvg" type="xs:float" />
+<xs:element name="title" type="xs:string" minOccurs="0" />
+<xs:element name="totalOrders" type="xs:int" />
+<xs:element name="ttoalIncome" type="xs:double" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="log">
+<xs:sequence>
+<xs:element name="employee" type="tns:employee" minOccurs="0" />
+<xs:element name="id" type="xs:int" minOccurs="0" />
+<xs:element name="ratingAvg" type="xs:float" />
+<xs:element name="timestamp" type="xs:string" minOccurs="0" />
+<xs:element name="title" type="xs:string" minOccurs="0" />
+<xs:element name="totalOrders" type="xs:int" />
+<xs:element name="ttoalIncome" type="xs:double" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="updateLogResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="updateOrderStatus">
 <xs:sequence>
 <xs:element name="orderStatus" type="tns:orderStatus" minOccurs="0" />
@@ -563,6 +596,14 @@
 </xs:complexType>
 
 <xs:complexType name="propertyDTO">
+<xs:sequence>
+<xs:element name="key" type="xs:string" minOccurs="0" />
+<xs:element name="property" type="tns:property" minOccurs="0" />
+<xs:element name="value" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="property">
 <xs:sequence>
 <xs:element name="key" type="xs:string" minOccurs="0" />
 <xs:element name="value" type="xs:string" minOccurs="0" />
@@ -758,18 +799,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="addCategory">
-<xs:sequence>
-<xs:element name="category" type="tns:categoryDTO" minOccurs="0" />
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="addCategoryResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean" />
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="fetchOrderById">
 <xs:sequence>
 <xs:element name="orderId" type="xs:int" />
@@ -779,6 +808,18 @@
 <xs:complexType name="fetchOrderByIdResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:orderDetailDTO" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addCategory">
+<xs:sequence>
+<xs:element name="category" type="tns:categoryDTO" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addCategoryResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
 </xs:sequence>
 </xs:complexType>
 
@@ -1025,7 +1066,7 @@
 
 <xs:complexType name="fetchProductsByNameResponse">
 <xs:sequence>
-<xs:element name="return" type="tns:productDTO" minOccurs="0" />
+<xs:element name="return" type="tns:productDTO" minOccurs="0" maxOccurs="unbounded" />
 </xs:sequence>
 </xs:complexType>
 

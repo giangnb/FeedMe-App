@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="fromTime" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="product" type="{http://webservice.feedme.com/}productDTO" minOccurs="0"/>
+ *         &lt;element name="promoted" type="{http://webservice.feedme.com/}promoted" minOccurs="0"/>
  *         &lt;element name="toTime" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -33,6 +34,7 @@ import javax.xml.bind.annotation.XmlType;
     "fromTime",
     "id",
     "product",
+    "promoted",
     "toTime"
 })
 public class PromotedDTO {
@@ -40,6 +42,7 @@ public class PromotedDTO {
     protected String fromTime;
     protected Integer id;
     protected ProductDTO product;
+    protected Promoted promoted;
     protected String toTime;
 
     /**
@@ -112,6 +115,30 @@ public class PromotedDTO {
      */
     public void setProduct(ProductDTO value) {
         this.product = value;
+    }
+
+    /**
+     * Gets the value of the promoted property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Promoted }
+     *     
+     */
+    public Promoted getPromoted() {
+        return promoted;
+    }
+
+    /**
+     * Sets the value of the promoted property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Promoted }
+     *     
+     */
+    public void setPromoted(Promoted value) {
+        this.promoted = value;
     }
 
     /**

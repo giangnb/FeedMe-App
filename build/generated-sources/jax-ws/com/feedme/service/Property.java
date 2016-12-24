@@ -7,17 +7,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for propertyDTO complex type.
+ * <p>Java class for property complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="propertyDTO">
+ * &lt;complexType name="property">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="key" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="property" type="{http://webservice.feedme.com/}property" minOccurs="0"/>
  *         &lt;element name="value" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -28,15 +27,13 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "propertyDTO", propOrder = {
+@XmlType(name = "property", propOrder = {
     "key",
-    "property",
     "value"
 })
-public class PropertyDTO {
+public class Property {
 
     protected String key;
-    protected Property property;
     protected String value;
 
     /**
@@ -61,30 +58,6 @@ public class PropertyDTO {
      */
     public void setKey(String value) {
         this.key = value;
-    }
-
-    /**
-     * Gets the value of the property property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Property }
-     *     
-     */
-    public Property getProperty() {
-        return property;
-    }
-
-    /**
-     * Sets the value of the property property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Property }
-     *     
-     */
-    public void setProperty(Property value) {
-        this.property = value;
     }
 
     /**

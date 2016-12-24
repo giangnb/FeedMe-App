@@ -46,6 +46,7 @@ public class ObjectFactory {
     private final static QName _FetchOrderStatus_QNAME = new QName("http://webservice.feedme.com/", "fetchOrderStatus");
     private final static QName _UpdateProductResponse_QNAME = new QName("http://webservice.feedme.com/", "updateProductResponse");
     private final static QName _UpdateEmployeeResponse_QNAME = new QName("http://webservice.feedme.com/", "updateEmployeeResponse");
+    private final static QName _Product_QNAME = new QName("http://webservice.feedme.com/", "product");
     private final static QName _UpdateLogResponse_QNAME = new QName("http://webservice.feedme.com/", "updateLogResponse");
     private final static QName _RemovePriviledge_QNAME = new QName("http://webservice.feedme.com/", "removePriviledge");
     private final static QName _AddManagerResponse_QNAME = new QName("http://webservice.feedme.com/", "addManagerResponse");
@@ -69,6 +70,7 @@ public class ObjectFactory {
     private final static QName _FetchProperties_QNAME = new QName("http://webservice.feedme.com/", "fetchProperties");
     private final static QName _UpdatePromoted_QNAME = new QName("http://webservice.feedme.com/", "updatePromoted");
     private final static QName _AddOrderResponse_QNAME = new QName("http://webservice.feedme.com/", "addOrderResponse");
+    private final static QName _Promoted_QNAME = new QName("http://webservice.feedme.com/", "promoted");
     private final static QName _FetchManagers_QNAME = new QName("http://webservice.feedme.com/", "fetchManagers");
     private final static QName _FetchPromoteds_QNAME = new QName("http://webservice.feedme.com/", "fetchPromoteds");
     private final static QName _UpdateManagerPasswordResponse_QNAME = new QName("http://webservice.feedme.com/", "updateManagerPasswordResponse");
@@ -76,6 +78,7 @@ public class ObjectFactory {
     private final static QName _FetchCategoryById_QNAME = new QName("http://webservice.feedme.com/", "fetchCategoryById");
     private final static QName _FetchProducts_QNAME = new QName("http://webservice.feedme.com/", "fetchProducts");
     private final static QName _FetchLogsByEmployeeResponse_QNAME = new QName("http://webservice.feedme.com/", "fetchLogsByEmployeeResponse");
+    private final static QName _Property_QNAME = new QName("http://webservice.feedme.com/", "property");
     private final static QName _FetchEmployeeById_QNAME = new QName("http://webservice.feedme.com/", "fetchEmployeeById");
     private final static QName _AddPropertie_QNAME = new QName("http://webservice.feedme.com/", "addPropertie");
     private final static QName _UpdatePropertiesResponse_QNAME = new QName("http://webservice.feedme.com/", "updatePropertiesResponse");
@@ -228,6 +231,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Promoted }
+     * 
+     */
+    public Promoted createPromoted() {
+        return new Promoted();
+    }
+
+    /**
      * Create an instance of {@link FetchPromoteds }
      * 
      */
@@ -265,6 +276,14 @@ public class ObjectFactory {
      */
     public FetchLogsByEmployeeResponse createFetchLogsByEmployeeResponse() {
         return new FetchLogsByEmployeeResponse();
+    }
+
+    /**
+     * Create an instance of {@link Property }
+     * 
+     */
+    public Property createProperty() {
+        return new Property();
     }
 
     /**
@@ -521,6 +540,14 @@ public class ObjectFactory {
      */
     public UpdateProductResponse createUpdateProductResponse() {
         return new UpdateProductResponse();
+    }
+
+    /**
+     * Create an instance of {@link Product }
+     * 
+     */
+    public Product createProduct() {
+        return new Product();
     }
 
     /**
@@ -1418,6 +1445,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Product }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.feedme.com/", name = "product")
+    public JAXBElement<Product> createProduct(Product value) {
+        return new JAXBElement<Product>(_Product_QNAME, Product.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link UpdateLogResponse }{@code >}}
      * 
      */
@@ -1625,6 +1661,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Promoted }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.feedme.com/", name = "promoted")
+    public JAXBElement<Promoted> createPromoted(Promoted value) {
+        return new JAXBElement<Promoted>(_Promoted_QNAME, Promoted.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link FetchManagers }{@code >}}
      * 
      */
@@ -1685,6 +1730,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice.feedme.com/", name = "fetchLogsByEmployeeResponse")
     public JAXBElement<FetchLogsByEmployeeResponse> createFetchLogsByEmployeeResponse(FetchLogsByEmployeeResponse value) {
         return new JAXBElement<FetchLogsByEmployeeResponse>(_FetchLogsByEmployeeResponse_QNAME, FetchLogsByEmployeeResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Property }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.feedme.com/", name = "property")
+    public JAXBElement<Property> createProperty(Property value) {
+        return new JAXBElement<Property>(_Property_QNAME, Property.class, null, value);
     }
 
     /**

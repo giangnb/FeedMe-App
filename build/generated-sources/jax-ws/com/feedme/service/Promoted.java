@@ -7,19 +7,18 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for promotedDTO complex type.
+ * <p>Java class for promoted complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="promotedDTO">
+ * &lt;complexType name="promoted">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="fromTime" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
- *         &lt;element name="product" type="{http://webservice.feedme.com/}productDTO" minOccurs="0"/>
- *         &lt;element name="promoted" type="{http://webservice.feedme.com/}promoted" minOccurs="0"/>
+ *         &lt;element name="product" type="{http://webservice.feedme.com/}product" minOccurs="0"/>
  *         &lt;element name="toTime" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -30,19 +29,17 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "promotedDTO", propOrder = {
+@XmlType(name = "promoted", propOrder = {
     "fromTime",
     "id",
     "product",
-    "promoted",
     "toTime"
 })
-public class PromotedDTO {
+public class Promoted {
 
     protected String fromTime;
     protected Integer id;
-    protected ProductDTO product;
-    protected Promoted promoted;
+    protected Product product;
     protected String toTime;
 
     /**
@@ -98,10 +95,10 @@ public class PromotedDTO {
      * 
      * @return
      *     possible object is
-     *     {@link ProductDTO }
+     *     {@link Product }
      *     
      */
-    public ProductDTO getProduct() {
+    public Product getProduct() {
         return product;
     }
 
@@ -110,35 +107,11 @@ public class PromotedDTO {
      * 
      * @param value
      *     allowed object is
-     *     {@link ProductDTO }
+     *     {@link Product }
      *     
      */
-    public void setProduct(ProductDTO value) {
+    public void setProduct(Product value) {
         this.product = value;
-    }
-
-    /**
-     * Gets the value of the promoted property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Promoted }
-     *     
-     */
-    public Promoted getPromoted() {
-        return promoted;
-    }
-
-    /**
-     * Sets the value of the promoted property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Promoted }
-     *     
-     */
-    public void setPromoted(Promoted value) {
-        this.promoted = value;
     }
 
     /**

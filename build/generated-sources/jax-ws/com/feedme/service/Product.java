@@ -7,24 +7,23 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for productDTO complex type.
+ * <p>Java class for product complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="productDTO">
+ * &lt;complexType name="product">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="category" type="{http://webservice.feedme.com/}categoryDTO" minOccurs="0"/>
+ *         &lt;element name="category" type="{http://webservice.feedme.com/}category" minOccurs="0"/>
  *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}short" minOccurs="0"/>
- *         &lt;element name="imageUrl" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="imageFile" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="info" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="isActive" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="price" type="{http://www.w3.org/2001/XMLSchema}double"/>
- *         &lt;element name="product" type="{http://webservice.feedme.com/}product" minOccurs="0"/>
  *         &lt;element name="promotion" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -35,29 +34,27 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "productDTO", propOrder = {
+@XmlType(name = "product", propOrder = {
     "category",
     "description",
     "id",
-    "imageUrl",
+    "imageFile",
     "info",
     "isActive",
     "name",
     "price",
-    "product",
     "promotion"
 })
-public class ProductDTO {
+public class Product {
 
-    protected CategoryDTO category;
+    protected Category category;
     protected String description;
     protected Short id;
-    protected String imageUrl;
+    protected String imageFile;
     protected String info;
     protected boolean isActive;
     protected String name;
     protected double price;
-    protected Product product;
     protected String promotion;
 
     /**
@@ -65,10 +62,10 @@ public class ProductDTO {
      * 
      * @return
      *     possible object is
-     *     {@link CategoryDTO }
+     *     {@link Category }
      *     
      */
-    public CategoryDTO getCategory() {
+    public Category getCategory() {
         return category;
     }
 
@@ -77,10 +74,10 @@ public class ProductDTO {
      * 
      * @param value
      *     allowed object is
-     *     {@link CategoryDTO }
+     *     {@link Category }
      *     
      */
-    public void setCategory(CategoryDTO value) {
+    public void setCategory(Category value) {
         this.category = value;
     }
 
@@ -133,27 +130,27 @@ public class ProductDTO {
     }
 
     /**
-     * Gets the value of the imageUrl property.
+     * Gets the value of the imageFile property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImageFile() {
+        return imageFile;
     }
 
     /**
-     * Sets the value of the imageUrl property.
+     * Sets the value of the imageFile property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setImageUrl(String value) {
-        this.imageUrl = value;
+    public void setImageFile(String value) {
+        this.imageFile = value;
     }
 
     /**
@@ -234,30 +231,6 @@ public class ProductDTO {
      */
     public void setPrice(double value) {
         this.price = value;
-    }
-
-    /**
-     * Gets the value of the product property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Product }
-     *     
-     */
-    public Product getProduct() {
-        return product;
-    }
-
-    /**
-     * Sets the value of the product property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Product }
-     *     
-     */
-    public void setProduct(Product value) {
-        this.product = value;
     }
 
     /**

@@ -417,19 +417,19 @@ public class OrderPanel extends javax.swing.JPanel {
     }
 
     private void initNewOderList() {
-        new Thread(() -> {
+        
             listModel.clear();
             listModel = OrderProcess.initNewOrderListModel();
             listNewOrder.setModel(listModel);
-        }).start();
+        
     }
 
     private void initOderProcessList() {
-        new Thread(() -> {
+        
             listProcessModel.clear();
             listProcessModel = OrderProcess.initOrderProcessListModel();
             listProcessingOrder.setModel(listProcessModel);
-        }).start();
+       
 
     }
 
@@ -444,11 +444,11 @@ public class OrderPanel extends javax.swing.JPanel {
 
     private void reloadNewOrderList() {
         timer = new Timer(60000, (ActionEvent e) -> {
-            new Thread(() -> {
+           
                 initNewOderList();
                 initOderProcessList();
                 System.out.println(">_ Auto Update Order running .....");
-            }).start();
+            
         });
     }
 }
