@@ -16,8 +16,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="fromTime" type="{http://www.w3.org/2001/XMLSchema}long"/>
- *         &lt;element name="toTime" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="fromTime" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="toTime" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -33,38 +33,54 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class FetchOrders {
 
-    protected long fromTime;
-    protected long toTime;
+    protected String fromTime;
+    protected String toTime;
 
     /**
      * Gets the value of the fromTime property.
      * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
-    public long getFromTime() {
+    public String getFromTime() {
         return fromTime;
     }
 
     /**
      * Sets the value of the fromTime property.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
-    public void setFromTime(long value) {
+    public void setFromTime(String value) {
         this.fromTime = value;
     }
 
     /**
      * Gets the value of the toTime property.
      * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
-    public long getToTime() {
+    public String getToTime() {
         return toTime;
     }
 
     /**
      * Sets the value of the toTime property.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
-    public void setToTime(long value) {
+    public void setToTime(String value) {
         this.toTime = value;
     }
 

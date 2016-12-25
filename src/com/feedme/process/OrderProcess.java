@@ -7,6 +7,7 @@ package com.feedme.process;
 
 import com.feedme.Global;
 import com.feedme.info.Information;
+import com.feedme.service.OrderDetail;
 import com.feedme.service.OrderDetailDTO;
 import com.feedme.utils.Json;
 import com.feedme.ws.Methods;
@@ -15,7 +16,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import javax.swing.AbstractListModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 
@@ -39,10 +39,10 @@ public class OrderProcess {
      * @param fromTime
      * @return
      */
-    public static List<OrderDetailDTO> loadNewOrder(long fromTime) {
+    public static List<OrderDetail> loadNewOrder(String fromTime) {
         short empId = Short.parseShort("1");
         Global.ORDER_NEW_LIST = new ArrayList<>();
-        getOrders(fromTime).stream().filter((order) -> (order.getEmployee().getEmployee().getId() == empId)).forEach((order) -> {
+        getOrders(fromTime).stream().filter((order) -> (order.getEmployee().getId() == empId)).forEach((order) -> {
             Global.ORDER_NEW_LIST.add(order);
         });
         return Global.ORDER_NEW_LIST;
@@ -54,36 +54,34 @@ public class OrderProcess {
      * @param fromTime
      * @return
      */
-    public static List<OrderDetailDTO> loadOrderProcessing(long fromTime) {
+    public static List<OrderDetail> loadOrderProcessing(String fromTime) {
         short empId = Short.parseShort("1");
         Global.ORDER_PROCESSING_LIST = new ArrayList<>();
-        getOrders(fromTime).stream().filter((order) -> (order.getEmployee().getEmployee().getId() != empId)).forEach((order) -> {
+        getOrders(fromTime).stream().filter((order) -> (order.getEmployee().getId() != empId)).forEach((order) -> {
             Global.ORDER_PROCESSING_LIST.add(order);
         });
         return Global.ORDER_PROCESSING_LIST;
     }
 
-    public static List<OrderDetailDTO> getOrders(long fromTime) {
-        Global.ORDER_LIST = Methods.fetchOrders(fromTime, Global.GET_CURRENT_TIME);
+    public static List<OrderDetail> getOrders(String fromTime) {
+        Global.ORDER_LIST = Methods.fetchOrders(fromTime, new Date().getTime()+"");
         return Global.ORDER_LIST;
     }
 
     public static DefaultListModel initNewOrderListModel() {
         orderModel = new DefaultListModel();
-        List<OrderDetailDTO> orders = OrderProcess.loadNewOrder(Long.parseLong("1482409098718"));
+        List<OrderDetail> orders = OrderProcess.loadNewOrder("1482409098718");
         Collections.reverse(orders);
         orders.forEach((order) -> {
-            orderModel.addElement("Đơn Hàng " + order.getOrderDetail().getId());
+            orderModel.addElement("Đơn Hàng " + order.getId());
         });
         return orderModel;
     }
     
     public static DefaultListModel initOrderProcessListModel() {
         orderProcessModel = new DefaultListModel();
-        //List<OrderDetailDTO> orders = OrderProcess.loadOrderProcessing(Long.parseLong("1482409098718"));
-        //Collections.reverse(orders);
-        OrderProcess.loadOrderProcessing(Long.parseLong("1482409098718")).forEach((order) -> {
-            orderProcessModel.addElement("Đơn Hàng Xử Lý " + order.getOrderDetail().getId());
+        OrderProcess.loadOrderProcessing("1482409098718").forEach((order) -> {
+            orderProcessModel.addElement("Đơn Hàng Xử Lý " + order.getId());
         });
         return orderProcessModel;
     }
@@ -96,19 +94,19 @@ public class OrderProcess {
         return orderStatusModel;
     }
 
-    public static OrderDetailDTO getOrderDetail(String orderItem) {
-        Methods.fetchOrders(Long.parseLong("1482409098718"), Global.GET_CURRENT_TIME).forEach((or) -> {
-            if (orderItem.contains("" + or.getOrderDetail().getId())) {
+    public static OrderDetail getOrderDetail(String orderItem) {
+        Methods.fetchOrders("1482409098718", new Date().getTime()+"").forEach((or) -> {
+            if (orderItem.contains("" + or.getId())) {
                 Global.ORDER = or;
             }
         });
         return Global.ORDER;
     }
 
-    public static HashMap<String, String> getInformation(OrderDetailDTO order) {
+    public static HashMap<String, String> getInformation(OrderDetail order) {
         HashMap<String, String> customerInfo = new HashMap<>();
         try {
-            Global.INFO = Json.DeserializeObject(order.getOrderDetail().getCustomer(), Information.class);
+            Global.INFO = Json.DeserializeObject(order.getCustomer(), Information.class);
             Global.INFO.stream().forEach((info) -> {
                 customerInfo.put(info.getKey(), info.getValue());
             });
@@ -128,6 +126,6 @@ public class OrderProcess {
     }
 
     public static void main(String[] args) {
-        System.out.println(Methods.fetchOrders(1482409098718l, new Date().getTime()));
+        System.out.println(getOrders("1482409098718").size());
     }
 }

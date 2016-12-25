@@ -46,6 +46,7 @@ public class ObjectFactory {
     private final static QName _FetchOrderStatus_QNAME = new QName("http://webservice.feedme.com/", "fetchOrderStatus");
     private final static QName _UpdateProductResponse_QNAME = new QName("http://webservice.feedme.com/", "updateProductResponse");
     private final static QName _UpdateEmployeeResponse_QNAME = new QName("http://webservice.feedme.com/", "updateEmployeeResponse");
+    private final static QName _FetchProductByCategory_QNAME = new QName("http://webservice.feedme.com/", "fetchProductByCategory");
     private final static QName _Product_QNAME = new QName("http://webservice.feedme.com/", "product");
     private final static QName _UpdateLogResponse_QNAME = new QName("http://webservice.feedme.com/", "updateLogResponse");
     private final static QName _RemovePriviledge_QNAME = new QName("http://webservice.feedme.com/", "removePriviledge");
@@ -66,9 +67,11 @@ public class ObjectFactory {
     private final static QName _RemovePropertiesResponse_QNAME = new QName("http://webservice.feedme.com/", "removePropertiesResponse");
     private final static QName _UpdateCategory_QNAME = new QName("http://webservice.feedme.com/", "updateCategory");
     private final static QName _AddPriviledgeResponse_QNAME = new QName("http://webservice.feedme.com/", "addPriviledgeResponse");
+    private final static QName _FetchProductByCategoryResponse_QNAME = new QName("http://webservice.feedme.com/", "fetchProductByCategoryResponse");
     private final static QName _RemoveProduct_QNAME = new QName("http://webservice.feedme.com/", "removeProduct");
     private final static QName _FetchProperties_QNAME = new QName("http://webservice.feedme.com/", "fetchProperties");
     private final static QName _UpdatePromoted_QNAME = new QName("http://webservice.feedme.com/", "updatePromoted");
+    private final static QName _FetchProductByNameAndCategory_QNAME = new QName("http://webservice.feedme.com/", "fetchProductByNameAndCategory");
     private final static QName _AddOrderResponse_QNAME = new QName("http://webservice.feedme.com/", "addOrderResponse");
     private final static QName _Promoted_QNAME = new QName("http://webservice.feedme.com/", "promoted");
     private final static QName _FetchManagers_QNAME = new QName("http://webservice.feedme.com/", "fetchManagers");
@@ -80,6 +83,7 @@ public class ObjectFactory {
     private final static QName _FetchLogsByEmployeeResponse_QNAME = new QName("http://webservice.feedme.com/", "fetchLogsByEmployeeResponse");
     private final static QName _Property_QNAME = new QName("http://webservice.feedme.com/", "property");
     private final static QName _FetchEmployeeById_QNAME = new QName("http://webservice.feedme.com/", "fetchEmployeeById");
+    private final static QName _FetchPromotedByTimestampResponse_QNAME = new QName("http://webservice.feedme.com/", "fetchPromotedByTimestampResponse");
     private final static QName _AddPropertie_QNAME = new QName("http://webservice.feedme.com/", "addPropertie");
     private final static QName _UpdatePropertiesResponse_QNAME = new QName("http://webservice.feedme.com/", "updatePropertiesResponse");
     private final static QName _AddPropertieResponse_QNAME = new QName("http://webservice.feedme.com/", "addPropertieResponse");
@@ -87,6 +91,7 @@ public class ObjectFactory {
     private final static QName _FetchOrderByIdResponse_QNAME = new QName("http://webservice.feedme.com/", "fetchOrderByIdResponse");
     private final static QName _FetchOrdersByEmployeeResponse_QNAME = new QName("http://webservice.feedme.com/", "fetchOrdersByEmployeeResponse");
     private final static QName _UpdateManager_QNAME = new QName("http://webservice.feedme.com/", "updateManager");
+    private final static QName _FetchProductByNameAndCategoryResponse_QNAME = new QName("http://webservice.feedme.com/", "fetchProductByNameAndCategoryResponse");
     private final static QName _FetchCategoriesResponse_QNAME = new QName("http://webservice.feedme.com/", "fetchCategoriesResponse");
     private final static QName _FetchOrdersResponse_QNAME = new QName("http://webservice.feedme.com/", "fetchOrdersResponse");
     private final static QName _AddPriviledge_QNAME = new QName("http://webservice.feedme.com/", "addPriviledge");
@@ -108,6 +113,7 @@ public class ObjectFactory {
     private final static QName _FetchProductsById_QNAME = new QName("http://webservice.feedme.com/", "fetchProductsById");
     private final static QName _FetchManagerByIdResponse_QNAME = new QName("http://webservice.feedme.com/", "fetchManagerByIdResponse");
     private final static QName _LoginEmployee_QNAME = new QName("http://webservice.feedme.com/", "loginEmployee");
+    private final static QName _FetchPromotedByTimestamp_QNAME = new QName("http://webservice.feedme.com/", "fetchPromotedByTimestamp");
     private final static QName _UpdateOrder_QNAME = new QName("http://webservice.feedme.com/", "updateOrder");
     private final static QName _FetchEmployeesByManagerResponse_QNAME = new QName("http://webservice.feedme.com/", "fetchEmployeesByManagerResponse");
     private final static QName _FetchPriviledges_QNAME = new QName("http://webservice.feedme.com/", "fetchPriviledges");
@@ -183,6 +189,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link FetchProductByCategoryResponse }
+     * 
+     */
+    public FetchProductByCategoryResponse createFetchProductByCategoryResponse() {
+        return new FetchProductByCategoryResponse();
+    }
+
+    /**
      * Create an instance of {@link RemoveProduct }
      * 
      */
@@ -236,6 +250,14 @@ public class ObjectFactory {
      */
     public Promoted createPromoted() {
         return new Promoted();
+    }
+
+    /**
+     * Create an instance of {@link FetchProductByNameAndCategory }
+     * 
+     */
+    public FetchProductByNameAndCategory createFetchProductByNameAndCategory() {
+        return new FetchProductByNameAndCategory();
     }
 
     /**
@@ -319,6 +341,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link FetchPromotedByTimestampResponse }
+     * 
+     */
+    public FetchPromotedByTimestampResponse createFetchPromotedByTimestampResponse() {
+        return new FetchPromotedByTimestampResponse();
+    }
+
+    /**
      * Create an instance of {@link UpdatePropertiesResponse }
      * 
      */
@@ -364,6 +394,14 @@ public class ObjectFactory {
      */
     public UpdateManager createUpdateManager() {
         return new UpdateManager();
+    }
+
+    /**
+     * Create an instance of {@link FetchProductByNameAndCategoryResponse }
+     * 
+     */
+    public FetchProductByNameAndCategoryResponse createFetchProductByNameAndCategoryResponse() {
+        return new FetchProductByNameAndCategoryResponse();
     }
 
     /**
@@ -540,6 +578,14 @@ public class ObjectFactory {
      */
     public UpdateProductResponse createUpdateProductResponse() {
         return new UpdateProductResponse();
+    }
+
+    /**
+     * Create an instance of {@link FetchProductByCategory }
+     * 
+     */
+    public FetchProductByCategory createFetchProductByCategory() {
+        return new FetchProductByCategory();
     }
 
     /**
@@ -1087,6 +1133,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link FetchPromotedByTimestamp }
+     * 
+     */
+    public FetchPromotedByTimestamp createFetchPromotedByTimestamp() {
+        return new FetchPromotedByTimestamp();
+    }
+
+    /**
      * Create an instance of {@link FetchEmployeesByManagerResponse }
      * 
      */
@@ -1445,6 +1499,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link FetchProductByCategory }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.feedme.com/", name = "fetchProductByCategory")
+    public JAXBElement<FetchProductByCategory> createFetchProductByCategory(FetchProductByCategory value) {
+        return new JAXBElement<FetchProductByCategory>(_FetchProductByCategory_QNAME, FetchProductByCategory.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Product }{@code >}}
      * 
      */
@@ -1625,6 +1688,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link FetchProductByCategoryResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.feedme.com/", name = "fetchProductByCategoryResponse")
+    public JAXBElement<FetchProductByCategoryResponse> createFetchProductByCategoryResponse(FetchProductByCategoryResponse value) {
+        return new JAXBElement<FetchProductByCategoryResponse>(_FetchProductByCategoryResponse_QNAME, FetchProductByCategoryResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link RemoveProduct }{@code >}}
      * 
      */
@@ -1649,6 +1721,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice.feedme.com/", name = "updatePromoted")
     public JAXBElement<UpdatePromoted> createUpdatePromoted(UpdatePromoted value) {
         return new JAXBElement<UpdatePromoted>(_UpdatePromoted_QNAME, UpdatePromoted.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link FetchProductByNameAndCategory }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.feedme.com/", name = "fetchProductByNameAndCategory")
+    public JAXBElement<FetchProductByNameAndCategory> createFetchProductByNameAndCategory(FetchProductByNameAndCategory value) {
+        return new JAXBElement<FetchProductByNameAndCategory>(_FetchProductByNameAndCategory_QNAME, FetchProductByNameAndCategory.class, null, value);
     }
 
     /**
@@ -1751,6 +1832,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link FetchPromotedByTimestampResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.feedme.com/", name = "fetchPromotedByTimestampResponse")
+    public JAXBElement<FetchPromotedByTimestampResponse> createFetchPromotedByTimestampResponse(FetchPromotedByTimestampResponse value) {
+        return new JAXBElement<FetchPromotedByTimestampResponse>(_FetchPromotedByTimestampResponse_QNAME, FetchPromotedByTimestampResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link AddPropertie }{@code >}}
      * 
      */
@@ -1811,6 +1901,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice.feedme.com/", name = "updateManager")
     public JAXBElement<UpdateManager> createUpdateManager(UpdateManager value) {
         return new JAXBElement<UpdateManager>(_UpdateManager_QNAME, UpdateManager.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link FetchProductByNameAndCategoryResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.feedme.com/", name = "fetchProductByNameAndCategoryResponse")
+    public JAXBElement<FetchProductByNameAndCategoryResponse> createFetchProductByNameAndCategoryResponse(FetchProductByNameAndCategoryResponse value) {
+        return new JAXBElement<FetchProductByNameAndCategoryResponse>(_FetchProductByNameAndCategoryResponse_QNAME, FetchProductByNameAndCategoryResponse.class, null, value);
     }
 
     /**
@@ -2000,6 +2099,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice.feedme.com/", name = "loginEmployee")
     public JAXBElement<LoginEmployee> createLoginEmployee(LoginEmployee value) {
         return new JAXBElement<LoginEmployee>(_LoginEmployee_QNAME, LoginEmployee.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link FetchPromotedByTimestamp }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.feedme.com/", name = "fetchPromotedByTimestamp")
+    public JAXBElement<FetchPromotedByTimestamp> createFetchPromotedByTimestamp(FetchPromotedByTimestamp value) {
+        return new JAXBElement<FetchPromotedByTimestamp>(_FetchPromotedByTimestamp_QNAME, FetchPromotedByTimestamp.class, null, value);
     }
 
     /**

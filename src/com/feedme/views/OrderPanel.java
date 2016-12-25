@@ -2,17 +2,16 @@ package com.feedme.views;
 
 import com.feedme.Global;
 import com.feedme.process.OrderProcess;
+import com.feedme.service.OrderDetail;
 import com.feedme.service.OrderDetailDTO;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
-import org.jdesktop.swingx.JXList;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -37,18 +36,7 @@ public class OrderPanel extends javax.swing.JPanel {
     public OrderPanel() {
         initComponents();
         jSeparator1.setOrientation(SwingConstants.VERTICAL);
-        model = new DefaultTableModel(new Object[]{"Món ăn", "SL", "Giá"}, 0);
-        listModel = new DefaultListModel();
-        listProcessModel = new DefaultListModel();
-        listNewOrder.setModel(listModel);
-        listProcessingOrder.setModel(listProcessModel);
-        tblOrderDetail.setModel(model);
-        loadOrderTable();
-        loadOrderStatus();
-        initNewOderList();
-        initOderProcessList();
-        reloadNewOrderList();
-        timer.start();
+        orderPanelComponentsContructor();
     }
 
     /**
@@ -369,12 +357,10 @@ public class OrderPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         cbbOrderStatus.setEnabled(false);
         if (evt.getClickCount() == 2) {
-            
             Global.ORDER = OrderProcess.getOrderDetail((String) listProcessingOrder.getSelectedValue());
             loadOrderData(Global.ORDER);
         }
     }//GEN-LAST:event_listProcessingOrderMouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddFood;
@@ -417,38 +403,58 @@ public class OrderPanel extends javax.swing.JPanel {
     }
 
     private void initNewOderList() {
-        
+    
+        new Thread(() -> {
             listModel.clear();
             listModel = OrderProcess.initNewOrderListModel();
             listNewOrder.setModel(listModel);
-        
+        }).start();
     }
 
     private void initOderProcessList() {
-        
+        new Thread(() -> {
             listProcessModel.clear();
             listProcessModel = OrderProcess.initOrderProcessListModel();
             listProcessingOrder.setModel(listProcessModel);
-       
-
+        }).start();
     }
 
-    private void loadOrderData(OrderDetailDTO order) {
-        HashMap<String, String> map = OrderProcess.getInformation(order);
-        txtCustomer.setText(map.get("Name"));
-        txtCustomerAddr.setText(map.get("Address"));
-        txtCustomerTel.setText(map.get("Tel"));
-        cbbOrderStatus.setSelectedItem(order.getStatus().getName());
-        JOptionPane.showMessageDialog(null, "Trạng Thái Đơn Hàng \n" + cbbOrderStatus.getSelectedItem().toString());
+    private void loadOrderData(OrderDetail order) {
+        new Thread(() -> {
+            HashMap<String, String> map = OrderProcess.getInformation(order);
+            txtCustomer.setText(map.get("Name"));
+            txtCustomerAddr.setText(map.get("Address"));
+            txtCustomerTel.setText(map.get("Tel"));
+            cbbOrderStatus.setSelectedItem(order.getStatus().getName());
+            JOptionPane.showMessageDialog(null, "Đơn Hàng Số "+order.getId()+"\nTrạng Thái Đơn Hàng \n" + cbbOrderStatus.getSelectedItem().toString());
+        }).start();
+
     }
 
     private void reloadNewOrderList() {
         timer = new Timer(60000, (ActionEvent e) -> {
-           
-                initNewOderList();
-                initOderProcessList();
-                System.out.println(">_ Auto Update Order running .....");
-            
+            initNewOderList();
+            //initOderProcessList();
+            System.out.println(">_ Auto Update Order running .....");
+
         });
+    }
+
+    //Methods in Contructor
+    private void orderPanelComponentsContructor() {
+        model = new DefaultTableModel(new Object[]{"Món ăn", "SL", "Giá"}, 0);
+        listModel = new DefaultListModel();
+        listProcessModel = new DefaultListModel();
+
+        
+        listNewOrder.setModel(listModel);
+        listProcessingOrder.setModel(listProcessModel);
+        tblOrderDetail.setModel(model);
+        loadOrderTable();
+        loadOrderStatus();
+        initNewOderList();
+        initOderProcessList();
+        reloadNewOrderList();
+        timer.start();
     }
 }

@@ -167,14 +167,6 @@ public class Methods {
         return port.fetchOrderStatusById(orderStatusId);
     }
 
-    
-
-    public static java.util.List<com.feedme.service.OrderDetailDTO> fetchOrdersByEmployee(long fromTime, long toTime, short employeeId) {
-        com.feedme.service.ApplicationSevice_Service service = new com.feedme.service.ApplicationSevice_Service();
-        com.feedme.service.ApplicationSevice port = service.getApplicationSevicePort();
-        return port.fetchOrdersByEmployee(fromTime, toTime, employeeId);
-    }
-
     public static PriviledgeDTO fetchPriviledgeById(short priviledgeId) {
         com.feedme.service.ApplicationSevice_Service service = new com.feedme.service.ApplicationSevice_Service();
         com.feedme.service.ApplicationSevice port = service.getApplicationSevicePort();
@@ -211,11 +203,11 @@ public class Methods {
         return port.fetchPromotedById(promotedId);
     }
 
-    public static java.util.List<com.feedme.service.PromotedDTO> fetchPromoteds() {
-        com.feedme.service.ApplicationSevice_Service service = new com.feedme.service.ApplicationSevice_Service();
-        com.feedme.service.ApplicationSevice port = service.getApplicationSevicePort();
-        return port.fetchPromoteds();
-    }
+//    public static java.util.List<com.feedme.service.PromotedDTO> fetchPromoteds() {
+//        com.feedme.service.ApplicationSevice_Service service = new com.feedme.service.ApplicationSevice_Service();
+//        com.feedme.service.ApplicationSevice port = service.getApplicationSevicePort();
+//        return port.fetchPromoteds();
+//    }
 
     public static PropertyDTO fetchPropertyByKey(java.lang.String key) {
         com.feedme.service.ApplicationSevice_Service service = new com.feedme.service.ApplicationSevice_Service();
@@ -367,9 +359,35 @@ public class Methods {
         return port.updateProperties(propertyUpdate);
     }
 
-    public static java.util.List<com.feedme.service.OrderDetailDTO> fetchOrders(long fromTime, long toTime) {
+//    public static java.util.List<com.feedme.service.OrderDetailDTO> fetchOrders(java.lang.String fromTime, java.lang.String toTime) {
+//        com.feedme.service.ApplicationSevice_Service service = new com.feedme.service.ApplicationSevice_Service();
+//        com.feedme.service.ApplicationSevice port = service.getApplicationSevicePort();
+//        return port.fetchOrders(fromTime, toTime);
+//    }
+//
+//    public static java.util.List<com.feedme.service.OrderDetailDTO> fetchOrdersByEmployee(java.lang.String fromTime, java.lang.String toTime, short employeeId) {
+//        com.feedme.service.ApplicationSevice_Service service = new com.feedme.service.ApplicationSevice_Service();
+//        com.feedme.service.ApplicationSevice port = service.getApplicationSevicePort();
+//        return port.fetchOrdersByEmployee(fromTime, toTime, employeeId);
+//    }
+
+    private static java.util.List<com.feedme.service.Promoted> fetchPromoteds() {
+        com.feedme.service.ApplicationSevice_Service service = new com.feedme.service.ApplicationSevice_Service();
+        com.feedme.service.ApplicationSevice port = service.getApplicationSevicePort();
+        return port.fetchPromoteds();
+    }
+
+    public static java.util.List<com.feedme.service.OrderDetail> fetchOrders(java.lang.String fromTime, java.lang.String toTime) {
         com.feedme.service.ApplicationSevice_Service service = new com.feedme.service.ApplicationSevice_Service();
         com.feedme.service.ApplicationSevice port = service.getApplicationSevicePort();
         return port.fetchOrders(fromTime, toTime);
     }
+
+    public static java.util.List<com.feedme.service.OrderDetail> fetchOrdersByEmployee(java.lang.String fromTime, java.lang.String toTime, short employeeId) {
+        com.feedme.service.ApplicationSevice_Service service = new com.feedme.service.ApplicationSevice_Service();
+        com.feedme.service.ApplicationSevice port = service.getApplicationSevicePort();
+        return port.fetchOrdersByEmployee(fromTime, toTime, employeeId);
+    }
+
+   
 }

@@ -10,12 +10,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for fetchPromotedsResponse complex type.
+ * <p>Java class for fetchPromotedByTimestampResponse complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="fetchPromotedsResponse">
+ * &lt;complexType name="fetchPromotedByTimestampResponse">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
@@ -29,10 +29,10 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "fetchPromotedsResponse", propOrder = {
+@XmlType(name = "fetchPromotedByTimestampResponse", propOrder = {
     "_return"
 })
-public class FetchPromotedsResponse {
+public class FetchPromotedByTimestampResponse {
 
     @XmlElement(name = "return")
     protected List<Promoted> _return;

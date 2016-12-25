@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="return" type="{http://webservice.feedme.com/}promotedDTO" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="return" type="{http://webservice.feedme.com/}promoted" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlType;
 public class FetchPromotedsResponse {
 
     @XmlElement(name = "return")
-    protected List<PromotedDTO> _return;
+    protected List<Promoted> _return;
 
     /**
      * Gets the value of the return property.
@@ -55,13 +55,13 @@ public class FetchPromotedsResponse {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link PromotedDTO }
+     * {@link Promoted }
      * 
      * 
      */
-    public List<PromotedDTO> getReturn() {
+    public List<Promoted> getReturn() {
         if (_return == null) {
-            _return = new ArrayList<PromotedDTO>();
+            _return = new ArrayList<Promoted>();
         }
         return this._return;
     }

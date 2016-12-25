@@ -116,6 +116,14 @@
 
 <xs:element name="fetchPriviledgesResponse" type="tns:fetchPriviledgesResponse" />
 
+<xs:element name="fetchProductByCategory" type="tns:fetchProductByCategory" />
+
+<xs:element name="fetchProductByCategoryResponse" type="tns:fetchProductByCategoryResponse" />
+
+<xs:element name="fetchProductByNameAndCategory" type="tns:fetchProductByNameAndCategory" />
+
+<xs:element name="fetchProductByNameAndCategoryResponse" type="tns:fetchProductByNameAndCategoryResponse" />
+
 <xs:element name="fetchProducts" type="tns:fetchProducts" />
 
 <xs:element name="fetchProductsById" type="tns:fetchProductsById" />
@@ -131,6 +139,10 @@
 <xs:element name="fetchPromotedById" type="tns:fetchPromotedById" />
 
 <xs:element name="fetchPromotedByIdResponse" type="tns:fetchPromotedByIdResponse" />
+
+<xs:element name="fetchPromotedByTimestamp" type="tns:fetchPromotedByTimestamp" />
+
+<xs:element name="fetchPromotedByTimestampResponse" type="tns:fetchPromotedByTimestampResponse" />
 
 <xs:element name="fetchPromoteds" type="tns:fetchPromoteds" />
 
@@ -430,6 +442,18 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="fetchProductByCategory">
+<xs:sequence>
+<xs:element name="category" type="tns:category" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="fetchProductByCategoryResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:productDTO" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="loginEmployee">
 <xs:sequence>
 <xs:element name="manager" type="tns:managerDTO" minOccurs="0" />
@@ -452,6 +476,18 @@
 <xs:complexType name="removePriviledgeResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="fetchPromotedByTimestamp">
+<xs:sequence>
+<xs:element name="timestamp" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="fetchPromotedByTimestampResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:promoted" minOccurs="0" maxOccurs="unbounded" />
 </xs:sequence>
 </xs:complexType>
 
@@ -656,15 +692,15 @@
 
 <xs:complexType name="fetchOrdersByEmployee">
 <xs:sequence>
-<xs:element name="fromTime" type="xs:long" />
-<xs:element name="toTime" type="xs:long" />
+<xs:element name="fromTime" type="xs:string" minOccurs="0" />
+<xs:element name="toTime" type="xs:string" minOccurs="0" />
 <xs:element name="employeeId" type="xs:short" />
 </xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="fetchOrdersByEmployeeResponse">
 <xs:sequence>
-<xs:element name="return" type="tns:orderDetailDTO" minOccurs="0" maxOccurs="unbounded" />
+<xs:element name="return" type="tns:orderDetail" minOccurs="0" maxOccurs="unbounded" />
 </xs:sequence>
 </xs:complexType>
 
@@ -740,26 +776,14 @@
 
 <xs:complexType name="fetchOrders">
 <xs:sequence>
-<xs:element name="fromTime" type="xs:long" />
-<xs:element name="toTime" type="xs:long" />
+<xs:element name="fromTime" type="xs:string" minOccurs="0" />
+<xs:element name="toTime" type="xs:string" minOccurs="0" />
 </xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="fetchOrdersResponse">
 <xs:sequence>
-<xs:element name="return" type="tns:orderDetailDTO" minOccurs="0" maxOccurs="unbounded" />
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="addPriviledge">
-<xs:sequence>
-<xs:element name="priviledge" type="tns:priviledgeDTO" minOccurs="0" />
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="addPriviledgeResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean" />
+<xs:element name="return" type="tns:orderDetail" minOccurs="0" maxOccurs="unbounded" />
 </xs:sequence>
 </xs:complexType>
 
@@ -770,6 +794,18 @@
 </xs:complexType>
 
 <xs:complexType name="addProductResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addPriviledge">
+<xs:sequence>
+<xs:element name="priviledge" type="tns:priviledgeDTO" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addPriviledgeResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean" />
 </xs:sequence>
@@ -799,18 +835,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="fetchOrderById">
-<xs:sequence>
-<xs:element name="orderId" type="xs:int" />
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="fetchOrderByIdResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:orderDetailDTO" minOccurs="0" />
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="addCategory">
 <xs:sequence>
 <xs:element name="category" type="tns:categoryDTO" minOccurs="0" />
@@ -832,6 +856,18 @@
 <xs:complexType name="removeLogResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="fetchOrderById">
+<xs:sequence>
+<xs:element name="orderId" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="fetchOrderByIdResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:orderDetailDTO" minOccurs="0" />
 </xs:sequence>
 </xs:complexType>
 
@@ -938,7 +974,7 @@
 
 <xs:complexType name="fetchPromotedsResponse">
 <xs:sequence>
-<xs:element name="return" type="tns:promotedDTO" minOccurs="0" maxOccurs="unbounded" />
+<xs:element name="return" type="tns:promoted" minOccurs="0" maxOccurs="unbounded" />
 </xs:sequence>
 </xs:complexType>
 
@@ -1000,16 +1036,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="fetchProducts">
-<xs:sequence />
-</xs:complexType>
-
-<xs:complexType name="fetchProductsResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:productDTO" minOccurs="0" maxOccurs="unbounded" />
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="fetchCategoryById">
 <xs:sequence>
 <xs:element name="categoryId" type="xs:short" />
@@ -1019,6 +1045,16 @@
 <xs:complexType name="fetchCategoryByIdResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:categoryDTO" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="fetchProducts">
+<xs:sequence />
+</xs:complexType>
+
+<xs:complexType name="fetchProductsResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:productDTO" minOccurs="0" maxOccurs="unbounded" />
 </xs:sequence>
 </xs:complexType>
 
@@ -1137,6 +1173,19 @@
 <xs:complexType name="fetchPropertiesResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:propertyDTO" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="fetchProductByNameAndCategory">
+<xs:sequence>
+<xs:element name="productName" type="xs:string" minOccurs="0" />
+<xs:element name="category" type="tns:category" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="fetchProductByNameAndCategoryResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:productDTO" minOccurs="0" maxOccurs="unbounded" />
 </xs:sequence>
 </xs:complexType>
 

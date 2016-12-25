@@ -42,6 +42,435 @@ public interface ApplicationSevice {
 
     /**
      * 
+     * @param productId
+     * @return
+     *     returns com.feedme.service.ProductDTO
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "fetchProductsById", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchProductsById")
+    @ResponseWrapper(localName = "fetchProductsByIdResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchProductsByIdResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchProductsByIdRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchProductsByIdResponse")
+    public ProductDTO fetchProductsById(
+        @WebParam(name = "productId", targetNamespace = "")
+        short productId);
+
+    /**
+     * 
+     * @param productName
+     * @return
+     *     returns java.util.List<com.feedme.service.ProductDTO>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "fetchProductsByName", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchProductsByName")
+    @ResponseWrapper(localName = "fetchProductsByNameResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchProductsByNameResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchProductsByNameRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchProductsByNameResponse")
+    public List<ProductDTO> fetchProductsByName(
+        @WebParam(name = "productName", targetNamespace = "")
+        String productName);
+
+    /**
+     * 
+     * @param category
+     * @return
+     *     returns java.util.List<com.feedme.service.ProductDTO>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "fetchProductByCategory", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchProductByCategory")
+    @ResponseWrapper(localName = "fetchProductByCategoryResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchProductByCategoryResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchProductByCategoryRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchProductByCategoryResponse")
+    public List<ProductDTO> fetchProductByCategory(
+        @WebParam(name = "category", targetNamespace = "")
+        Category category);
+
+    /**
+     * 
+     * @param category
+     * @param productName
+     * @return
+     *     returns java.util.List<com.feedme.service.ProductDTO>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "fetchProductByNameAndCategory", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchProductByNameAndCategory")
+    @ResponseWrapper(localName = "fetchProductByNameAndCategoryResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchProductByNameAndCategoryResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchProductByNameAndCategoryRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchProductByNameAndCategoryResponse")
+    public List<ProductDTO> fetchProductByNameAndCategory(
+        @WebParam(name = "productName", targetNamespace = "")
+        String productName,
+        @WebParam(name = "category", targetNamespace = "")
+        Category category);
+
+    /**
+     * 
+     * @param product
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "addProduct", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.AddProduct")
+    @ResponseWrapper(localName = "addProductResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.AddProductResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/addProductRequest", output = "http://webservice.feedme.com/ApplicationSevice/addProductResponse")
+    public boolean addProduct(
+        @WebParam(name = "product", targetNamespace = "")
+        ProductDTO product);
+
+    /**
+     * 
+     * @param updateProduct
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "updateProduct", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.UpdateProduct")
+    @ResponseWrapper(localName = "updateProductResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.UpdateProductResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/updateProductRequest", output = "http://webservice.feedme.com/ApplicationSevice/updateProductResponse")
+    public boolean updateProduct(
+        @WebParam(name = "updateProduct", targetNamespace = "")
+        ProductDTO updateProduct);
+
+    /**
+     * 
+     * @param productId
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "removeProduct", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.RemoveProduct")
+    @ResponseWrapper(localName = "removeProductResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.RemoveProductResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/removeProductRequest", output = "http://webservice.feedme.com/ApplicationSevice/removeProductResponse")
+    public boolean removeProduct(
+        @WebParam(name = "productId", targetNamespace = "")
+        short productId);
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<com.feedme.service.Promoted>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "fetchPromoteds", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchPromoteds")
+    @ResponseWrapper(localName = "fetchPromotedsResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchPromotedsResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchPromotedsRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchPromotedsResponse")
+    public List<Promoted> fetchPromoteds();
+
+    /**
+     * 
+     * @param timestamp
+     * @return
+     *     returns java.util.List<com.feedme.service.Promoted>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "fetchPromotedByTimestamp", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchPromotedByTimestamp")
+    @ResponseWrapper(localName = "fetchPromotedByTimestampResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchPromotedByTimestampResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchPromotedByTimestampRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchPromotedByTimestampResponse")
+    public List<Promoted> fetchPromotedByTimestamp(
+        @WebParam(name = "timestamp", targetNamespace = "")
+        String timestamp);
+
+    /**
+     * 
+     * @param promotedId
+     * @return
+     *     returns com.feedme.service.PromotedDTO
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "fetchPromotedById", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchPromotedById")
+    @ResponseWrapper(localName = "fetchPromotedByIdResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchPromotedByIdResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchPromotedByIdRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchPromotedByIdResponse")
+    public PromotedDTO fetchPromotedById(
+        @WebParam(name = "promotedId", targetNamespace = "")
+        int promotedId);
+
+    /**
+     * 
+     * @param promoted
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "addPromoted", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.AddPromoted")
+    @ResponseWrapper(localName = "addPromotedResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.AddPromotedResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/addPromotedRequest", output = "http://webservice.feedme.com/ApplicationSevice/addPromotedResponse")
+    public boolean addPromoted(
+        @WebParam(name = "promoted", targetNamespace = "")
+        PromotedDTO promoted);
+
+    /**
+     * 
+     * @param promotedUpdate
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "updatePromoted", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.UpdatePromoted")
+    @ResponseWrapper(localName = "updatePromotedResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.UpdatePromotedResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/updatePromotedRequest", output = "http://webservice.feedme.com/ApplicationSevice/updatePromotedResponse")
+    public boolean updatePromoted(
+        @WebParam(name = "promotedUpdate", targetNamespace = "")
+        PromotedDTO promotedUpdate);
+
+    /**
+     * 
+     * @param promotedId
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "removePromoted", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.RemovePromoted")
+    @ResponseWrapper(localName = "removePromotedResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.RemovePromotedResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/removePromotedRequest", output = "http://webservice.feedme.com/ApplicationSevice/removePromotedResponse")
+    public boolean removePromoted(
+        @WebParam(name = "promotedId", targetNamespace = "")
+        int promotedId);
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<com.feedme.service.PropertyDTO>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "fetchProperties", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchProperties")
+    @ResponseWrapper(localName = "fetchPropertiesResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchPropertiesResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchPropertiesRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchPropertiesResponse")
+    public List<PropertyDTO> fetchProperties();
+
+    /**
+     * 
+     * @param key
+     * @return
+     *     returns com.feedme.service.PropertyDTO
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "fetchPropertieByKey", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchPropertieByKey")
+    @ResponseWrapper(localName = "fetchPropertieByKeyResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchPropertieByKeyResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchPropertieByKeyRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchPropertieByKeyResponse")
+    public PropertyDTO fetchPropertieByKey(
+        @WebParam(name = "key", targetNamespace = "")
+        String key);
+
+    /**
+     * 
+     * @param category
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "addCategory", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.AddCategory")
+    @ResponseWrapper(localName = "addCategoryResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.AddCategoryResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/addCategoryRequest", output = "http://webservice.feedme.com/ApplicationSevice/addCategoryResponse")
+    public boolean addCategory(
+        @WebParam(name = "category", targetNamespace = "")
+        CategoryDTO category);
+
+    /**
+     * 
+     * @param category
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "updateCategory", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.UpdateCategory")
+    @ResponseWrapper(localName = "updateCategoryResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.UpdateCategoryResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/updateCategoryRequest", output = "http://webservice.feedme.com/ApplicationSevice/updateCategoryResponse")
+    public boolean updateCategory(
+        @WebParam(name = "category", targetNamespace = "")
+        CategoryDTO category);
+
+    /**
+     * 
+     * @param categoryId
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "removeCategory", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.RemoveCategory")
+    @ResponseWrapper(localName = "removeCategoryResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.RemoveCategoryResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/removeCategoryRequest", output = "http://webservice.feedme.com/ApplicationSevice/removeCategoryResponse")
+    public boolean removeCategory(
+        @WebParam(name = "categoryId", targetNamespace = "")
+        short categoryId);
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<com.feedme.service.CategoryDTO>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "fetchCategories", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchCategories")
+    @ResponseWrapper(localName = "fetchCategoriesResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchCategoriesResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchCategoriesRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchCategoriesResponse")
+    public List<CategoryDTO> fetchCategories();
+
+    /**
+     * 
+     * @param categoryId
+     * @return
+     *     returns com.feedme.service.CategoryDTO
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "fetchCategoryById", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchCategoryById")
+    @ResponseWrapper(localName = "fetchCategoryByIdResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchCategoryByIdResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchCategoryByIdRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchCategoryByIdResponse")
+    public CategoryDTO fetchCategoryById(
+        @WebParam(name = "categoryId", targetNamespace = "")
+        short categoryId);
+
+    /**
+     * 
+     * @param employee
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "addEmployee", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.AddEmployee")
+    @ResponseWrapper(localName = "addEmployeeResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.AddEmployeeResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/addEmployeeRequest", output = "http://webservice.feedme.com/ApplicationSevice/addEmployeeResponse")
+    public boolean addEmployee(
+        @WebParam(name = "employee", targetNamespace = "")
+        EmployeeDTO employee);
+
+    /**
+     * 
+     * @param logId
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "removeLog", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.RemoveLog")
+    @ResponseWrapper(localName = "removeLogResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.RemoveLogResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/removeLogRequest", output = "http://webservice.feedme.com/ApplicationSevice/removeLogResponse")
+    public boolean removeLog(
+        @WebParam(name = "logId", targetNamespace = "")
+        int logId);
+
+    /**
+     * 
+     * @param fromTime
+     * @param toTime
+     * @return
+     *     returns java.util.List<com.feedme.service.LogDTO>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "fetchLogs", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchLogs")
+    @ResponseWrapper(localName = "fetchLogsResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchLogsResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchLogsRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchLogsResponse")
+    public List<LogDTO> fetchLogs(
+        @WebParam(name = "fromTime", targetNamespace = "")
+        long fromTime,
+        @WebParam(name = "toTime", targetNamespace = "")
+        long toTime);
+
+    /**
+     * 
+     * @param employeeId
+     * @return
+     *     returns java.util.List<com.feedme.service.LogDTO>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "fetchLogsByEmployee", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchLogsByEmployee")
+    @ResponseWrapper(localName = "fetchLogsByEmployeeResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchLogsByEmployeeResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchLogsByEmployeeRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchLogsByEmployeeResponse")
+    public List<LogDTO> fetchLogsByEmployee(
+        @WebParam(name = "employeeId", targetNamespace = "")
+        short employeeId);
+
+    /**
+     * 
+     * @param logId
+     * @return
+     *     returns com.feedme.service.LogDTO
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "fetchLogById", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchLogById")
+    @ResponseWrapper(localName = "fetchLogByIdResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchLogByIdResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchLogByIdRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchLogByIdResponse")
+    public LogDTO fetchLogById(
+        @WebParam(name = "logId", targetNamespace = "")
+        int logId);
+
+    /**
+     * 
+     * @param manager
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "addManager", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.AddManager")
+    @ResponseWrapper(localName = "addManagerResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.AddManagerResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/addManagerRequest", output = "http://webservice.feedme.com/ApplicationSevice/addManagerResponse")
+    public boolean addManager(
+        @WebParam(name = "manager", targetNamespace = "")
+        ManagerDTO manager);
+
+    /**
+     * 
+     * @param manager
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "updateManager", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.UpdateManager")
+    @ResponseWrapper(localName = "updateManagerResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.UpdateManagerResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/updateManagerRequest", output = "http://webservice.feedme.com/ApplicationSevice/updateManagerResponse")
+    public boolean updateManager(
+        @WebParam(name = "manager", targetNamespace = "")
+        ManagerDTO manager);
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<com.feedme.service.ManagerDTO>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "fetchManagers", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchManagers")
+    @ResponseWrapper(localName = "fetchManagersResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchManagersResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchManagersRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchManagersResponse")
+    public List<ManagerDTO> fetchManagers();
+
+    /**
+     * 
+     * @param managerId
+     * @return
+     *     returns com.feedme.service.ManagerDTO
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "fetchManagerById", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchManagerById")
+    @ResponseWrapper(localName = "fetchManagerByIdResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchManagerByIdResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchManagerByIdRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchManagerByIdResponse")
+    public ManagerDTO fetchManagerById(
+        @WebParam(name = "managerId", targetNamespace = "")
+        short managerId);
+
+    /**
+     * 
      * @param order
      * @return
      *     returns boolean
@@ -90,18 +519,18 @@ public interface ApplicationSevice {
      * @param fromTime
      * @param toTime
      * @return
-     *     returns java.util.List<com.feedme.service.OrderDetailDTO>
+     *     returns java.util.List<com.feedme.service.OrderDetail>
      */
     @WebMethod
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "fetchOrders", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchOrders")
     @ResponseWrapper(localName = "fetchOrdersResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchOrdersResponse")
     @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchOrdersRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchOrdersResponse")
-    public List<OrderDetailDTO> fetchOrders(
+    public List<OrderDetail> fetchOrders(
         @WebParam(name = "fromTime", targetNamespace = "")
-        long fromTime,
+        String fromTime,
         @WebParam(name = "toTime", targetNamespace = "")
-        long toTime);
+        String toTime);
 
     /**
      * 
@@ -109,18 +538,18 @@ public interface ApplicationSevice {
      * @param employeeId
      * @param toTime
      * @return
-     *     returns java.util.List<com.feedme.service.OrderDetailDTO>
+     *     returns java.util.List<com.feedme.service.OrderDetail>
      */
     @WebMethod
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "fetchOrdersByEmployee", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchOrdersByEmployee")
     @ResponseWrapper(localName = "fetchOrdersByEmployeeResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchOrdersByEmployeeResponse")
     @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchOrdersByEmployeeRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchOrdersByEmployeeResponse")
-    public List<OrderDetailDTO> fetchOrdersByEmployee(
+    public List<OrderDetail> fetchOrdersByEmployee(
         @WebParam(name = "fromTime", targetNamespace = "")
-        long fromTime,
+        String fromTime,
         @WebParam(name = "toTime", targetNamespace = "")
-        long toTime,
+        String toTime,
         @WebParam(name = "employeeId", targetNamespace = "")
         short employeeId);
 
@@ -345,249 +774,18 @@ public interface ApplicationSevice {
 
     /**
      * 
-     * @param productId
-     * @return
-     *     returns com.feedme.service.ProductDTO
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "fetchProductsById", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchProductsById")
-    @ResponseWrapper(localName = "fetchProductsByIdResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchProductsByIdResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchProductsByIdRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchProductsByIdResponse")
-    public ProductDTO fetchProductsById(
-        @WebParam(name = "productId", targetNamespace = "")
-        short productId);
-
-    /**
-     * 
-     * @param productName
-     * @return
-     *     returns java.util.List<com.feedme.service.ProductDTO>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "fetchProductsByName", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchProductsByName")
-    @ResponseWrapper(localName = "fetchProductsByNameResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchProductsByNameResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchProductsByNameRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchProductsByNameResponse")
-    public List<ProductDTO> fetchProductsByName(
-        @WebParam(name = "productName", targetNamespace = "")
-        String productName);
-
-    /**
-     * 
-     * @param product
+     * @param propertyUpdate
      * @return
      *     returns boolean
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "addProduct", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.AddProduct")
-    @ResponseWrapper(localName = "addProductResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.AddProductResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/addProductRequest", output = "http://webservice.feedme.com/ApplicationSevice/addProductResponse")
-    public boolean addProduct(
-        @WebParam(name = "product", targetNamespace = "")
-        ProductDTO product);
-
-    /**
-     * 
-     * @param updateProduct
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "updateProduct", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.UpdateProduct")
-    @ResponseWrapper(localName = "updateProductResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.UpdateProductResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/updateProductRequest", output = "http://webservice.feedme.com/ApplicationSevice/updateProductResponse")
-    public boolean updateProduct(
-        @WebParam(name = "updateProduct", targetNamespace = "")
-        ProductDTO updateProduct);
-
-    /**
-     * 
-     * @param productId
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "removeProduct", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.RemoveProduct")
-    @ResponseWrapper(localName = "removeProductResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.RemoveProductResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/removeProductRequest", output = "http://webservice.feedme.com/ApplicationSevice/removeProductResponse")
-    public boolean removeProduct(
-        @WebParam(name = "productId", targetNamespace = "")
-        short productId);
-
-    /**
-     * 
-     * @return
-     *     returns java.util.List<com.feedme.service.PromotedDTO>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "fetchPromoteds", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchPromoteds")
-    @ResponseWrapper(localName = "fetchPromotedsResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchPromotedsResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchPromotedsRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchPromotedsResponse")
-    public List<PromotedDTO> fetchPromoteds();
-
-    /**
-     * 
-     * @param promotedId
-     * @return
-     *     returns com.feedme.service.PromotedDTO
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "fetchPromotedById", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchPromotedById")
-    @ResponseWrapper(localName = "fetchPromotedByIdResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchPromotedByIdResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchPromotedByIdRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchPromotedByIdResponse")
-    public PromotedDTO fetchPromotedById(
-        @WebParam(name = "promotedId", targetNamespace = "")
-        int promotedId);
-
-    /**
-     * 
-     * @param promoted
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "addPromoted", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.AddPromoted")
-    @ResponseWrapper(localName = "addPromotedResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.AddPromotedResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/addPromotedRequest", output = "http://webservice.feedme.com/ApplicationSevice/addPromotedResponse")
-    public boolean addPromoted(
-        @WebParam(name = "promoted", targetNamespace = "")
-        PromotedDTO promoted);
-
-    /**
-     * 
-     * @param promotedUpdate
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "updatePromoted", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.UpdatePromoted")
-    @ResponseWrapper(localName = "updatePromotedResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.UpdatePromotedResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/updatePromotedRequest", output = "http://webservice.feedme.com/ApplicationSevice/updatePromotedResponse")
-    public boolean updatePromoted(
-        @WebParam(name = "promotedUpdate", targetNamespace = "")
-        PromotedDTO promotedUpdate);
-
-    /**
-     * 
-     * @param promotedId
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "removePromoted", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.RemovePromoted")
-    @ResponseWrapper(localName = "removePromotedResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.RemovePromotedResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/removePromotedRequest", output = "http://webservice.feedme.com/ApplicationSevice/removePromotedResponse")
-    public boolean removePromoted(
-        @WebParam(name = "promotedId", targetNamespace = "")
-        int promotedId);
-
-    /**
-     * 
-     * @return
-     *     returns java.util.List<com.feedme.service.PropertyDTO>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "fetchProperties", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchProperties")
-    @ResponseWrapper(localName = "fetchPropertiesResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchPropertiesResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchPropertiesRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchPropertiesResponse")
-    public List<PropertyDTO> fetchProperties();
-
-    /**
-     * 
-     * @param key
-     * @return
-     *     returns com.feedme.service.PropertyDTO
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "fetchPropertieByKey", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchPropertieByKey")
-    @ResponseWrapper(localName = "fetchPropertieByKeyResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchPropertieByKeyResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchPropertieByKeyRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchPropertieByKeyResponse")
-    public PropertyDTO fetchPropertieByKey(
-        @WebParam(name = "key", targetNamespace = "")
-        String key);
-
-    /**
-     * 
-     * @param category
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "updateCategory", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.UpdateCategory")
-    @ResponseWrapper(localName = "updateCategoryResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.UpdateCategoryResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/updateCategoryRequest", output = "http://webservice.feedme.com/ApplicationSevice/updateCategoryResponse")
-    public boolean updateCategory(
-        @WebParam(name = "category", targetNamespace = "")
-        CategoryDTO category);
-
-    /**
-     * 
-     * @param categoryId
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "removeCategory", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.RemoveCategory")
-    @ResponseWrapper(localName = "removeCategoryResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.RemoveCategoryResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/removeCategoryRequest", output = "http://webservice.feedme.com/ApplicationSevice/removeCategoryResponse")
-    public boolean removeCategory(
-        @WebParam(name = "categoryId", targetNamespace = "")
-        short categoryId);
-
-    /**
-     * 
-     * @return
-     *     returns java.util.List<com.feedme.service.CategoryDTO>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "fetchCategories", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchCategories")
-    @ResponseWrapper(localName = "fetchCategoriesResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchCategoriesResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchCategoriesRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchCategoriesResponse")
-    public List<CategoryDTO> fetchCategories();
-
-    /**
-     * 
-     * @param categoryId
-     * @return
-     *     returns com.feedme.service.CategoryDTO
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "fetchCategoryById", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchCategoryById")
-    @ResponseWrapper(localName = "fetchCategoryByIdResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchCategoryByIdResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchCategoryByIdRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchCategoryByIdResponse")
-    public CategoryDTO fetchCategoryById(
-        @WebParam(name = "categoryId", targetNamespace = "")
-        short categoryId);
-
-    /**
-     * 
-     * @param employee
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "addEmployee", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.AddEmployee")
-    @ResponseWrapper(localName = "addEmployeeResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.AddEmployeeResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/addEmployeeRequest", output = "http://webservice.feedme.com/ApplicationSevice/addEmployeeResponse")
-    public boolean addEmployee(
-        @WebParam(name = "employee", targetNamespace = "")
-        EmployeeDTO employee);
+    @RequestWrapper(localName = "updateProperties", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.UpdateProperties")
+    @ResponseWrapper(localName = "updatePropertiesResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.UpdatePropertiesResponse")
+    @Action(input = "http://webservice.feedme.com/ApplicationSevice/updatePropertiesRequest", output = "http://webservice.feedme.com/ApplicationSevice/updatePropertiesResponse")
+    public boolean updateProperties(
+        @WebParam(name = "propertyUpdate", targetNamespace = "")
+        PropertyDTO propertyUpdate);
 
     /**
      * 
@@ -648,36 +846,6 @@ public interface ApplicationSevice {
 
     /**
      * 
-     * @param category
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "addCategory", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.AddCategory")
-    @ResponseWrapper(localName = "addCategoryResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.AddCategoryResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/addCategoryRequest", output = "http://webservice.feedme.com/ApplicationSevice/addCategoryResponse")
-    public boolean addCategory(
-        @WebParam(name = "category", targetNamespace = "")
-        CategoryDTO category);
-
-    /**
-     * 
-     * @param propertyUpdate
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "updateProperties", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.UpdateProperties")
-    @ResponseWrapper(localName = "updatePropertiesResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.UpdatePropertiesResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/updatePropertiesRequest", output = "http://webservice.feedme.com/ApplicationSevice/updatePropertiesResponse")
-    public boolean updateProperties(
-        @WebParam(name = "propertyUpdate", targetNamespace = "")
-        PropertyDTO propertyUpdate);
-
-    /**
-     * 
      * @param employeeId
      * @return
      *     returns com.feedme.service.EmployeeDTO
@@ -735,126 +903,6 @@ public interface ApplicationSevice {
     public boolean updateLog(
         @WebParam(name = "log", targetNamespace = "")
         LogDTO log);
-
-    /**
-     * 
-     * @param logId
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "removeLog", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.RemoveLog")
-    @ResponseWrapper(localName = "removeLogResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.RemoveLogResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/removeLogRequest", output = "http://webservice.feedme.com/ApplicationSevice/removeLogResponse")
-    public boolean removeLog(
-        @WebParam(name = "logId", targetNamespace = "")
-        int logId);
-
-    /**
-     * 
-     * @param fromTime
-     * @param toTime
-     * @return
-     *     returns java.util.List<com.feedme.service.LogDTO>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "fetchLogs", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchLogs")
-    @ResponseWrapper(localName = "fetchLogsResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchLogsResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchLogsRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchLogsResponse")
-    public List<LogDTO> fetchLogs(
-        @WebParam(name = "fromTime", targetNamespace = "")
-        long fromTime,
-        @WebParam(name = "toTime", targetNamespace = "")
-        long toTime);
-
-    /**
-     * 
-     * @param employeeId
-     * @return
-     *     returns java.util.List<com.feedme.service.LogDTO>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "fetchLogsByEmployee", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchLogsByEmployee")
-    @ResponseWrapper(localName = "fetchLogsByEmployeeResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchLogsByEmployeeResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchLogsByEmployeeRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchLogsByEmployeeResponse")
-    public List<LogDTO> fetchLogsByEmployee(
-        @WebParam(name = "employeeId", targetNamespace = "")
-        short employeeId);
-
-    /**
-     * 
-     * @param logId
-     * @return
-     *     returns com.feedme.service.LogDTO
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "fetchLogById", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchLogById")
-    @ResponseWrapper(localName = "fetchLogByIdResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchLogByIdResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchLogByIdRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchLogByIdResponse")
-    public LogDTO fetchLogById(
-        @WebParam(name = "logId", targetNamespace = "")
-        int logId);
-
-    /**
-     * 
-     * @param manager
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "addManager", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.AddManager")
-    @ResponseWrapper(localName = "addManagerResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.AddManagerResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/addManagerRequest", output = "http://webservice.feedme.com/ApplicationSevice/addManagerResponse")
-    public boolean addManager(
-        @WebParam(name = "manager", targetNamespace = "")
-        ManagerDTO manager);
-
-    /**
-     * 
-     * @param manager
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "updateManager", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.UpdateManager")
-    @ResponseWrapper(localName = "updateManagerResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.UpdateManagerResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/updateManagerRequest", output = "http://webservice.feedme.com/ApplicationSevice/updateManagerResponse")
-    public boolean updateManager(
-        @WebParam(name = "manager", targetNamespace = "")
-        ManagerDTO manager);
-
-    /**
-     * 
-     * @return
-     *     returns java.util.List<com.feedme.service.ManagerDTO>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "fetchManagers", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchManagers")
-    @ResponseWrapper(localName = "fetchManagersResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchManagersResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchManagersRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchManagersResponse")
-    public List<ManagerDTO> fetchManagers();
-
-    /**
-     * 
-     * @param managerId
-     * @return
-     *     returns com.feedme.service.ManagerDTO
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "fetchManagerById", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchManagerById")
-    @ResponseWrapper(localName = "fetchManagerByIdResponse", targetNamespace = "http://webservice.feedme.com/", className = "com.feedme.service.FetchManagerByIdResponse")
-    @Action(input = "http://webservice.feedme.com/ApplicationSevice/fetchManagerByIdRequest", output = "http://webservice.feedme.com/ApplicationSevice/fetchManagerByIdResponse")
-    public ManagerDTO fetchManagerById(
-        @WebParam(name = "managerId", targetNamespace = "")
-        short managerId);
 
     /**
      * 

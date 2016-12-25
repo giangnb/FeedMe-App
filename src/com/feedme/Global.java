@@ -9,6 +9,7 @@ import com.feedme.info.Information;
 import com.feedme.service.CategoryDTO;
 import com.feedme.service.EmployeeDTO;
 import com.feedme.service.ManagerDTO;
+import com.feedme.service.OrderDetail;
 import com.feedme.service.OrderDetailDTO;
 import com.feedme.service.OrderStatus;
 import com.feedme.service.ProductDTO;
@@ -26,7 +27,7 @@ public class Global {
 
     public static ManagerDTO MANAGER;
     public static EmployeeDTO EMPLOYEE;
-    public static OrderDetailDTO ORDER;
+    public static OrderDetail ORDER;
     public static Information INFO;
     public static Double DISCOUNT_VALUE;
     public static DefaultListModel CATEGORY_LIST_MODEL;
@@ -34,9 +35,9 @@ public class Global {
     public static DefaultTableModel ORDERPROD_TABLE_MODEL;
     public static List<ProductDTO> PRODUCT_LIST;
     public static List<CategoryDTO> CATEGORY_LIST;
-    public static List<OrderDetailDTO> ORDER_LIST;
-    public static List<OrderDetailDTO> ORDER_PROCESSING_LIST;
-    public static List<OrderDetailDTO> ORDER_NEW_LIST;
+    public static List<OrderDetail> ORDER_LIST;
+    public static List<OrderDetail> ORDER_PROCESSING_LIST;
+    public static List<OrderDetail> ORDER_NEW_LIST;
     public static List<OrderStatus> ORDER_STATUS_LIST;
     public static boolean IS_SELECTED_PRODUCT;
     
