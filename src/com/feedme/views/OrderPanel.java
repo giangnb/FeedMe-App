@@ -2,8 +2,12 @@ package com.feedme.views;
 
 import com.feedme.Global;
 import com.feedme.process.OrderProcess;
+import com.feedme.service.Employee;
+import com.feedme.service.EmployeeDTO;
 import com.feedme.service.OrderDetail;
 import com.feedme.service.OrderDetailDTO;
+import com.feedme.service.OrderStatus;
+import com.feedme.ws.Methods;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.util.HashMap;
@@ -350,12 +354,18 @@ public class OrderPanel extends javax.swing.JPanel {
 
     private void btnReceiveOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReceiveOrderActionPerformed
         // TODO add your handling code here:
+        OrderDetail order = Global.ORDER;
+        Employee em = Global.EMPLOYEE.getEmployee();
+        Global.ORDER_STATUS = OrderProcess.getOrderStatus((String) cbbOrderStatus.getSelectedItem());
+        receivedOrderByEmployee(order, em, Global.ORDER_STATUS);
+        //  JOptionPane.showMessageDialog(null, Global.ORDER_STATUS.getName());
 
     }//GEN-LAST:event_btnReceiveOrderActionPerformed
 
     private void listProcessingOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listProcessingOrderMouseClicked
         // TODO add your handling code here:
         cbbOrderStatus.setEnabled(false);
+        btnReceiveOrder.setEnabled(true);
         if (evt.getClickCount() == 2) {
             Global.ORDER = OrderProcess.getOrderDetail((String) listProcessingOrder.getSelectedValue());
             loadOrderData(Global.ORDER);
@@ -403,7 +413,7 @@ public class OrderPanel extends javax.swing.JPanel {
     }
 
     private void initNewOderList() {
-    
+
         new Thread(() -> {
             listModel.clear();
             listModel = OrderProcess.initNewOrderListModel();
@@ -426,8 +436,10 @@ public class OrderPanel extends javax.swing.JPanel {
             txtCustomerAddr.setText(map.get("Address"));
             txtCustomerTel.setText(map.get("Tel"));
             cbbOrderStatus.setSelectedItem(order.getStatus().getName());
-            JOptionPane.showMessageDialog(null, "Đơn Hàng Số "+order.getId()+"\nTrạng Thái Đơn Hàng \n" + cbbOrderStatus.getSelectedItem().toString());
+            JOptionPane.showMessageDialog(null, "Đơn Hàng Số " + order.getId() + "\nTrạng Thái Đơn Hàng \n" + cbbOrderStatus.getSelectedItem().toString());
         }).start();
+        cbbOrderStatus.setEnabled(true);
+        btnReceiveOrder.setEnabled(true);
 
     }
 
@@ -446,7 +458,6 @@ public class OrderPanel extends javax.swing.JPanel {
         listModel = new DefaultListModel();
         listProcessModel = new DefaultListModel();
 
-        
         listNewOrder.setModel(listModel);
         listProcessingOrder.setModel(listProcessModel);
         tblOrderDetail.setModel(model);
@@ -455,6 +466,19 @@ public class OrderPanel extends javax.swing.JPanel {
         initNewOderList();
         initOderProcessList();
         reloadNewOrderList();
+        cbbOrderStatus.setEnabled(false);
+        btnReceiveOrder.setEnabled(false);
         timer.start();
+    }
+
+    private void receivedOrderByEmployee(OrderDetail order, Employee em, OrderStatus ORDER_STATUS) {
+        boolean result = OrderProcess.receivesOrder(order, em, ORDER_STATUS, "", 0.0);
+        if (result) {
+            JOptionPane.showMessageDialog(null, "Đơn hàng " + order.getId() + "\n Đã được nhận bởi nhân viên " + em.getUsername());
+            initNewOderList();
+            initOderProcessList();
+        } else {
+            JOptionPane.showMessageDialog(null, "Nhận đơn hàng lỗi. \n ");
+        }
     }
 }

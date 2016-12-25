@@ -29,6 +29,7 @@ public class Global {
     public static EmployeeDTO EMPLOYEE;
     public static OrderDetail ORDER;
     public static Information INFO;
+    public static OrderStatus ORDER_STATUS;
     public static Double DISCOUNT_VALUE;
     public static DefaultListModel CATEGORY_LIST_MODEL;
     public static DefaultTableModel PRODBYCATEG_TABLE_MODEL;
