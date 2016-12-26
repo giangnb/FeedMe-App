@@ -180,6 +180,7 @@ public class OrderInternalFrame extends javax.swing.JDialog {
         //Submit Button
         Global.IS_SELECTED_PRODUCT = isSelectedProduct();
         JOptionPane.showMessageDialog(null, "Value is " + Global.IS_SELECTED_PRODUCT);
+        getSelectFoodinOrderInternal(Global.IS_SELECTED_PRODUCT);
     }//GEN-LAST:event_btnSumitActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -254,6 +255,15 @@ public class OrderInternalFrame extends javax.swing.JDialog {
     private int getNumberOfFoods() {
         int numOfFoods = Integer.parseInt(Global.PRODBYCATEG_TABLE_MODEL.getValueAt(0, 3).toString());
         return numOfFoods;
+    }
+
+    private void getSelectFoodinOrderInternal(boolean IS_SELECTED_PRODUCT) {
+        for (int i = 0;i<Global.PRODBYCATEG_TABLE_MODEL.getRowCount();i++) {
+           if (isSelectedProduct() ) {
+               Global.ORDERPROD_TABLE_MODEL = Global.PRODBYCATEG_TABLE_MODEL;
+           }
+        }
+     
     }
 
 }

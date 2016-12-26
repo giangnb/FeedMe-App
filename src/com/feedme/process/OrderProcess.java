@@ -6,14 +6,12 @@
 package com.feedme.process;
 
 import com.feedme.Global;
-import com.feedme.dto.OrderDTO;
 import com.feedme.info.Information;
 import com.feedme.info.SingleInformation;
 import com.feedme.service.Employee;
 import com.feedme.service.OrderDetail;
 import com.feedme.service.OrderDetailDTO;
 import com.feedme.service.OrderStatus;
-import com.feedme.service.ProductDTO;
 
 import com.feedme.utils.Json;
 import com.feedme.ws.Methods;
@@ -138,6 +136,13 @@ public class OrderProcess {
         order.setStatus(os);
         order.setFoods(foodOrders);
         order.setSubtotal(subtotal);
+        String note = null;
+        try {
+             Information info = new Information();
+             info.add(new SingleInformation(new Date().getTime()+"", os.getName() + " - " + em.getUsername()));
+           note = Json.SerializeObject(info);
+        } catch (Exception ex) {}
+        order.setNote(note);
         OrderDetailDTO dto = new OrderDetailDTO();
         dto.setOrderDetail(order);
         return Methods.updateOrder(dto);
@@ -159,17 +164,15 @@ public class OrderProcess {
 //        System.out.println(Methods.fetchOrderStatusById(Short.parseShort("6")));
 
         OrderDetail or = getOrderDetail("Don Hang 7");
-//        or.setComment("----");
-        or.setCustomer("Customer");
-//        or.setDiscount(33.3);
-        or.setEmployee(Methods.fetchEmployeeByUsername("demo_employee").getEmployee());
+//   
+        or.setCustomer("Customer Update");
+//     
+        or.setEmployee(Methods.fetchEmployeeByUsername("employee").getEmployee());
 
         or.setStatus(Methods.fetchOrderStatusById(Short.parseShort("6")));
 
         OrderDetailDTO dto = new OrderDetailDTO();
         dto.setOrderDetail(or);
-        // System.out.println(Methods.updateOrder(dto));
-
-        //System.out.println(getOrderStatus("Đã tiếp nhận"));
+        //System.out.println(Methods.updateOrder(dto));
     }
 }

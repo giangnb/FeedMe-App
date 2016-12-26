@@ -132,9 +132,24 @@ public class OrderPanel extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Món Ăn", "Giá Tiền", "Chọn/Bỏ Chọn", "Số lượng"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, true, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblOrderDetail.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jScrollPane3.setViewportView(tblOrderDetail);
 
@@ -169,6 +184,11 @@ public class OrderPanel extends javax.swing.JPanel {
         });
 
         btnAddFood.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/feedme/img/plus.png"))); // NOI18N
+        btnAddFood.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddFoodActionPerformed(evt);
+            }
+        });
 
         btnRemoveFood.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/feedme/img/substract.png"))); // NOI18N
         btnRemoveFood.addActionListener(new java.awt.event.ActionListener() {
@@ -329,7 +349,7 @@ public class OrderPanel extends javax.swing.JPanel {
     private void btnRemoveFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveFoodActionPerformed
         // TODO add your handling code here:
         // System.out.println(Global.IS_SELECTED_PRODUCT);
-        initNewOderList();
+        loadOrderTable();
     }//GEN-LAST:event_btnRemoveFoodActionPerformed
 
     private void listNewOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listNewOrderMouseClicked
@@ -372,6 +392,11 @@ public class OrderPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_listProcessingOrderMouseClicked
 
+    private void btnAddFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFoodActionPerformed
+        // TODO add your handling code here:
+        initOderProcessList();
+    }//GEN-LAST:event_btnAddFoodActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddFood;
     private javax.swing.JButton btnAddFoods;
@@ -402,10 +427,9 @@ public class OrderPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void loadOrderTable() {
-        model.setRowCount(0);
-        if (Global.IS_SELECTED_PRODUCT) {
-            model = Global.PRODBYCATEG_TABLE_MODEL;
-        }
+        //model.setRowCount(0);
+        Global.ORDERPROD_TABLE_MODEL.setRowCount(0);
+        tblOrderDetail.setModel(Global.ORDERPROD_TABLE_MODEL);
     }
 
     private void loadOrderStatus() {
@@ -452,16 +476,19 @@ public class OrderPanel extends javax.swing.JPanel {
         });
     }
 
+    /**
+     * Important!!!
+     *
+     */
     //Methods in Contructor
     private void orderPanelComponentsContructor() {
-        model = new DefaultTableModel(new Object[]{"Món ăn", "SL", "Giá"}, 0);
+        // model = new DefaultTableModel(new Object[]{"Món ăn", "SL", "Giá"}, 0);
         listModel = new DefaultListModel();
         listProcessModel = new DefaultListModel();
 
         listNewOrder.setModel(listModel);
         listProcessingOrder.setModel(listProcessModel);
-        tblOrderDetail.setModel(model);
-        loadOrderTable();
+        Global.ORDERPROD_TABLE_MODEL = (DefaultTableModel) tblOrderDetail.getModel();
         loadOrderStatus();
         initNewOderList();
         initOderProcessList();
