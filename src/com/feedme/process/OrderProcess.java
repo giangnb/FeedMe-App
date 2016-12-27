@@ -12,14 +12,19 @@ import com.feedme.service.Employee;
 import com.feedme.service.OrderDetail;
 import com.feedme.service.OrderDetailDTO;
 import com.feedme.service.OrderStatus;
+import com.feedme.service.Product;
+import com.feedme.service.ProductDTO;
 
 import com.feedme.utils.Json;
 import com.feedme.ws.Methods;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -138,10 +143,11 @@ public class OrderProcess {
         order.setSubtotal(subtotal);
         String note = null;
         try {
-             Information info = new Information();
-             info.add(new SingleInformation(new Date().getTime()+"", os.getName() + " - " + em.getUsername()));
-           note = Json.SerializeObject(info);
-        } catch (Exception ex) {}
+            Information info = new Information();
+            info.add(new SingleInformation(new Date().getTime() + "", os.getName() + " - " + em.getUsername()));
+            note = Json.SerializeObject(info);
+        } catch (Exception ex) {
+        }
         order.setNote(note);
         OrderDetailDTO dto = new OrderDetailDTO();
         dto.setOrderDetail(order);
@@ -172,7 +178,21 @@ public class OrderProcess {
         or.setStatus(Methods.fetchOrderStatusById(Short.parseShort("6")));
 
         OrderDetailDTO dto = new OrderDetailDTO();
-        dto.setOrderDetail(or);
+        //dto.setOrderDetail(or);
         //System.out.println(Methods.updateOrder(dto));
+        List<Product> list = new ArrayList();
+        try {
+            HashMap<Product, Integer> map = Json.DeserializeObject(getOrderDetail("Don Hang 19").getFoods(), HashMap.class);
+
+            Set<Map.Entry<Product, Integer>> entries = map.entrySet();
+            for (Map.Entry<Product, Integer> ent : entries) {
+                System.out.println(ent.getKey().getName());
+            }
+       
+
+        } catch (Exception ex) {
+            ex.getStackTrace();
+        }
+
     }
 }

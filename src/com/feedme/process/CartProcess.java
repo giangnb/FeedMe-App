@@ -44,9 +44,7 @@ public class CartProcess extends HashMap<Product, Integer>{
             }
             subTotal -= product.getPrice();
             total -= product.getPrice();
-            //double dis = GlobalBean.processDiscount(product.getPrice(), product.getPromotion());
-         //   discount -= dis;
-            //total += dis;
+          
         }
         
         public void removeProduct(Product product) {

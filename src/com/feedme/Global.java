@@ -6,6 +6,7 @@
 package com.feedme;
 
 import com.feedme.info.Information;
+import com.feedme.process.CartProcess;
 import com.feedme.service.CategoryDTO;
 import com.feedme.service.EmployeeDTO;
 import com.feedme.service.ManagerDTO;
@@ -30,6 +31,7 @@ public class Global {
     public static OrderDetail ORDER;
     public static Information INFO;
     public static OrderStatus ORDER_STATUS;
+    public static CartProcess CART_GLOBAL;
     public static Double DISCOUNT_VALUE;
     public static DefaultListModel CATEGORY_LIST_MODEL;
     public static DefaultTableModel PRODBYCATEG_TABLE_MODEL;
@@ -53,5 +55,6 @@ public class Global {
         ORDER_LIST = new ArrayList<>();
         ORDER_NEW_LIST = new ArrayList();
         ORDER_PROCESSING_LIST = new ArrayList();
+        CART_GLOBAL = new CartProcess();
     } 
 }

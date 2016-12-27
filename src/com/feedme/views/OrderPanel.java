@@ -7,6 +7,7 @@ import com.feedme.service.EmployeeDTO;
 import com.feedme.service.OrderDetail;
 import com.feedme.service.OrderDetailDTO;
 import com.feedme.service.OrderStatus;
+import com.feedme.service.Product;
 import com.feedme.ws.Methods;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
@@ -327,12 +328,14 @@ public class OrderPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateOrderActionPerformed
-        System.out.println(Global.IS_SELECTED_PRODUCT);
+       // System.out.println(Global.IS_SELECTED_PRODUCT);
+       JOptionPane.showMessageDialog(null, Global.CART_GLOBAL);
     }//GEN-LAST:event_btnUpdateOrderActionPerformed
 
     private void btnAddFoodsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFoodsActionPerformed
         OrderInternalFrame oif = new OrderInternalFrame();
         oif.setVisible(true);
+        loadOrderTable();
     }//GEN-LAST:event_btnAddFoodsActionPerformed
 
     private void btnDiscountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiscountActionPerformed
@@ -378,8 +381,7 @@ public class OrderPanel extends javax.swing.JPanel {
         Employee em = Global.EMPLOYEE.getEmployee();
         Global.ORDER_STATUS = OrderProcess.getOrderStatus((String) cbbOrderStatus.getSelectedItem());
         receivedOrderByEmployee(order, em, Global.ORDER_STATUS);
-        //  JOptionPane.showMessageDialog(null, Global.ORDER_STATUS.getName());
-
+        JOptionPane.showMessageDialog(null, Global.ORDER_STATUS.getName());
     }//GEN-LAST:event_btnReceiveOrderActionPerformed
 
     private void listProcessingOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listProcessingOrderMouseClicked
@@ -395,6 +397,7 @@ public class OrderPanel extends javax.swing.JPanel {
     private void btnAddFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFoodActionPerformed
         // TODO add your handling code here:
         initOderProcessList();
+        loadOrderTable();
     }//GEN-LAST:event_btnAddFoodActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -426,9 +429,10 @@ public class OrderPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtCustomerTel;
     // End of variables declaration//GEN-END:variables
 
-    private void loadOrderTable() {
+    public void loadOrderTable() {
         //model.setRowCount(0);
         Global.ORDERPROD_TABLE_MODEL.setRowCount(0);
+        loadFoodsOrder(Global.ORDERPROD_TABLE_MODEL);
         tblOrderDetail.setModel(Global.ORDERPROD_TABLE_MODEL);
     }
 
@@ -456,9 +460,9 @@ public class OrderPanel extends javax.swing.JPanel {
     private void loadOrderData(OrderDetail order) {
         new Thread(() -> {
             HashMap<String, String> map = OrderProcess.getInformation(order);
-            txtCustomer.setText(map.get("Name"));
-            txtCustomerAddr.setText(map.get("Address"));
-            txtCustomerTel.setText(map.get("Tel"));
+            txtCustomer.setText(map.get("name"));
+            txtCustomerAddr.setText(map.get("address"));
+            txtCustomerTel.setText(map.get("tel"));
             cbbOrderStatus.setSelectedItem(order.getStatus().getName());
             JOptionPane.showMessageDialog(null, "Đơn Hàng Số " + order.getId() + "\nTrạng Thái Đơn Hàng \n" + cbbOrderStatus.getSelectedItem().toString());
         }).start();
@@ -508,4 +512,15 @@ public class OrderPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Nhận đơn hàng lỗi. \n ");
         }
     }
+
+    private void loadFoodsOrder(DefaultTableModel order) {
+        Object [] orderData = null;
+        for (Product p:Global.CART_GLOBAL.getProducts()) {
+           orderData = new Object[]{p.getName(), p.getPrice(), true, 1};
+           order.addRow(orderData);
+        }
+        lblDiscount.setText(Global.DISCOUNT_VALUE + " VNĐ");
+    }
+    
+    
 }

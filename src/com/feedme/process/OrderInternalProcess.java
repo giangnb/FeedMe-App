@@ -7,8 +7,11 @@ package com.feedme.process;
 
 import com.feedme.Global;
 import com.feedme.service.CategoryDTO;
+import com.feedme.service.Product;
 import com.feedme.service.ProductDTO;
+import com.feedme.utils.Json;
 import com.feedme.ws.Methods;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
@@ -19,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class OrderInternalProcess {
 
-    //private List<ProductDTO> products;
+    
     public OrderInternalProcess() {
     }
 
@@ -68,6 +71,56 @@ public class OrderInternalProcess {
             }
         }
         return objProd;
+    }
+    
+    
+    public static Product getProductByName (String prodName) {
+        Product prod = new Product();
+        getProducts().forEach((p)-> {
+           if (prodName.equals(p.getName())) {
+               prod.setName(p.getProduct().getName());
+               prod.setCategory(p.getProduct().getCategory());
+               prod.setDescription(p.getProduct().getDescription());
+               prod.setImageFile(p.getProduct().getImageFile());
+               prod.setInfo(p.getProduct().getInfo());
+               prod.setIsActive(p.isIsActive());
+               prod.setPrice(p.getProduct().getPrice());
+               prod.setPromotion(p.getProduct().getPromotion());
+           }
+        });
+        return prod;
+    }
+    
+
+    
+    public static void main(String[] args) {
+         
+//        CartProcess cart = new CartProcess();
+//        List<ProductDTO> list = getProducts();
+//        list.forEach((prod)-> {
+//            cart.put(prod.getProduct());
+//        });
+       
+//        HashMap<Product, Integer> map = new HashMap<>();
+//        getProducts().forEach((prod)-> {
+//          map.put(prod.getProduct(), 2);
+//        });
+
+//         CartProcess cart = new CartProcess();
+//         cart.put(getProductByName("Súp nấm"));
+//         cart.put(getProductByName("Súp nấm"));
+//         cart.put(getProductByName("Khoai tây chiên"));
+         
+         
+         //System.out.println(cart.discount);
+        
+//        try {
+//            System.out.println(Json.DeserializeObject(Json.SerializeObject(map), HashMap.class).size());
+//        } catch (Exception ex) {
+//           
+//        }
+
+           //System.out.println(new OrderInternalProcess().getProductByName("Súp nấm"));
     }
 
 }
