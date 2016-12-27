@@ -9,9 +9,12 @@ import com.feedme.service.OrderDetail;
 import com.feedme.service.OrderDetailDTO;
 import com.feedme.service.OrderStatus;
 import com.feedme.service.Product;
+import com.feedme.utils.Json;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -364,7 +367,7 @@ public class OrderPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Loading....");
             Global.ORDER = OrderProcess.getOrderDetail((String) listNewOrder.getSelectedValue());
             orderCart = OrderProcess.getProductFromOrder(Global.ORDER);
-         // setFoodstoCart(orderCart,  OrderProcess.getProductFromOrder(Global.ORDER));
+            setFoodstoCart(orderCart,  OrderProcess.getProductFromOrder(Global.ORDER));
             loadOrderData(Global.ORDER);
             loadOrderTable();
         }
@@ -517,7 +520,13 @@ public class OrderPanel extends javax.swing.JPanel {
     }
 
     private void receivedOrderByEmployee(OrderDetail order, Employee em, OrderStatus ORDER_STATUS) {
-        boolean result = OrderProcess.receivesOrder(order, em, ORDER_STATUS, "", 0.0);
+        String foodUpdate = null;
+        try {
+             foodUpdate  = Json.SerializeObject(orderCart.exportProductsList());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        boolean result = OrderProcess.receivesOrder(order, em, ORDER_STATUS, foodUpdate, 0.0);
         if (result) {
             JOptionPane.showMessageDialog(null, "Đơn hàng " + order.getId() + "\n Đã được nhận bởi nhân viên " + em.getUsername());
             initNewOderList();

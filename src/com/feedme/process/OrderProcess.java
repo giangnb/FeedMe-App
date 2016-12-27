@@ -143,7 +143,7 @@ public class OrderProcess {
         order.setSubtotal(subtotal);
         String note = null;
         try {
-            Information info = new Information();
+            Information info = Json.DeserializeObject(order.getNote(), Information.class);
             info.add(new SingleInformation(new Date().getTime() + "", os.getName() + " - " + em.getUsername()));
             note = Json.SerializeObject(info);
         } catch (Exception ex) {
