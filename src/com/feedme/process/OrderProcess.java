@@ -159,40 +159,27 @@ public class OrderProcess {
         try {
             result = Json.SerializeObject(map);
         } catch (Exception ex) {
-            Logger.getLogger(OrderProcess.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         return result;
     }
-
-    public static void main(String[] args) {
-//        System.out.println(getOrderDetail("Don Hang 7"));
-//        System.out.println(Methods.fetchEmployeeByUsername("demo_employee").getEmployee());
-//        System.out.println(Methods.fetchOrderStatusById(Short.parseShort("6")));
-
-        OrderDetail or = getOrderDetail("Don Hang 7");
-//   
-        or.setCustomer("Customer Update");
-//     
-        or.setEmployee(Methods.fetchEmployeeByUsername("employee").getEmployee());
-
-        or.setStatus(Methods.fetchOrderStatusById(Short.parseShort("6")));
-
-        OrderDetailDTO dto = new OrderDetailDTO();
-        //dto.setOrderDetail(or);
-        //System.out.println(Methods.updateOrder(dto));
-        List<Product> list = new ArrayList();
+    
+    public static CartProcess getProductFromOrder (OrderDetail order) {
+        CartProcess cart = new CartProcess();
+        Product[] prod = null;
         try {
-            HashMap<Product, Integer> map = Json.DeserializeObject(getOrderDetail("Don Hang 19").getFoods(), HashMap.class);
-
-            Set<Map.Entry<Product, Integer>> entries = map.entrySet();
-            for (Map.Entry<Product, Integer> ent : entries) {
-                System.out.println(ent.getKey().getName());
+            prod = Json.DeserializeObject(order.getFoods(), Product[].class);
+            for (Product product : prod) {
+                cart.put(product);
             }
-       
-
         } catch (Exception ex) {
-            ex.getStackTrace();
+           ex.printStackTrace();
         }
-
+        return cart;
+    }
+    
+    public static void main(String[] args) {
+        //System.out.println(getOrderDetail("20").getFoods());
+        System.out.println(getProductFromOrder(getOrderDetail("20")).getProducts());
     }
 }

@@ -13,6 +13,10 @@ import com.feedme.utils.Json;
 import com.feedme.ws.Methods;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,7 +26,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class OrderInternalProcess {
 
-    
     public OrderInternalProcess() {
     }
 
@@ -72,55 +75,59 @@ public class OrderInternalProcess {
         }
         return objProd;
     }
-    
-    
-    public static Product getProductByName (String prodName) {
+
+    public static Product getProductByName(String prodName) {
         Product prod = new Product();
-        getProducts().forEach((p)-> {
-           if (prodName.equals(p.getName())) {
-               prod.setName(p.getProduct().getName());
-               prod.setCategory(p.getProduct().getCategory());
-               prod.setDescription(p.getProduct().getDescription());
-               prod.setImageFile(p.getProduct().getImageFile());
-               prod.setInfo(p.getProduct().getInfo());
-               prod.setIsActive(p.isIsActive());
-               prod.setPrice(p.getProduct().getPrice());
-               prod.setPromotion(p.getProduct().getPromotion());
-           }
+        getProducts().forEach((p) -> {
+            if (prodName.equals(p.getName())) {
+                prod.setName(p.getProduct().getName());
+                prod.setCategory(p.getProduct().getCategory());
+                prod.setDescription(p.getProduct().getDescription());
+                prod.setImageFile(p.getProduct().getImageFile());
+                prod.setInfo(p.getProduct().getInfo());
+                prod.setIsActive(p.isIsActive());
+                prod.setPrice(p.getProduct().getPrice());
+                prod.setPromotion(p.getProduct().getPromotion());
+            }
         });
         return prod;
     }
-    
 
-    
     public static void main(String[] args) {
-         
-//        CartProcess cart = new CartProcess();
+
+        try {
+            //        CartProcess cart = new CartProcess();
 //        List<ProductDTO> list = getProducts();
 //        list.forEach((prod)-> {
 //            cart.put(prod.getProduct());
 //        });
-       
 //        HashMap<Product, Integer> map = new HashMap<>();
 //        getProducts().forEach((prod)-> {
 //          map.put(prod.getProduct(), 2);
 //        });
-
-//         CartProcess cart = new CartProcess();
-//         cart.put(getProductByName("Súp nấm"));
-//         cart.put(getProductByName("Súp nấm"));
-//         cart.put(getProductByName("Khoai tây chiên"));
-         
-         
-         //System.out.println(cart.discount);
-        
+//        
+//         Set<Map.Entry<Product, Integer>> set = cart.entrySet();
+//         for (Map.Entry<Product, Integer> entry : cart.entrySet()) {
+//            Product key = entry.getKey();
+//            Integer value = entry.getValue();
+//            
+//             System.out.println(key.getName()+"-"+value);
+//        }
+//         System.out.println(cart.total);
 //        try {
 //            System.out.println(Json.DeserializeObject(Json.SerializeObject(map), HashMap.class).size());
 //        } catch (Exception ex) {
 //           
 //        }
-
-           //System.out.println(new OrderInternalProcess().getProductByName("Súp nấm"));
+//System.out.println(new OrderInternalProcess().getProductByName("Súp nấm"));
+         
+         Product[] prod = Json.DeserializeObject(OrderProcess.getOrderDetail(" 20").getFoods(), Product[].class);
+            for (Product product : prod) {
+                System.out.println(product.getName());
+            }
+        } catch (Exception ex) {
+           ex.printStackTrace();
+        }
     }
 
 }

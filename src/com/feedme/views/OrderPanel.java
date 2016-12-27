@@ -1,14 +1,14 @@
 package com.feedme.views;
 
 import com.feedme.Global;
+import com.feedme.process.CartProcess;
+import com.feedme.process.OrderInternalProcess;
 import com.feedme.process.OrderProcess;
 import com.feedme.service.Employee;
-import com.feedme.service.EmployeeDTO;
 import com.feedme.service.OrderDetail;
 import com.feedme.service.OrderDetailDTO;
 import com.feedme.service.OrderStatus;
 import com.feedme.service.Product;
-import com.feedme.ws.Methods;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.util.HashMap;
@@ -37,6 +37,7 @@ public class OrderPanel extends javax.swing.JPanel {
     private DefaultListModel listModel;
     private DefaultListModel listProcessModel;
     private OrderDetailDTO orderSelected;
+    private static CartProcess orderCart;
 
     public OrderPanel() {
         initComponents();
@@ -127,31 +128,29 @@ public class OrderPanel extends javax.swing.JPanel {
 
         tblOrderDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Món Ăn", "Giá Tiền", "Chọn/Bỏ Chọn", "Số lượng"
+                "Món Ăn", "Giá Tiền", "Số lượng"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, false, true, false
+                false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
         tblOrderDetail.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        tblOrderDetail.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblOrderDetailMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblOrderDetail);
 
         lblDiscount.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -328,13 +327,14 @@ public class OrderPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateOrderActionPerformed
-       // System.out.println(Global.IS_SELECTED_PRODUCT);
-       JOptionPane.showMessageDialog(null, Global.CART_GLOBAL);
+        // System.out.println(Global.IS_SELECTED_PRODUCT);
+        JOptionPane.showMessageDialog(null, Global.CART_GLOBAL);
     }//GEN-LAST:event_btnUpdateOrderActionPerformed
 
     private void btnAddFoodsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFoodsActionPerformed
         OrderInternalFrame oif = new OrderInternalFrame();
         oif.setVisible(true);
+        addFoodstoCart(orderCart, Global.CART_GLOBAL);
         loadOrderTable();
     }//GEN-LAST:event_btnAddFoodsActionPerformed
 
@@ -352,6 +352,8 @@ public class OrderPanel extends javax.swing.JPanel {
     private void btnRemoveFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveFoodActionPerformed
         // TODO add your handling code here:
         // System.out.println(Global.IS_SELECTED_PRODUCT);
+        Global.CART_GLOBAL.pop(OrderInternalProcess.getProductByName((String) Global.ORDERPROD_TABLE_MODEL.getValueAt(0, 0)));
+        Global.ORDERPROD_TABLE_MODEL.getDataVector();
         loadOrderTable();
     }//GEN-LAST:event_btnRemoveFoodActionPerformed
 
@@ -361,7 +363,10 @@ public class OrderPanel extends javax.swing.JPanel {
         if (evt.getClickCount() == 2) {
             JOptionPane.showMessageDialog(null, "Loading....");
             Global.ORDER = OrderProcess.getOrderDetail((String) listNewOrder.getSelectedValue());
+            orderCart = OrderProcess.getProductFromOrder(Global.ORDER);
+         // setFoodstoCart(orderCart,  OrderProcess.getProductFromOrder(Global.ORDER));
             loadOrderData(Global.ORDER);
+            loadOrderTable();
         }
     }//GEN-LAST:event_listNewOrderMouseClicked
 
@@ -390,7 +395,10 @@ public class OrderPanel extends javax.swing.JPanel {
         btnReceiveOrder.setEnabled(true);
         if (evt.getClickCount() == 2) {
             Global.ORDER = OrderProcess.getOrderDetail((String) listProcessingOrder.getSelectedValue());
+            orderCart = OrderProcess.getProductFromOrder(OrderProcess.getOrderDetail((String) listProcessingOrder.getSelectedValue()));
+           
             loadOrderData(Global.ORDER);
+            loadOrderTable();
         }
     }//GEN-LAST:event_listProcessingOrderMouseClicked
 
@@ -399,6 +407,12 @@ public class OrderPanel extends javax.swing.JPanel {
         initOderProcessList();
         loadOrderTable();
     }//GEN-LAST:event_btnAddFoodActionPerformed
+
+    private void tblOrderDetailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOrderDetailMouseClicked
+        // TODO add your handling code here:
+        // Product prod = OrderInternalProcess.getProductByName((String) Global.ORDERPROD_TABLE_MODEL.getValueAt(0, 0));
+
+    }//GEN-LAST:event_tblOrderDetailMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddFood;
@@ -486,7 +500,7 @@ public class OrderPanel extends javax.swing.JPanel {
      */
     //Methods in Contructor
     private void orderPanelComponentsContructor() {
-        // model = new DefaultTableModel(new Object[]{"Món ăn", "SL", "Giá"}, 0);
+
         listModel = new DefaultListModel();
         listProcessModel = new DefaultListModel();
 
@@ -514,13 +528,25 @@ public class OrderPanel extends javax.swing.JPanel {
     }
 
     private void loadFoodsOrder(DefaultTableModel order) {
-        Object [] orderData = null;
-        for (Product p:Global.CART_GLOBAL.getProducts()) {
-           orderData = new Object[]{p.getName(), p.getPrice(), true, 1};
-           order.addRow(orderData);
+        Object[] orderData = null;
+        for (Product p : orderCart.getProducts()) {
+            orderData = new Object[]{p.getName(), p.getPrice(), orderCart.get(p)};
+            order.addRow(orderData);
         }
-        lblDiscount.setText(Global.DISCOUNT_VALUE + " VNĐ");
+        lblDiscount.setText(orderCart.total + " VNĐ");
+    }
+
+    private void addFoodstoCart(CartProcess orderCart, CartProcess CART_GLOBAL) {
+        CART_GLOBAL.getProducts().forEach((p)-> {
+            orderCart.put(p);
+        });
     }
     
-    
+    private CartProcess setFoodstoCart(CartProcess orderCart, CartProcess CART_GLOBAL) {
+        CART_GLOBAL.getProducts().forEach((p)-> {
+            orderCart.put(p);
+        });
+        
+        return orderCart;
+    }
 }
