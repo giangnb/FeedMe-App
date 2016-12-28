@@ -12,6 +12,6 @@ import java.util.TimerTask;
  *
  * @author Sentinel
  */
-public class TimerUtil extends Timer{
+public class TimerUtil extends Timer {
     private TimerTask timerTask;
 }

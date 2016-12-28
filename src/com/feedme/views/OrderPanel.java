@@ -2,7 +2,6 @@ package com.feedme.views;
 
 import com.feedme.Global;
 import com.feedme.process.CartProcess;
-import com.feedme.process.OrderInternalProcess;
 import com.feedme.process.OrderProcess;
 import com.feedme.service.Employee;
 import com.feedme.service.OrderDetail;
@@ -12,9 +11,7 @@ import com.feedme.service.Product;
 import com.feedme.utils.Json;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
-import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -36,16 +33,24 @@ public class OrderPanel extends javax.swing.JPanel {
     /**
      * Creates new form OrderPanel
      */
-    private DefaultTableModel model;
-    private DefaultListModel listModel;
-    private DefaultListModel listProcessModel;
+    private DefaultTableModel tblModel;
+    private DefaultListModel listModel, listProcessModel;
+    private DefaultComboBoxModel cbbModel;
+    
     private OrderDetailDTO orderSelected;
-    private static CartProcess orderCart;
-
+    private CartProcess orderCart;
+    
     public OrderPanel() {
         initComponents();
-        jSeparator1.setOrientation(SwingConstants.VERTICAL);
-        orderPanelComponentsContructor();
+        
+        listModel = new DefaultListModel();
+        listProcessModel = new DefaultListModel();
+        listNewOrder.setModel(listModel);
+        listProcessingOrder.setModel(listProcessModel);
+        tblModel = (DefaultTableModel) tblOrderDetail.getModel();
+        
+        cbbOrderStatus.setEnabled(false);
+        btnReceiveOrder.setEnabled(false);
     }
 
     /**
@@ -330,21 +335,22 @@ public class OrderPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateOrderActionPerformed
-        // System.out.println(Global.IS_SELECTED_PRODUCT);
-        JOptionPane.showMessageDialog(null, Global.CART_GLOBAL);
+        
     }//GEN-LAST:event_btnUpdateOrderActionPerformed
 
     private void btnAddFoodsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFoodsActionPerformed
         OrderInternalFrame oif = new OrderInternalFrame();
         oif.setVisible(true);
-        addFoodstoCart(orderCart, Global.CART_GLOBAL);
-        loadOrderTable();
+        if (Global.CART_GLOBAL != null) {
+            for (Product p : Global.CART_GLOBAL.exportProductsList()) {
+                orderCart.put(p);
+            }
+        }
     }//GEN-LAST:event_btnAddFoodsActionPerformed
 
     private void btnDiscountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiscountActionPerformed
         SaleInternalFrame frame = new SaleInternalFrame();
         frame.setVisible(true);
-
     }//GEN-LAST:event_btnDiscountActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
@@ -354,23 +360,13 @@ public class OrderPanel extends javax.swing.JPanel {
 
     private void btnRemoveFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveFoodActionPerformed
         // TODO add your handling code here:
-        // System.out.println(Global.IS_SELECTED_PRODUCT);
-        Global.CART_GLOBAL.pop(OrderInternalProcess.getProductByName((String) Global.ORDERPROD_TABLE_MODEL.getValueAt(0, 0)));
-        Global.ORDERPROD_TABLE_MODEL.getDataVector();
-        loadOrderTable();
+       
+  
     }//GEN-LAST:event_btnRemoveFoodActionPerformed
 
     private void listNewOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listNewOrderMouseClicked
         // TODO add your handling code here:
-        cbbOrderStatus.setEnabled(false);
-        if (evt.getClickCount() == 2) {
-            JOptionPane.showMessageDialog(null, "Loading....");
-            Global.ORDER = OrderProcess.getOrderDetail((String) listNewOrder.getSelectedValue());
-            orderCart = OrderProcess.getProductFromOrder(Global.ORDER);
-            setFoodstoCart(orderCart,  OrderProcess.getProductFromOrder(Global.ORDER));
-            loadOrderData(Global.ORDER);
-            loadOrderTable();
-        }
+    
     }//GEN-LAST:event_listNewOrderMouseClicked
 
     private void cbbOrderStatusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbOrderStatusMouseClicked
@@ -380,41 +376,26 @@ public class OrderPanel extends javax.swing.JPanel {
 
     private void cbbOrderStatusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbOrderStatusItemStateChanged
         // TODO add your handling code here:
-
     }//GEN-LAST:event_cbbOrderStatusItemStateChanged
 
     private void btnReceiveOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReceiveOrderActionPerformed
         // TODO add your handling code here:
-        OrderDetail order = Global.ORDER;
-        Employee em = Global.EMPLOYEE.getEmployee();
-        Global.ORDER_STATUS = OrderProcess.getOrderStatus((String) cbbOrderStatus.getSelectedItem());
-        receivedOrderByEmployee(order, em, Global.ORDER_STATUS);
-        JOptionPane.showMessageDialog(null, Global.ORDER_STATUS.getName());
+       
     }//GEN-LAST:event_btnReceiveOrderActionPerformed
 
     private void listProcessingOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listProcessingOrderMouseClicked
         // TODO add your handling code here:
-        cbbOrderStatus.setEnabled(false);
-        btnReceiveOrder.setEnabled(true);
-        if (evt.getClickCount() == 2) {
-            Global.ORDER = OrderProcess.getOrderDetail((String) listProcessingOrder.getSelectedValue());
-            orderCart = OrderProcess.getProductFromOrder(OrderProcess.getOrderDetail((String) listProcessingOrder.getSelectedValue()));
-           
-            loadOrderData(Global.ORDER);
-            loadOrderTable();
-        }
+        
+       
     }//GEN-LAST:event_listProcessingOrderMouseClicked
 
     private void btnAddFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFoodActionPerformed
         // TODO add your handling code here:
-        initOderProcessList();
-        loadOrderTable();
+      
     }//GEN-LAST:event_btnAddFoodActionPerformed
 
     private void tblOrderDetailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOrderDetailMouseClicked
         // TODO add your handling code here:
-        // Product prod = OrderInternalProcess.getProductByName((String) Global.ORDERPROD_TABLE_MODEL.getValueAt(0, 0));
-
     }//GEN-LAST:event_tblOrderDetailMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -446,54 +427,13 @@ public class OrderPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtCustomerTel;
     // End of variables declaration//GEN-END:variables
 
-    public void loadOrderTable() {
-        //model.setRowCount(0);
-        Global.ORDERPROD_TABLE_MODEL.setRowCount(0);
-        loadFoodsOrder(Global.ORDERPROD_TABLE_MODEL);
-        tblOrderDetail.setModel(Global.ORDERPROD_TABLE_MODEL);
-    }
 
-    private void loadOrderStatus() {
-        cbbOrderStatus.setModel(OrderProcess.initOrderStatusCbbModel());
-    }
 
-    private void initNewOderList() {
-
-        new Thread(() -> {
-            listModel.clear();
-            listModel = OrderProcess.initNewOrderListModel();
-            listNewOrder.setModel(listModel);
-        }).start();
-    }
-
-    private void initOderProcessList() {
-        new Thread(() -> {
-            listProcessModel.clear();
-            listProcessModel = OrderProcess.initOrderProcessListModel();
-            listProcessingOrder.setModel(listProcessModel);
-        }).start();
-    }
-
-    private void loadOrderData(OrderDetail order) {
-        new Thread(() -> {
-            HashMap<String, String> map = OrderProcess.getInformation(order);
-            txtCustomer.setText(map.get("name"));
-            txtCustomerAddr.setText(map.get("address"));
-            txtCustomerTel.setText(map.get("tel"));
-            cbbOrderStatus.setSelectedItem(order.getStatus().getName());
-            JOptionPane.showMessageDialog(null, "Đơn Hàng Số " + order.getId() + "\nTrạng Thái Đơn Hàng \n" + cbbOrderStatus.getSelectedItem().toString());
-        }).start();
-        cbbOrderStatus.setEnabled(true);
-        btnReceiveOrder.setEnabled(true);
-
-    }
 
     private void reloadNewOrderList() {
         timer = new Timer(60000, (ActionEvent e) -> {
-            initNewOderList();
-            //initOderProcessList();
+           // initNewOderList();
             System.out.println(">_ Auto Update Order running .....");
-
         });
     }
 
@@ -503,59 +443,31 @@ public class OrderPanel extends javax.swing.JPanel {
      */
     //Methods in Contructor
     private void orderPanelComponentsContructor() {
-
         listModel = new DefaultListModel();
         listProcessModel = new DefaultListModel();
-
         listNewOrder.setModel(listModel);
         listProcessingOrder.setModel(listProcessModel);
         Global.ORDERPROD_TABLE_MODEL = (DefaultTableModel) tblOrderDetail.getModel();
-        loadOrderStatus();
-        initNewOderList();
-        initOderProcessList();
-        reloadNewOrderList();
         cbbOrderStatus.setEnabled(false);
         btnReceiveOrder.setEnabled(false);
-        timer.start();
+        /**Timer*/
+        //timer.start();
     }
 
     private void receivedOrderByEmployee(OrderDetail order, Employee em, OrderStatus ORDER_STATUS) {
         String foodUpdate = null;
         try {
-             foodUpdate  = Json.SerializeObject(orderCart.exportProductsList());
+            foodUpdate = Json.SerializeObject(orderCart.exportProductsList());
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         boolean result = OrderProcess.receivesOrder(order, em, ORDER_STATUS, foodUpdate, 0.0);
         if (result) {
             JOptionPane.showMessageDialog(null, "Đơn hàng " + order.getId() + "\n Đã được nhận bởi nhân viên " + em.getUsername());
-            initNewOderList();
-            initOderProcessList();
+//            initNewOderList();
+//            initOderProcessList();
         } else {
             JOptionPane.showMessageDialog(null, "Nhận đơn hàng lỗi. \n ");
         }
-    }
-
-    private void loadFoodsOrder(DefaultTableModel order) {
-        Object[] orderData = null;
-        for (Product p : orderCart.getProducts()) {
-            orderData = new Object[]{p.getName(), p.getPrice(), orderCart.get(p)};
-            order.addRow(orderData);
-        }
-        lblDiscount.setText(orderCart.total + " VNĐ");
-    }
-
-    private void addFoodstoCart(CartProcess orderCart, CartProcess CART_GLOBAL) {
-        CART_GLOBAL.getProducts().forEach((p)-> {
-            orderCart.put(p);
-        });
-    }
-    
-    private CartProcess setFoodstoCart(CartProcess orderCart, CartProcess CART_GLOBAL) {
-        CART_GLOBAL.getProducts().forEach((p)-> {
-            orderCart.put(p);
-        });
-        
-        return orderCart;
     }
 }

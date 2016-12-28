@@ -4,6 +4,8 @@ import com.feedme.Global;
 import com.feedme.process.CartProcess;
 import com.feedme.process.OrderInternalProcess;
 import com.feedme.service.Product;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -19,22 +21,25 @@ import javax.swing.table.DefaultTableModel;
  */
 public class OrderInternalFrame extends javax.swing.JDialog {
 
-    public static CartProcess cart = new CartProcess();
+    public static CartProcess cart;
     private static boolean isSelectedFood;
-    private static Product product = new Product();//= 
+    private static Product product;
+   
 
     /**
      * Creates new form OrderInternalFrame
      */
     // private DefaultTableModel model;
     public OrderInternalFrame() {
+        Global.CART_GLOBAL = new CartProcess();
+
         initComponents();
         Global.PRODBYCATEG_TABLE_MODEL = (DefaultTableModel) tblProductInternal.getModel();
         initCategModel();
         setLocationRelativeTo(null);
         setModal(true);
         lblSelectProduct.setText("");
-        //cart = new CartProcess();
+     
     }
 
     /**
@@ -124,7 +129,7 @@ public class OrderInternalFrame extends javax.swing.JDialog {
         });
 
         listCategoryName.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "Đang ", "Cập Nhật ", "Đơn Hàng", " ........." };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -184,9 +189,10 @@ public class OrderInternalFrame extends javax.swing.JDialog {
 
     private void btnSumitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSumitActionPerformed
 
-        Global.DISCOUNT_VALUE = cart.total;
-        Global.CART_GLOBAL = cart;
-        new OrderPanel().loadOrderTable();
+        //Global.DISCOUNT_VALUE = cart.total;
+        //Global.CART_GLOBAL = cart;
+        //JOptionPane.showMessageDialog(null, cart.total);
+        //new OrderPanel().loadOrderTable();
         this.dispose();
 
     }//GEN-LAST:event_btnSumitActionPerformed
@@ -219,20 +225,34 @@ public class OrderInternalFrame extends javax.swing.JDialog {
         // TODO add your handling code here:
         isSelectedFood = (boolean) Global.PRODBYCATEG_TABLE_MODEL.getValueAt(0, 2);
         product = OrderInternalProcess.getProductByName((String) Global.PRODBYCATEG_TABLE_MODEL.getValueAt(0, 0));
+
     }//GEN-LAST:event_tblProductInternalMouseClicked
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
+
         btnRemove.setEnabled(true);
         if (isSelectedFood) {
-            int sl = getNumberOfFoods();
-            Global.PRODBYCATEG_TABLE_MODEL.setValueAt(sl += 1, 0, 3);
-            lblSelectProduct.setText("Chọn " + sl + " Sản Phẩm");
-            cart.put(product);
+            Global.CART_GLOBAL.put(product);
+            Global.PRODBYCATEG_TABLE_MODEL.setValueAt(Global.CART_GLOBAL.getQuantityOfProduct(product), 0, 3);
+            lblSelectProduct.setText("Chọn " + Global.CART_GLOBAL.getTotalQuantity() + " Sản Phẩm");
+            JOptionPane.showMessageDialog(null, "Cart Length " + Global.CART_GLOBAL.total);
 
         } else {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm trước");
         }
+//        if (isSelectedFood) {
+//            int sl = getNumberOfFoods();
+//            Global.PRODBYCATEG_TABLE_MODEL.setValueAt(sl += 1, 0, 3);
+//            lblSelectProduct.setText("Chọn " + sl + " Sản Phẩm");
+//            temp_prod.add(product);
+//            JOptionPane.showMessageDialog(null, "List Size " + temp_prod.size());
+//            cart.importProductsList(temp_prod);
+//            JOptionPane.showMessageDialog(null, "Cart Length " + cart.total);
+//
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm trước");
+//        }
     }//GEN-LAST:event_btnAddActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

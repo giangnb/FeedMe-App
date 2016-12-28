@@ -13,20 +13,14 @@ import com.feedme.service.OrderDetail;
 import com.feedme.service.OrderDetailDTO;
 import com.feedme.service.OrderStatus;
 import com.feedme.service.Product;
-import com.feedme.service.ProductDTO;
 
 import com.feedme.utils.Json;
 import com.feedme.ws.Methods;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 
@@ -164,7 +158,7 @@ public class OrderProcess {
         return result;
     }
     
-    public static CartProcess getProductFromOrder (OrderDetail order) {
+    public  CartProcess getProductFromOrder (OrderDetail order) {
         CartProcess cart = new CartProcess();
         Product[] prod = null;
         try {
@@ -176,10 +170,5 @@ public class OrderProcess {
            ex.printStackTrace();
         }
         return cart;
-    }
-    
-    public static void main(String[] args) {
-        //System.out.println(getOrderDetail("20").getFoods());
-        System.out.println(getProductFromOrder(getOrderDetail("20")).getProducts());
     }
 }
