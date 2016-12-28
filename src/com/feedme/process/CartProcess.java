@@ -7,6 +7,7 @@ package com.feedme.process;
 
 import com.feedme.service.Product;
 import com.feedme.utils.Json;
+import com.feedme.ws.Methods;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -152,8 +153,9 @@ public class CartProcess {
     public int getQuantityOfProduct(Product product) {
         
         for (int i = 0; i < products.size(); i++) {
-            System.out.println(products.get(i).getName()+ " | "+product.getName());
+            if (products.get(i).getId()==null) {continue;}
             if (products.get(i).getId().intValue()==product.getId().intValue()) {
+                
                 return quantity.get(i);
             }
         }
@@ -193,5 +195,12 @@ public class CartProcess {
             }
         }
         return result;
+    }
+    
+    public static void main(String[] args) {
+          CartProcess cart = new CartProcess();
+          cart.put(Methods.fetchProductsById(Short.parseShort("3")).getProduct());
+          cart.put(Methods.fetchProductsById(Short.parseShort("4")).getProduct());
+          System.out.println(cart.total);
     }
 }

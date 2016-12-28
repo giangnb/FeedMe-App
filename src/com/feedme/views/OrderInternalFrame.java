@@ -1,11 +1,10 @@
 package com.feedme.views;
 
 import com.feedme.Global;
+import static com.feedme.Global.CART_GLOBAL;
 import com.feedme.process.CartProcess;
 import com.feedme.process.OrderInternalProcess;
 import com.feedme.service.Product;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -21,10 +20,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class OrderInternalFrame extends javax.swing.JDialog {
 
-    public static CartProcess cart;
+    
     private static boolean isSelectedFood;
     private static Product product;
-   
+    private static DefaultTableModel orderInternalModel;
 
     /**
      * Creates new form OrderInternalFrame
@@ -34,12 +33,12 @@ public class OrderInternalFrame extends javax.swing.JDialog {
         Global.CART_GLOBAL = new CartProcess();
 
         initComponents();
-        Global.PRODBYCATEG_TABLE_MODEL = (DefaultTableModel) tblProductInternal.getModel();
+        orderInternalModel = (DefaultTableModel) tblProductInternal.getModel();
         initCategModel();
         setLocationRelativeTo(null);
         setModal(true);
         lblSelectProduct.setText("");
-     
+
     }
 
     /**
@@ -188,30 +187,19 @@ public class OrderInternalFrame extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSumitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSumitActionPerformed
-
-        //Global.DISCOUNT_VALUE = cart.total;
-        //Global.CART_GLOBAL = cart;
-        //JOptionPane.showMessageDialog(null, cart.total);
-        //new OrderPanel().loadOrderTable();
+        
         this.dispose();
 
     }//GEN-LAST:event_btnSumitActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-
+        Global.CART_GLOBAL = null;
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         // TODO add your handling code here:
-        int sl = getNumberOfFoods();
-        Global.PRODBYCATEG_TABLE_MODEL.setValueAt(sl -= 1, 0, 3);
-        if (sl == 0) {
-            btnRemove.setEnabled(false);
-        } else {
-            lblSelectProduct.setText("Chọn " + sl + " Sản Phẩm");
-            cart.pop(product);
-        }
+        Global.CART_GLOBAL.pop(product);
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void listCategoryNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listCategoryNameMouseClicked
@@ -223,36 +211,22 @@ public class OrderInternalFrame extends javax.swing.JDialog {
 
     private void tblProductInternalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductInternalMouseClicked
         // TODO add your handling code here:
-        isSelectedFood = (boolean) Global.PRODBYCATEG_TABLE_MODEL.getValueAt(0, 2);
-        product = OrderInternalProcess.getProductByName((String) Global.PRODBYCATEG_TABLE_MODEL.getValueAt(0, 0));
+        isSelectedFood = (boolean) orderInternalModel.getValueAt(0, 2);
+        product = new OrderInternalProcess().getProductByName((String) orderInternalModel.getValueAt(0, 0));
 
     }//GEN-LAST:event_tblProductInternalMouseClicked
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-
+       
         btnRemove.setEnabled(true);
         if (isSelectedFood) {
             Global.CART_GLOBAL.put(product);
-            Global.PRODBYCATEG_TABLE_MODEL.setValueAt(Global.CART_GLOBAL.getQuantityOfProduct(product), 0, 3);
-            lblSelectProduct.setText("Chọn " + Global.CART_GLOBAL.getTotalQuantity() + " Sản Phẩm");
-            JOptionPane.showMessageDialog(null, "Cart Length " + Global.CART_GLOBAL.total);
-
+            orderInternalModel.setValueAt(Global.CART_GLOBAL.get(product), 0, 3);
         } else {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm trước");
         }
-//        if (isSelectedFood) {
-//            int sl = getNumberOfFoods();
-//            Global.PRODBYCATEG_TABLE_MODEL.setValueAt(sl += 1, 0, 3);
-//            lblSelectProduct.setText("Chọn " + sl + " Sản Phẩm");
-//            temp_prod.add(product);
-//            JOptionPane.showMessageDialog(null, "List Size " + temp_prod.size());
-//            cart.importProductsList(temp_prod);
-//            JOptionPane.showMessageDialog(null, "Cart Length " + cart.total);
-//
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm trước");
-//        }
+
     }//GEN-LAST:event_btnAddActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -280,28 +254,13 @@ public class OrderInternalFrame extends javax.swing.JDialog {
 
     private void initProdTableModel(String categoryName) {
         new Thread(() -> {
-            Global.PRODBYCATEG_TABLE_MODEL.setNumRows(0);
-            Global.PRODBYCATEG_TABLE_MODEL.addRow(OrderInternalProcess.loadProductByCategoryObject(categoryName));
+            orderInternalModel.setNumRows(0);
+            orderInternalModel.addRow(OrderInternalProcess.loadProductByCategoryObject(categoryName));
         }).start();
     }
 
     private static boolean isSelectedProduct() {
-        boolean isSelected = (boolean) Global.PRODBYCATEG_TABLE_MODEL.getValueAt(0, 2);
+        boolean isSelected = (boolean) orderInternalModel.getValueAt(0, 2);
         return isSelected;
     }
-
-    private int getNumberOfFoods() {
-        int numOfFoods = Integer.parseInt(Global.PRODBYCATEG_TABLE_MODEL.getValueAt(0, 3).toString());
-        return numOfFoods;
-    }
-
-    private void getSelectFoodinOrderInternal(boolean IS_SELECTED_PRODUCT) {
-        for (int i = 0; i < Global.PRODBYCATEG_TABLE_MODEL.getRowCount(); i++) {
-            if (isSelectedProduct()) {
-                Global.ORDERPROD_TABLE_MODEL = Global.PRODBYCATEG_TABLE_MODEL;
-            }
-        }
-
-    }
-
 }

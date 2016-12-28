@@ -70,20 +70,23 @@ public class OrderInternalProcess {
         return objProd;
     }
 
-    public static Product getProductByName(String prodName) {
+    public  Product getProductByName(String prodName) {
         Product prod = new Product();
         getProducts().forEach((p) -> {
-            if (prodName.equals(p.getName())) {
-                prod.setName(p.getProduct().getName());
+            if (prodName.contains(p.getName())) {
+                prod.setId(p.getId());
+                prod.setName(p.getName());
                 prod.setCategory(p.getProduct().getCategory());
-                prod.setDescription(p.getProduct().getDescription());
+                prod.setDescription(p.getDescription());
                 prod.setImageFile(p.getProduct().getImageFile());
-                prod.setInfo(p.getProduct().getInfo());
+                prod.setInfo(p.getInfo());
                 prod.setIsActive(p.isIsActive());
-                prod.setPrice(p.getProduct().getPrice());
-                prod.setPromotion(p.getProduct().getPromotion());
+                prod.setPrice(p.getPrice());
+                prod.setPromotion(p.getPromotion());
             }
         });
         return prod;
     }
+
+  
 }

@@ -83,7 +83,6 @@ public class ObjectFactory {
     private final static QName _FetchLogsByEmployeeResponse_QNAME = new QName("http://webservice.feedme.com/", "fetchLogsByEmployeeResponse");
     private final static QName _Property_QNAME = new QName("http://webservice.feedme.com/", "property");
     private final static QName _FetchEmployeeById_QNAME = new QName("http://webservice.feedme.com/", "fetchEmployeeById");
-    private final static QName _FetchPromotedByTimestampResponse_QNAME = new QName("http://webservice.feedme.com/", "fetchPromotedByTimestampResponse");
     private final static QName _AddPropertie_QNAME = new QName("http://webservice.feedme.com/", "addPropertie");
     private final static QName _UpdatePropertiesResponse_QNAME = new QName("http://webservice.feedme.com/", "updatePropertiesResponse");
     private final static QName _AddPropertieResponse_QNAME = new QName("http://webservice.feedme.com/", "addPropertieResponse");
@@ -113,12 +112,12 @@ public class ObjectFactory {
     private final static QName _FetchProductsById_QNAME = new QName("http://webservice.feedme.com/", "fetchProductsById");
     private final static QName _FetchManagerByIdResponse_QNAME = new QName("http://webservice.feedme.com/", "fetchManagerByIdResponse");
     private final static QName _LoginEmployee_QNAME = new QName("http://webservice.feedme.com/", "loginEmployee");
-    private final static QName _FetchPromotedByTimestamp_QNAME = new QName("http://webservice.feedme.com/", "fetchPromotedByTimestamp");
     private final static QName _UpdateOrder_QNAME = new QName("http://webservice.feedme.com/", "updateOrder");
     private final static QName _FetchEmployeesByManagerResponse_QNAME = new QName("http://webservice.feedme.com/", "fetchEmployeesByManagerResponse");
     private final static QName _FetchPriviledges_QNAME = new QName("http://webservice.feedme.com/", "fetchPriviledges");
     private final static QName _UpdatePromotedResponse_QNAME = new QName("http://webservice.feedme.com/", "updatePromotedResponse");
     private final static QName _AddPromoted_QNAME = new QName("http://webservice.feedme.com/", "addPromoted");
+    private final static QName _FetchPromotedByTime_QNAME = new QName("http://webservice.feedme.com/", "fetchPromotedByTime");
     private final static QName _FetchEmployeeByIdResponse_QNAME = new QName("http://webservice.feedme.com/", "fetchEmployeeByIdResponse");
     private final static QName _OrderDetail_QNAME = new QName("http://webservice.feedme.com/", "orderDetail");
     private final static QName _UpdateCategoryResponse_QNAME = new QName("http://webservice.feedme.com/", "updateCategoryResponse");
@@ -135,6 +134,7 @@ public class ObjectFactory {
     private final static QName _FetchEmployeesByManager_QNAME = new QName("http://webservice.feedme.com/", "fetchEmployeesByManager");
     private final static QName _UpdateOrderStatusResponse_QNAME = new QName("http://webservice.feedme.com/", "updateOrderStatusResponse");
     private final static QName _Employee_QNAME = new QName("http://webservice.feedme.com/", "employee");
+    private final static QName _FetchPromotedByTimeResponse_QNAME = new QName("http://webservice.feedme.com/", "fetchPromotedByTimeResponse");
     private final static QName _FetchEmployeesResponse_QNAME = new QName("http://webservice.feedme.com/", "fetchEmployeesResponse");
     private final static QName _FetchLogByIdResponse_QNAME = new QName("http://webservice.feedme.com/", "fetchLogByIdResponse");
     private final static QName _UpdateEmployee_QNAME = new QName("http://webservice.feedme.com/", "updateEmployee");
@@ -338,14 +338,6 @@ public class ObjectFactory {
      */
     public AddPropertie createAddPropertie() {
         return new AddPropertie();
-    }
-
-    /**
-     * Create an instance of {@link FetchPromotedByTimestampResponse }
-     * 
-     */
-    public FetchPromotedByTimestampResponse createFetchPromotedByTimestampResponse() {
-        return new FetchPromotedByTimestampResponse();
     }
 
     /**
@@ -805,6 +797,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link FetchPromotedByTimeResponse }
+     * 
+     */
+    public FetchPromotedByTimeResponse createFetchPromotedByTimeResponse() {
+        return new FetchPromotedByTimeResponse();
+    }
+
+    /**
      * Create an instance of {@link UpdateProperties }
      * 
      */
@@ -1133,14 +1133,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link FetchPromotedByTimestamp }
-     * 
-     */
-    public FetchPromotedByTimestamp createFetchPromotedByTimestamp() {
-        return new FetchPromotedByTimestamp();
-    }
-
-    /**
      * Create an instance of {@link FetchEmployeesByManagerResponse }
      * 
      */
@@ -1178,6 +1170,14 @@ public class ObjectFactory {
      */
     public UpdatePromotedResponse createUpdatePromotedResponse() {
         return new UpdatePromotedResponse();
+    }
+
+    /**
+     * Create an instance of {@link FetchPromotedByTime }
+     * 
+     */
+    public FetchPromotedByTime createFetchPromotedByTime() {
+        return new FetchPromotedByTime();
     }
 
     /**
@@ -1832,15 +1832,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link FetchPromotedByTimestampResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://webservice.feedme.com/", name = "fetchPromotedByTimestampResponse")
-    public JAXBElement<FetchPromotedByTimestampResponse> createFetchPromotedByTimestampResponse(FetchPromotedByTimestampResponse value) {
-        return new JAXBElement<FetchPromotedByTimestampResponse>(_FetchPromotedByTimestampResponse_QNAME, FetchPromotedByTimestampResponse.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link AddPropertie }{@code >}}
      * 
      */
@@ -2102,15 +2093,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link FetchPromotedByTimestamp }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://webservice.feedme.com/", name = "fetchPromotedByTimestamp")
-    public JAXBElement<FetchPromotedByTimestamp> createFetchPromotedByTimestamp(FetchPromotedByTimestamp value) {
-        return new JAXBElement<FetchPromotedByTimestamp>(_FetchPromotedByTimestamp_QNAME, FetchPromotedByTimestamp.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link UpdateOrder }{@code >}}
      * 
      */
@@ -2153,6 +2135,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice.feedme.com/", name = "addPromoted")
     public JAXBElement<AddPromoted> createAddPromoted(AddPromoted value) {
         return new JAXBElement<AddPromoted>(_AddPromoted_QNAME, AddPromoted.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link FetchPromotedByTime }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.feedme.com/", name = "fetchPromotedByTime")
+    public JAXBElement<FetchPromotedByTime> createFetchPromotedByTime(FetchPromotedByTime value) {
+        return new JAXBElement<FetchPromotedByTime>(_FetchPromotedByTime_QNAME, FetchPromotedByTime.class, null, value);
     }
 
     /**
@@ -2297,6 +2288,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice.feedme.com/", name = "employee")
     public JAXBElement<Employee> createEmployee(Employee value) {
         return new JAXBElement<Employee>(_Employee_QNAME, Employee.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link FetchPromotedByTimeResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.feedme.com/", name = "fetchPromotedByTimeResponse")
+    public JAXBElement<FetchPromotedByTimeResponse> createFetchPromotedByTimeResponse(FetchPromotedByTimeResponse value) {
+        return new JAXBElement<FetchPromotedByTimeResponse>(_FetchPromotedByTimeResponse_QNAME, FetchPromotedByTimeResponse.class, null, value);
     }
 
     /**

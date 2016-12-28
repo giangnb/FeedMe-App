@@ -30,12 +30,13 @@ import javax.swing.DefaultListModel;
  */
 public class OrderProcess {
 
-    private List<OrderDetail> orderlist;
+    private static List<OrderDetail> orderlist;
     private static DefaultListModel orderModel;
     private static DefaultListModel orderProcessModel;
     private static DefaultComboBoxModel orderStatusModel;
-
+    
     public OrderProcess() {
+        
     }
 
     /**
@@ -44,28 +45,31 @@ public class OrderProcess {
      * @param fromTime
      * @return
      */
-    public static List<OrderDetail> loadNewOrder(String fromTime) {
+    public static List<OrderDetail> loadNewOrder() {
         short empId = Short.parseShort("1");
-        Global.ORDER_NEW_LIST = new ArrayList<>();
-        getOrders(fromTime).stream().filter((order) -> (order.getEmployee().getId() == empId)).forEach((order) -> {
-            Global.ORDER_NEW_LIST.add(order);
+        orderlist = new ArrayList<>();
+        
+        Collections.reverse( getOrders(1482409098718l+""));
+        getOrders(1482409098718l+"").stream().filter((order) -> (order.getEmployee().getId() == empId)).forEach((order) -> {
+            orderlist.add(order);
         });
-        return Global.ORDER_NEW_LIST;
+        return orderlist;
+        
     }
-
+    
     /**
      * Load Order Processing
      *
      * @param fromTime
      * @return
      */
-    public static List<OrderDetail> loadOrderProcessing(String fromTime) {
+    public static List<OrderDetail> loadOrderProcessing() {
         short empId = Short.parseShort("1");
-        Global.ORDER_PROCESSING_LIST = new ArrayList<>();
-        getOrders(fromTime).stream().filter((order) -> (order.getEmployee().getId() != empId)).forEach((order) -> {
-            Global.ORDER_PROCESSING_LIST.add(order);
+        orderlist = new ArrayList<>();
+        getOrders(1482409098718l+"").stream().filter((order) -> (order.getEmployee().getId() != empId)).forEach((order) -> {
+            orderlist.add(order);
         });
-        return Global.ORDER_PROCESSING_LIST;
+        return orderlist;
     }
 
     public static List<OrderDetail> getOrders(String fromTime) {
@@ -73,19 +77,9 @@ public class OrderProcess {
         return Global.ORDER_LIST;
     }
 
-    public static DefaultListModel initNewOrderListModel() {
-        orderModel = new DefaultListModel();
-        List<OrderDetail> orders = OrderProcess.loadNewOrder("1482409098718");
-        Collections.reverse(orders);
-        orders.forEach((order) -> {
-            orderModel.addElement("Đơn Hàng " + order.getId());
-        });
-        return orderModel;
-    }
-
     public static DefaultListModel initOrderProcessListModel() {
         orderProcessModel = new DefaultListModel();
-        OrderProcess.loadOrderProcessing("1482409098718").forEach((order) -> {
+        OrderProcess.loadOrderProcessing().forEach((order) -> {
             orderProcessModel.addElement("Đơn Hàng Xử Lý " + order.getId());
         });
         return orderProcessModel;
@@ -108,14 +102,8 @@ public class OrderProcess {
         return Global.ORDER;
     }
 
-    public static OrderStatus getOrderStatus(String status) {
-
-        Methods.fetchOrderStatus().forEach((os) -> {
-            if (status.equals(os.getName())) {
-                Global.ORDER_STATUS = os;
-            }
-        });
-        return Global.ORDER_STATUS;
+    public static List<OrderStatus> getOrderStatusList() {
+        return Methods.fetchOrderStatus();
     }
 
     public static HashMap<String, String> getInformation(OrderDetail order) {
@@ -170,5 +158,8 @@ public class OrderProcess {
            ex.printStackTrace();
         }
         return cart;
+    }
+    public static void main(String[] args) {
+         System.out.println(getOrderStatusList().size());
     }
 }

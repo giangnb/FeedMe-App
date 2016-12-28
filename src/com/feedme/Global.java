@@ -7,11 +7,11 @@ package com.feedme;
 
 import com.feedme.info.Information;
 import com.feedme.process.CartProcess;
+import com.feedme.process.OrderProcess;
 import com.feedme.service.CategoryDTO;
 import com.feedme.service.EmployeeDTO;
 import com.feedme.service.ManagerDTO;
 import com.feedme.service.OrderDetail;
-import com.feedme.service.OrderDetailDTO;
 import com.feedme.service.OrderStatus;
 import com.feedme.service.ProductDTO;
 import java.util.ArrayList;
@@ -39,9 +39,9 @@ public class Global {
     public static List<ProductDTO> PRODUCT_LIST;
     public static List<CategoryDTO> CATEGORY_LIST;
     public static List<OrderDetail> ORDER_LIST;
-    public static List<OrderDetail> ORDER_PROCESSING_LIST;
-    public static List<OrderDetail> ORDER_NEW_LIST;
-    public static List<OrderStatus> ORDER_STATUS_LIST;
+    public static List<OrderDetail> ORDER_PROCESSING_LIST = OrderProcess.loadOrderProcessing();
+    public static List<OrderDetail> ORDER_NEW_LIST = OrderProcess.loadNewOrder();;
+    public static List<OrderStatus> ORDER_STATUS_LIST = OrderProcess.getOrderStatusList();
     public static boolean IS_SELECTED_PRODUCT;
     
     public static long GET_CURRENT_TIME = new Date().getTime();
@@ -53,7 +53,7 @@ public class Global {
         PRODUCT_LIST = new ArrayList<>();
         CATEGORY_LIST = new ArrayList<>();
         ORDER_LIST = new ArrayList<>();
-        ORDER_NEW_LIST = new ArrayList();
+        
         ORDER_PROCESSING_LIST = new ArrayList();
         CART_GLOBAL = new CartProcess();
     } 

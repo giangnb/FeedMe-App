@@ -140,9 +140,9 @@
 
 <xs:element name="fetchPromotedByIdResponse" type="tns:fetchPromotedByIdResponse" />
 
-<xs:element name="fetchPromotedByTimestamp" type="tns:fetchPromotedByTimestamp" />
+<xs:element name="fetchPromotedByTime" type="tns:fetchPromotedByTime" />
 
-<xs:element name="fetchPromotedByTimestampResponse" type="tns:fetchPromotedByTimestampResponse" />
+<xs:element name="fetchPromotedByTimeResponse" type="tns:fetchPromotedByTimeResponse" />
 
 <xs:element name="fetchPromoteds" type="tns:fetchPromoteds" />
 
@@ -479,15 +479,25 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="fetchPromotedByTimestamp">
+<xs:complexType name="fetchPromotedByTime">
 <xs:sequence>
 <xs:element name="timestamp" type="xs:string" minOccurs="0" />
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="fetchPromotedByTimestampResponse">
+<xs:complexType name="fetchPromotedByTimeResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:promoted" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="fetchEmployees">
+<xs:sequence />
+</xs:complexType>
+
+<xs:complexType name="fetchEmployeesResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:employeeDTO" minOccurs="0" maxOccurs="unbounded" />
 </xs:sequence>
 </xs:complexType>
 
@@ -549,28 +559,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="removeOrderStatus">
-<xs:sequence>
-<xs:element name="orderStatusId" type="xs:short" />
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="removeOrderStatusResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean" />
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="fetchEmployees">
-<xs:sequence />
-</xs:complexType>
-
-<xs:complexType name="fetchEmployeesResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:employeeDTO" minOccurs="0" maxOccurs="unbounded" />
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="updateLog">
 <xs:sequence>
 <xs:element name="log" type="tns:logDTO" minOccurs="0" />
@@ -602,6 +590,18 @@
 </xs:complexType>
 
 <xs:complexType name="updateLogResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="removeOrderStatus">
+<xs:sequence>
+<xs:element name="orderStatusId" type="xs:short" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="removeOrderStatusResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean" />
 </xs:sequence>
@@ -656,16 +656,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="updateManagerPassword">
-<xs:sequence>
-<xs:element name="manager" type="tns:managerDTO" minOccurs="0" />
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="updateManagerPasswordResponse">
-<xs:sequence />
-</xs:complexType>
-
 <xs:complexType name="addOrderStatus">
 <xs:sequence>
 <xs:element name="orderStatus" type="tns:orderStatus" minOccurs="0" />
@@ -676,6 +666,16 @@
 <xs:sequence>
 <xs:element name="return" type="xs:boolean" />
 </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="updateManagerPassword">
+<xs:sequence>
+<xs:element name="manager" type="tns:managerDTO" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="updateManagerPasswordResponse">
+<xs:sequence />
 </xs:complexType>
 
 <xs:complexType name="fetchOrderStatusById">
@@ -847,18 +847,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="removeLog">
-<xs:sequence>
-<xs:element name="logId" type="xs:int" />
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="removeLogResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean" />
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="fetchOrderById">
 <xs:sequence>
 <xs:element name="orderId" type="xs:int" />
@@ -868,6 +856,18 @@
 <xs:complexType name="fetchOrderByIdResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:orderDetailDTO" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="removeLog">
+<xs:sequence>
+<xs:element name="logId" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="removeLogResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
 </xs:sequence>
 </xs:complexType>
 
