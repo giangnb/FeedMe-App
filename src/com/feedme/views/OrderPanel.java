@@ -74,6 +74,7 @@ public class OrderPanel extends javax.swing.JPanel {
         initProcessingList();
         initOrderStatusCombobox();
         reloadNewOrderList();
+
         timer.start();
     }
 
@@ -383,9 +384,9 @@ public class OrderPanel extends javax.swing.JPanel {
 
     private void btnDiscountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiscountActionPerformed
         order = new OrderDetail();
-        
+
         order = Global.ORDER_PROCESSING_LIST.get(listProcessingOrder.getSelectedIndex());
-       
+
         ImageIcon icon = new ImageIcon("src/com/feedme/img/print.png");
         int choose = JOptionPane.showOptionDialog(this, "In Hóa Đơn ?", "Hóa Đơn", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, icon, new String[]{"Hóa Đơn Bếp", "Hóa Đơn Giao Hàng", "Hóa Đơn Khách"}, null);
         switch (choose) {
@@ -416,12 +417,14 @@ public class OrderPanel extends javax.swing.JPanel {
 
     private void listNewOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listNewOrderMouseClicked
         // TODO add your handling code here:
+
         btnDiscount.setEnabled(false);
         btnAddFood.setEnabled(true);
         btnRemoveFood.setEnabled(true);
         btnReceiveOrder.setEnabled(true);
         cbbOrderStatus.setEnabled(true);
         order = Global.ORDER_NEW_LIST.get(listNewOrder.getSelectedIndex());
+
         map = OrderProcess.getInformation(order);
         orderCart = new OrderProcess().getProductFromOrder(order);
         loadOrderDetailInfomation(order, map, orderCart);
@@ -446,6 +449,7 @@ public class OrderPanel extends javax.swing.JPanel {
 
     private void listProcessingOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listProcessingOrderMouseClicked
         // TODO add your handling code here:
+
         btnDiscount.setEnabled(true);
         btnReceiveOrder.setEnabled(false);
         btnUpdateOrder.setEnabled(false);
@@ -507,14 +511,23 @@ public class OrderPanel extends javax.swing.JPanel {
     }
 
     private void receivedOrderByEmployee(OrderDetail order, Employee em, OrderStatus ORDER_STATUS) {
-        boolean result = OrderProcess.receivesOrder(order, em, ORDER_STATUS);
-        if (result) {
-            JOptionPane.showMessageDialog(null, "Đơn hàng " + order.getId() + "\n Đã được nhận bởi nhân viên " + em.getUsername());
-            initNewOrderList();
-            initProcessingList();
-        } else {
-            JOptionPane.showMessageDialog(null, "Nhận đơn hàng lỗi. \n ");
+
+        if (ORDER_STATUS.getName().equals("Hủy bỏ")) {
+            int choose = JOptionPane.showOptionDialog(this, "Hủy Đơn Hàng ? \n", "Cảnh Báo", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, new String[]{"Tiếp Tục Hủy", "Quay Lại"}, null);
+            if (choose == 0) {
+                boolean result = OrderProcess.receivesOrder(order, em, ORDER_STATUS);
+                if (result) {
+                    JOptionPane.showMessageDialog(null, "Đơn hàng " + order.getId() + "\n Đã được xử lý bởi nhân viên " + em.getUsername());
+                    initNewOrderList();
+                    initProcessingList();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nhận đơn hàng lỗi. \n ");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Chưa Xử Lý Đơn Hàng");
+            }
         }
+
     }
 
     private void initNewOrderList() {
@@ -564,12 +577,15 @@ public class OrderPanel extends javax.swing.JPanel {
     }
 
     private void updateCurrentOrder(OrderDetail order, String exportToJson, double lbl) {
-        boolean result = OrderProcess.updateOrder(order, exportToJson, lbl);
-        if (result) {
-            JOptionPane.showMessageDialog(null, "Cập Nhật\n Đơn hàng " + order.getId() + "\n Thành Công. ");
-        } else {
-            JOptionPane.showMessageDialog(null, "Cập Nhật đơn hàng lỗi. \n  Vui Lòng Thử Lại");
+        if (!isOrderDropped(order)) {
+            boolean result = OrderProcess.updateOrder(order, exportToJson, lbl);
+            if (result) {
+                JOptionPane.showMessageDialog(null, "Cập Nhật\n Đơn hàng " + order.getId() + "\n Thành Công. ");
+            } else {
+                JOptionPane.showMessageDialog(null, "Cập Nhật đơn hàng lỗi. \n  Vui Lòng Thử Lại");
+            }
         }
+
     }
 
     private void printForChef(CartProcess orderCart, OrderDetail order) {
@@ -585,7 +601,7 @@ public class OrderPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Không thể in được");
             ex.printStackTrace();
         } catch (PrinterException ex) {
-             JOptionPane.showMessageDialog(null, "Không thể in được \n Chắc chắn rằng máy POS đã được \n kết nối với máy in");
+            JOptionPane.showMessageDialog(null, "Không thể in được \n Chắc chắn rằng máy POS đã được \n kết nối với máy in");
             Logger.getLogger(OrderPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -594,7 +610,7 @@ public class OrderPanel extends javax.swing.JPanel {
         PrintingUtil printer = new PrintingUtil();
         try {
             // String text, String font, int size, StyleConstants align, Color color
-           
+
             printer.append("Đơn Hàng Số " + order.getId() + "\n_______________\n", "Consolas", 30, StyleConstants.ALIGN_CENTER, Color.black);
             printer.append("\nKhách Hàng: \t" + txtCustomer.getText(), "Consolas", 15, StyleConstants.ALIGN_LEFT, Color.black);
             printer.append("\nĐiện Thoại: \t" + txtCustomerTel.getText(), "Consolas", 15, StyleConstants.ALIGN_LEFT, Color.black);
@@ -608,7 +624,7 @@ public class OrderPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Không thể in được");
             ex.printStackTrace();
         } catch (PrinterException ex) {
-             JOptionPane.showMessageDialog(null, "Không thể in được \n Chắc chắn rằng máy POS đã được \n kết nối với máy in");
+            JOptionPane.showMessageDialog(null, "Không thể in được \n Chắc chắn rằng máy POS đã được \n kết nối với máy in");
             ex.printStackTrace();
         }
     }
@@ -621,9 +637,9 @@ public class OrderPanel extends javax.swing.JPanel {
             printer.append("\nĐiện Thoại: \t" + txtCustomerTel.getText(), "Consolas", 15, StyleConstants.ALIGN_LEFT, Color.black);
             printer.append("\nĐịa Chỉ: \t" + txtCustomerAddr.getText(), "Consolas", 15, StyleConstants.ALIGN_LEFT, Color.black);
             printer.append("\n\n\tThông tin đơn hàng \t", "Consolas", 15, StyleConstants.ALIGN_LEFT, Color.black);
-       
+
             for (Product p : orderCart.getProducts()) {
-                printer.append("\n\t"+p.getName() + " - " + orderCart.get(p) + "\n", "Consolas", 14, StyleConstants.ALIGN_LEFT, Color.black);
+                printer.append("\n\t" + p.getName() + " - " + orderCart.get(p) + "\n", "Consolas", 14, StyleConstants.ALIGN_LEFT, Color.black);
             }
             printer.append("\n\t - Tổng Số Sản Phẩm: " + orderCart.exportProductsList().length + "", "Consolas", 12, StyleConstants.ALIGN_LEFT, Color.black);
             printer.append("\n\t - Tổng Tiền: " + orderCart.total + "", "Consolas", 12, StyleConstants.ALIGN_LEFT, Color.black);
@@ -635,6 +651,14 @@ public class OrderPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Không thể in được \n Chắc chắn rằng máy POS đã được \n kết nối với máy in");
             ex.printStackTrace();
         }
+    }
+
+    private boolean isOrderDropped(OrderDetail order) {
+        if (order.getStatus().getName().equals("Hủy bỏ")) {
+            JOptionPane.showMessageDialog(null, "Đơn Hàng Đã Hủy \n Không Thể Cập Nhật");
+            return true;
+        }
+        return false;
     }
 
 }
