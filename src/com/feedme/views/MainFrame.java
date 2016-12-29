@@ -1,8 +1,10 @@
 package com.feedme.views;
 
+import com.feedme.Global;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.Timer;
 
@@ -26,7 +28,9 @@ public class MainFrame extends javax.swing.JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             Date currentTime=new Date();
-            lblClock.setText(currentTime.toString());
+            SimpleDateFormat format = new SimpleDateFormat("HH:mm dd-MM-yyyy");
+            
+            lblClock.setText(format.format(currentTime));
         }
     });
     public MainFrame() {

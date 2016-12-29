@@ -196,11 +196,4 @@ public class CartProcess {
         }
         return result;
     }
-    
-    public static void main(String[] args) {
-          CartProcess cart = new CartProcess();
-          cart.put(Methods.fetchProductsById(Short.parseShort("3")).getProduct());
-          cart.put(Methods.fetchProductsById(Short.parseShort("4")).getProduct());
-          System.out.println(cart.total);
-    }
 }

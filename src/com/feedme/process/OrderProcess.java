@@ -34,9 +34,9 @@ public class OrderProcess {
     private static DefaultListModel orderModel;
     private static DefaultListModel orderProcessModel;
     private static DefaultComboBoxModel orderStatusModel;
-    
+
     public OrderProcess() {
-        
+
     }
 
     /**
@@ -48,15 +48,14 @@ public class OrderProcess {
     public static List<OrderDetail> loadNewOrder() {
         short empId = Short.parseShort("1");
         orderlist = new ArrayList<>();
-        
-        Collections.reverse( getOrders(1482409098718l+""));
-        getOrders(1482409098718l+"").stream().filter((order) -> (order.getEmployee().getId() == empId)).forEach((order) -> {
+        Collections.reverse(getOrders(1482409098718l + ""));
+        getOrders(1482409098718l + "").stream().filter((order) -> (order.getEmployee().getId() == empId)).forEach((order) -> {
             orderlist.add(order);
         });
         return orderlist;
-        
+
     }
-    
+
     /**
      * Load Order Processing
      *
@@ -66,7 +65,8 @@ public class OrderProcess {
     public static List<OrderDetail> loadOrderProcessing() {
         short empId = Short.parseShort("1");
         orderlist = new ArrayList<>();
-        getOrders(1482409098718l+"").stream().filter((order) -> (order.getEmployee().getId() != empId)).forEach((order) -> {
+        Collections.reverse(getOrders(1482409098718l + ""));
+        getOrders(1482409098718l + "").stream().filter((order) -> (order.getEmployee().getId() != empId)).forEach((order) -> {
             orderlist.add(order);
         });
         return orderlist;
@@ -118,11 +118,9 @@ public class OrderProcess {
         return customerInfo;
     }
 
-    public static boolean receivesOrder(OrderDetail order, Employee em, OrderStatus os, String foodOrders, Double subtotal) {
+    public static boolean receivesOrder(OrderDetail order, Employee em, OrderStatus os) {
         order.setEmployee(em);
         order.setStatus(os);
-        order.setFoods(foodOrders);
-        order.setSubtotal(subtotal);
         String note = null;
         try {
             Information info = Json.DeserializeObject(order.getNote(), Information.class);
@@ -131,6 +129,14 @@ public class OrderProcess {
         } catch (Exception ex) {
         }
         order.setNote(note);
+        OrderDetailDTO dto = new OrderDetailDTO();
+        dto.setOrderDetail(order);
+        return Methods.updateOrder(dto);
+    }
+
+    public static boolean updateOrder(OrderDetail order, String foodOrders, Double subtotal) {
+        order.setFoods(foodOrders);
+        order.setSubtotal(subtotal);
         OrderDetailDTO dto = new OrderDetailDTO();
         dto.setOrderDetail(order);
         return Methods.updateOrder(dto);
@@ -145,8 +151,8 @@ public class OrderProcess {
         }
         return result;
     }
-    
-    public  CartProcess getProductFromOrder (OrderDetail order) {
+
+    public CartProcess getProductFromOrder(OrderDetail order) {
         CartProcess cart = new CartProcess();
         Product[] prod = null;
         try {
@@ -155,11 +161,8 @@ public class OrderProcess {
                 cart.put(product);
             }
         } catch (Exception ex) {
-           ex.printStackTrace();
+            ex.printStackTrace();
         }
         return cart;
-    }
-    public static void main(String[] args) {
-         System.out.println(getOrderStatusList().size());
     }
 }

@@ -9,16 +9,24 @@ import com.feedme.service.OrderDetailDTO;
 import com.feedme.service.OrderStatus;
 import com.feedme.service.Product;
 import com.feedme.utils.Json;
+import com.feedme.utils.PrintingUtil;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.awt.print.PrinterException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.StyleConstants;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -59,6 +67,8 @@ public class OrderPanel extends javax.swing.JPanel {
 
         cbbOrderStatus.setEnabled(false);
         btnReceiveOrder.setEnabled(false);
+        btnAddFood.setEnabled(false);
+        btnRemoveFood.setEnabled(false);
 
         initNewOrderList();
         initProcessingList();
@@ -175,9 +185,10 @@ public class OrderPanel extends javax.swing.JPanel {
         });
         jScrollPane3.setViewportView(tblOrderDetail);
 
-        lblDiscount.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblDiscount.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblDiscount.setText("69.969 VND");
 
+        btnReceiveOrder.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnReceiveOrder.setText("Nhận order");
         btnReceiveOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -198,6 +209,7 @@ public class OrderPanel extends javax.swing.JPanel {
             }
         });
 
+        btnUpdateOrder.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnUpdateOrder.setText("Cập nhật");
         btnUpdateOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -226,7 +238,7 @@ public class OrderPanel extends javax.swing.JPanel {
             }
         });
 
-        btnDiscount.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/feedme/img/sale.png"))); // NOI18N
+        btnDiscount.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/feedme/img/print.png"))); // NOI18N
         btnDiscount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDiscountActionPerformed(evt);
@@ -321,16 +333,16 @@ public class OrderPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCustomerAddr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAddFood)
                             .addComponent(btnRemoveFood)
                             .addComponent(btnAddFoods, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblDiscount)
-                            .addComponent(btnDiscount))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnDiscount)
+                            .addComponent(lblDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(17, 17, 17)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -349,7 +361,13 @@ public class OrderPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateOrderActionPerformed
-
+        new Thread(() -> {
+            try {
+                updateCurrentOrder(order, orderCart.exportToJson(), orderCart.getTotal());
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }).start();
     }//GEN-LAST:event_btnUpdateOrderActionPerformed
 
     private void btnAddFoodsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFoodsActionPerformed
@@ -364,8 +382,23 @@ public class OrderPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAddFoodsActionPerformed
 
     private void btnDiscountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiscountActionPerformed
-        SaleInternalFrame frame = new SaleInternalFrame();
-        frame.setVisible(true);
+        order = new OrderDetail();
+        
+        order = Global.ORDER_PROCESSING_LIST.get(listProcessingOrder.getSelectedIndex());
+       
+        ImageIcon icon = new ImageIcon("src/com/feedme/img/print.png");
+        int choose = JOptionPane.showOptionDialog(this, "In Hóa Đơn ?", "Hóa Đơn", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, icon, new String[]{"Hóa Đơn Bếp", "Hóa Đơn Giao Hàng", "Hóa Đơn Khách"}, null);
+        switch (choose) {
+            case 0:
+                printForChef(orderCart, order);
+                break;
+            case 1:
+                printForShipper(orderCart, order);
+                break;
+            case 2:
+                printForCustomer(orderCart, order);
+                break;
+        }
     }//GEN-LAST:event_btnDiscountActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
@@ -375,11 +408,19 @@ public class OrderPanel extends javax.swing.JPanel {
 
     private void btnRemoveFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveFoodActionPerformed
         // TODO add your handling code here: 
-        initNewOrderList();
+        Product[] prodArr = orderCart.getProducts();
+        orderCart.pop(prodArr[tblOrderDetail.getSelectedRow()]);
+        reloadTable(orderCart);
+
     }//GEN-LAST:event_btnRemoveFoodActionPerformed
 
     private void listNewOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listNewOrderMouseClicked
         // TODO add your handling code here:
+        btnDiscount.setEnabled(false);
+        btnAddFood.setEnabled(true);
+        btnRemoveFood.setEnabled(true);
+        btnReceiveOrder.setEnabled(true);
+        cbbOrderStatus.setEnabled(true);
         order = Global.ORDER_NEW_LIST.get(listNewOrder.getSelectedIndex());
         map = OrderProcess.getInformation(order);
         orderCart = new OrderProcess().getProductFromOrder(order);
@@ -398,11 +439,16 @@ public class OrderPanel extends javax.swing.JPanel {
 
     private void btnReceiveOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReceiveOrderActionPerformed
         // TODO add your handling code here:
-
+        new Thread(() -> {
+            receivedOrderByEmployee(order, Global.EMPLOYEE.getEmployee(), Global.ORDER_STATUS_LIST.get(cbbOrderStatus.getSelectedIndex()));
+        }).start();
     }//GEN-LAST:event_btnReceiveOrderActionPerformed
 
     private void listProcessingOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listProcessingOrderMouseClicked
         // TODO add your handling code here:
+        btnDiscount.setEnabled(true);
+        btnReceiveOrder.setEnabled(false);
+        btnUpdateOrder.setEnabled(false);
         order = new OrderDetail();
         map = new HashMap<>();
         orderCart = new CartProcess();
@@ -415,7 +461,9 @@ public class OrderPanel extends javax.swing.JPanel {
 
     private void btnAddFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFoodActionPerformed
         // TODO add your handling code here:
-
+        Product[] prodArr = orderCart.getProducts();
+        orderCart.put(prodArr[tblOrderDetail.getSelectedRow()]);
+        reloadTable(orderCart);
     }//GEN-LAST:event_btnAddFoodActionPerformed
 
     private void tblOrderDetailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOrderDetailMouseClicked
@@ -459,29 +507,22 @@ public class OrderPanel extends javax.swing.JPanel {
     }
 
     private void receivedOrderByEmployee(OrderDetail order, Employee em, OrderStatus ORDER_STATUS) {
-        String foodUpdate = null;
-        try {
-            foodUpdate = Json.SerializeObject(orderCart.exportProductsList());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        boolean result = OrderProcess.receivesOrder(order, em, ORDER_STATUS, foodUpdate, 0.0);
+        boolean result = OrderProcess.receivesOrder(order, em, ORDER_STATUS);
         if (result) {
             JOptionPane.showMessageDialog(null, "Đơn hàng " + order.getId() + "\n Đã được nhận bởi nhân viên " + em.getUsername());
+            initNewOrderList();
+            initProcessingList();
         } else {
             JOptionPane.showMessageDialog(null, "Nhận đơn hàng lỗi. \n ");
         }
     }
 
     private void initNewOrderList() {
-        new Thread(() -> {
-            listModel.removeAllElements();
-            Global.ORDER_NEW_LIST.forEach((order) -> {
-                listModel.addElement("Đơn Hàng: " + order.getId());
-            });
-            listNewOrder.setModel(listModel);
-        }).start();
-
+        listModel.removeAllElements();
+        Global.ORDER_NEW_LIST.forEach((order) -> {
+            listModel.addElement("Đơn Hàng: " + order.getId());
+        });
+        listNewOrder.setModel(listModel);
     }
 
     private void initProcessingList() {
@@ -503,7 +544,7 @@ public class OrderPanel extends javax.swing.JPanel {
                 tblModel.addRow(new Object[]{p.getName(), p.getPrice(), cart.get(p)});
             }
             cbbOrderStatus.setSelectedItem(order.getStatus().getName());
-            lblDiscount.setText(cart.total + " VNĐ");
+            lblDiscount.setText(cart.total + "đ");
             JOptionPane.showMessageDialog(null, "Đơn Hàng Số " + order.getId() + "\n Trạng Thái Đơn Hàng " + order.getStatus().getName());
         }).start();
     }
@@ -521,4 +562,79 @@ public class OrderPanel extends javax.swing.JPanel {
             tblModel.addRow(new Object[]{p.getName(), p.getPrice(), orderCart.get(p)});
         }
     }
+
+    private void updateCurrentOrder(OrderDetail order, String exportToJson, double lbl) {
+        boolean result = OrderProcess.updateOrder(order, exportToJson, lbl);
+        if (result) {
+            JOptionPane.showMessageDialog(null, "Cập Nhật\n Đơn hàng " + order.getId() + "\n Thành Công. ");
+        } else {
+            JOptionPane.showMessageDialog(null, "Cập Nhật đơn hàng lỗi. \n  Vui Lòng Thử Lại");
+        }
+    }
+
+    private void printForChef(CartProcess orderCart, OrderDetail order) {
+        PrintingUtil printer = new PrintingUtil();
+        try {
+            // String text, String font, int size, StyleConstants align, Color color
+            printer.append(order.getId() + "\n_______________\n", "Consolas", 30, StyleConstants.ALIGN_CENTER, Color.black);
+            for (Product p : orderCart.getProducts()) {
+                printer.append(p.getName() + "\t" + orderCart.get(p) + "\n", "Consolas", 14, StyleConstants.ALIGN_LEFT, Color.black);
+            }
+            printer.print();
+        } catch (BadLocationException ex) {
+            JOptionPane.showMessageDialog(null, "Không thể in được");
+            ex.printStackTrace();
+        } catch (PrinterException ex) {
+             JOptionPane.showMessageDialog(null, "Không thể in được \n Chắc chắn rằng máy POS đã được \n kết nối với máy in");
+            Logger.getLogger(OrderPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void printForShipper(CartProcess orderCart, OrderDetail order) {
+        PrintingUtil printer = new PrintingUtil();
+        try {
+            // String text, String font, int size, StyleConstants align, Color color
+           
+            printer.append("Đơn Hàng Số " + order.getId() + "\n_______________\n", "Consolas", 30, StyleConstants.ALIGN_CENTER, Color.black);
+            printer.append("\nKhách Hàng: \t" + txtCustomer.getText(), "Consolas", 15, StyleConstants.ALIGN_LEFT, Color.black);
+            printer.append("\nĐiện Thoại: \t" + txtCustomerTel.getText(), "Consolas", 15, StyleConstants.ALIGN_LEFT, Color.black);
+            printer.append("\nĐịa Chỉ: \t" + txtCustomerAddr.getText(), "Consolas", 15, StyleConstants.ALIGN_LEFT, Color.black);
+            printer.append("\n\n\tThông tin đơn hàng \t", "Consolas", 15, StyleConstants.ALIGN_LEFT, Color.black);
+
+            printer.append("\n\t - Số Sản Phẩm: " + orderCart.exportProductsList().length + "", "Consolas", 12, StyleConstants.ALIGN_LEFT, Color.black);
+            printer.append("\n\t - Tổng Tiền: " + orderCart.total + "", "Consolas", 12, StyleConstants.ALIGN_LEFT, Color.black);
+            printer.print();
+        } catch (BadLocationException ex) {
+            JOptionPane.showMessageDialog(null, "Không thể in được");
+            ex.printStackTrace();
+        } catch (PrinterException ex) {
+             JOptionPane.showMessageDialog(null, "Không thể in được \n Chắc chắn rằng máy POS đã được \n kết nối với máy in");
+            ex.printStackTrace();
+        }
+    }
+
+    private void printForCustomer(CartProcess orderCart, OrderDetail order) {
+        try {
+            PrintingUtil printer = new PrintingUtil();
+            printer.append("Đơn Hàng Số " + order.getId() + "\n_______________\n", "Consolas", 30, StyleConstants.ALIGN_CENTER, Color.black);
+            printer.append("\nKhách Hàng: \t" + txtCustomer.getText(), "Consolas", 15, StyleConstants.ALIGN_LEFT, Color.black);
+            printer.append("\nĐiện Thoại: \t" + txtCustomerTel.getText(), "Consolas", 15, StyleConstants.ALIGN_LEFT, Color.black);
+            printer.append("\nĐịa Chỉ: \t" + txtCustomerAddr.getText(), "Consolas", 15, StyleConstants.ALIGN_LEFT, Color.black);
+            printer.append("\n\n\tThông tin đơn hàng \t", "Consolas", 15, StyleConstants.ALIGN_LEFT, Color.black);
+       
+            for (Product p : orderCart.getProducts()) {
+                printer.append("\n\t"+p.getName() + " - " + orderCart.get(p) + "\n", "Consolas", 14, StyleConstants.ALIGN_LEFT, Color.black);
+            }
+            printer.append("\n\t - Tổng Số Sản Phẩm: " + orderCart.exportProductsList().length + "", "Consolas", 12, StyleConstants.ALIGN_LEFT, Color.black);
+            printer.append("\n\t - Tổng Tiền: " + orderCart.total + "", "Consolas", 12, StyleConstants.ALIGN_LEFT, Color.black);
+            printer.print();
+        } catch (BadLocationException ex) {
+            JOptionPane.showMessageDialog(null, "Không thể in được");
+            ex.printStackTrace();
+        } catch (PrinterException ex) {
+            JOptionPane.showMessageDialog(null, "Không thể in được \n Chắc chắn rằng máy POS đã được \n kết nối với máy in");
+            ex.printStackTrace();
+        }
+    }
+
 }

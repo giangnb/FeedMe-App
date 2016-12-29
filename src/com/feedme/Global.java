@@ -14,9 +14,16 @@ import com.feedme.service.ManagerDTO;
 import com.feedme.service.OrderDetail;
 import com.feedme.service.OrderStatus;
 import com.feedme.service.ProductDTO;
+import com.feedme.service.Property;
+import com.feedme.service.PropertyDTO;
+import com.feedme.ws.Methods;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimerTask;
 import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -56,5 +63,88 @@ public class Global {
         
         ORDER_PROCESSING_LIST = new ArrayList();
         CART_GLOBAL = new CartProcess();
-    } 
+    }
+    
+    private static DecimalFormat number;
+    private static SimpleDateFormat date, time;
+    private static String money = "::đ";
+    
+    public static String doFormatPrice(double price) {
+        String result = doFormatNumber(price);
+        try {
+            String[] str = money.split("::");
+            result = str[0] + result + str[1];
+        } catch (Exception ex) {
+        }
+        return result.trim();
+    }
+
+    public static String doFormatNumber(double num) {
+        return number.format(num);
+    }
+
+    public static String doFormatTime(Date d) {
+        return time.format(d);
+    }
+
+    public static String doFormatDate(Date d) {
+        return date.format(d);
+    }
+
+    public static Double doParsePrice(String price) {
+        for (String s : money.split("::")) {
+            price = price.replace(s.trim(), "");
+        }
+        return doParseNumber(price);
+    }
+
+    public static Double doParseNumber(String num) {
+        try {
+            return number.parse(num).doubleValue();
+        } catch (ParseException ex) {
+            return null;
+        }
+    }
+
+    public static Date doParseDateTime(String d) {
+        try {
+            return new SimpleDateFormat(date.toPattern() + " " + time.toPattern()).parse(d);
+        } catch (ParseException ex) {
+            return null;
+        }
+    }
+
+    public static Date doParseDate(String d) {
+        try {
+            return date.parse(d);
+        } catch (ParseException ex) {
+            return null;
+        }
+    }
+    
+ 
+
+    /**
+     *
+     * @param d
+     * @return
+     */
+
+    public static double processDiscount(double price, String discount) {
+        double result = 0, dis;
+        if (discount.contains("%")) {
+            dis = Double.parseDouble(discount.replace("%", ""));
+            if (dis<=100) {
+                result = (double)(price*dis/100);
+            }
+        } else {
+            try {
+                dis = Double.parseDouble(discount);
+                if (dis<=price) {
+                    result = dis;
+                }
+            } catch(NumberFormatException ex) {}
+        }
+        return result;
+    }
 }

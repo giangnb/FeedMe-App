@@ -20,7 +20,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class OrderInternalFrame extends javax.swing.JDialog {
 
-    
     private static boolean isSelectedFood;
     private static Product product;
     private static DefaultTableModel orderInternalModel;
@@ -187,7 +186,7 @@ public class OrderInternalFrame extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSumitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSumitActionPerformed
-        
+
         this.dispose();
 
     }//GEN-LAST:event_btnSumitActionPerformed
@@ -200,6 +199,8 @@ public class OrderInternalFrame extends javax.swing.JDialog {
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         // TODO add your handling code here:
         Global.CART_GLOBAL.pop(product);
+        orderInternalModel.setValueAt(Global.CART_GLOBAL.get(product), 0, 3);
+        lblSelectProduct.setText("Chọn " + orderInternalModel.getValueAt(0, 3));
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void listCategoryNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listCategoryNameMouseClicked
@@ -218,11 +219,12 @@ public class OrderInternalFrame extends javax.swing.JDialog {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-       
+
         btnRemove.setEnabled(true);
         if (isSelectedFood) {
             Global.CART_GLOBAL.put(product);
             orderInternalModel.setValueAt(Global.CART_GLOBAL.get(product), 0, 3);
+            lblSelectProduct.setText("Chọn " + orderInternalModel.getValueAt(0, 3));
         } else {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm trước");
         }

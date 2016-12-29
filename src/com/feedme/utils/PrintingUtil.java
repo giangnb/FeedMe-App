@@ -39,7 +39,7 @@ public class PrintingUtil {
         txt.setCaretPosition(txt.getDocument().getLength());
     }
     
-    public void append(String text, String font, int size, StyleConstants align, Color color) throws BadLocationException {
+    public void append(String text, String font, int size, int align, Color color) throws BadLocationException {
         StyleContext sc = StyleContext.getDefaultStyleContext();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, color);
         aset = sc.addAttribute(aset, StyleConstants.FontFamily, font);
