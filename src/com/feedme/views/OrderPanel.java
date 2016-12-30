@@ -409,10 +409,8 @@ public class OrderPanel extends javax.swing.JPanel {
 
     private void btnRemoveFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveFoodActionPerformed
         // TODO add your handling code here: 
-        Product[] prodArr = orderCart.getProducts();
-        orderCart.pop(prodArr[tblOrderDetail.getSelectedRow()]);
+        orderCart.pop(orderCart.getProducts()[tblOrderDetail.getSelectedRow()]);
         reloadTable(orderCart);
-
     }//GEN-LAST:event_btnRemoveFoodActionPerformed
 
     private void listNewOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listNewOrderMouseClicked
