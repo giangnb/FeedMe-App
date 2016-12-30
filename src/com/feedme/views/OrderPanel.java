@@ -510,9 +510,7 @@ public class OrderPanel extends javax.swing.JPanel {
 
     private void receivedOrderByEmployee(OrderDetail order, Employee em, OrderStatus ORDER_STATUS) {
 
-        if (ORDER_STATUS.getName().equals("Hủy bỏ")) {
-            int choose = JOptionPane.showOptionDialog(this, "Hủy Đơn Hàng ? \n", "Cảnh Báo", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, new String[]{"Tiếp Tục Hủy", "Quay Lại"}, null);
-            if (choose == 0) {
+       
                 boolean result = OrderProcess.receivesOrder(order, em, ORDER_STATUS);
                 if (result) {
                     JOptionPane.showMessageDialog(null, "Đơn hàng " + order.getId() + "\n Đã được xử lý bởi nhân viên " + em.getUsername());
@@ -521,11 +519,6 @@ public class OrderPanel extends javax.swing.JPanel {
                 } else {
                     JOptionPane.showMessageDialog(null, "Nhận đơn hàng lỗi. \n ");
                 }
-            } else {
-                JOptionPane.showMessageDialog(this, "Chưa Xử Lý Đơn Hàng");
-            }
-        }
-
     }
 
     private void initNewOrderList() {
